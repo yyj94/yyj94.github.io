@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.icns?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-leaf.ico?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.ico?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+  <link href="/js/google-code-prettify/github-v2.css" type="text/css" rel="stylesheet" />
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux">
+<meta name="keywords" content="前端,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《React实战进阶》 学习笔记 20190801">
+<meta property="og:url" content="https://blog.yeyanjie.com/2019/08/01/2019080101/index.html">
+<meta property="og:site_name" content="Jarvis&#39;s Blog">
+<meta property="og:description" content="理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-05T15:08:53.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《React实战进阶》 学习笔记 20190801">
+<meta name="twitter:description" content="理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux">
+  <link rel="alternate" href="/atom.xml" title="Jarvis's Blog" type="application/atom+xml">
+  <link rel="canonical" href="https://blog.yeyanjie.com/2019/08/01/2019080101/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+    <script>
+  (function(d) {
+    var config = {
+      kitId: 'mmv0xbq',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+  <title>《React实战进阶》 学习笔记 20190801 | Jarvis's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jarvis's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">物来顺应 未来不迎</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/08/01/2019080101/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jarvis Ye">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jarvis's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">《React实战进阶》 学习笔记 20190801
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-01 22:36:39" itemprop="dateCreated datePublished" datetime="2019-08-01T22:36:39+08:00">2019-08-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-05 23:08:53" itemprop="dateModified" datetime="2019-08-05T23:08:53+08:00">2019-08-05</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon"
+              >
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          <br/>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">2.2k</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="理解-Redux"><a href="#理解-Redux" class="headerlink" title="理解 Redux"></a>理解 Redux</h2><p>Redux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。</p>
+<h2 id="Redux-特性"><a href="#Redux-特性" class="headerlink" title="Redux 特性"></a>Redux 特性</h2><ul>
+<li><p>Single Source of Truth<br>传统 MVC 架构，数据层 Model 与视图层 View 之间往往是多对多的关系，一个 view 上的状态可能受多个 model 控制，管理起来十分复杂。<a id="more"></a></p>
+<p><img alt="MVC模式View与Model的关系" data-src="https://img.yeyanjie.com/blog/201908/1.png"></p>
+<p>而在 Redux 模式中，不同的 view 上的状态全部存放在外部一个统一的 Store 容器中，View 与 Store 之间是简单的一对一关系，数据流向清晰多了。</p>
+<p><img alt="Redux中View与Store的关系" data-src="https://img.yeyanjie.com/blog/201908/2.png"></p>
+</li>
+<li><p>可预测性</p>
+<p>Redux 中的数据变化是可以预测的，如果状态发生了变化，一定是在当前的 state 状态下派发了一个 action，其结果是返回一个新的 state 状态</p>
+<p><img alt="Redux的可预测性" data-src="https://img.yeyanjie.com/blog/201908/3.png"></p>
+</li>
+<li><p>纯函数更新 Store</p>
+<p>Redux 中数据状态的更新是由一个纯函数来处理，它接收当前的 state 状态和 action 对象作为参数，根据不同的 action 返回新的 state 状态。函数的输出都是依赖输入值的不同且确定的。</p>
+</li>
+</ul>
+<h2 id="理解-Store"><a href="#理解-Store" class="headerlink" title="理解 Store"></a>理解 Store</h2><p>Store 是数据存放的容器，通过 <code>createStore(reducer)</code> 新建，<code>getState()</code> 可以获取当前的 state 值，如果修改<code>state</code>一定得通过<code>diapatch(action)</code>的方式派发一个 action，而<code>subscribe(listener)</code>用来监听 state 的响应变化</p>
+<h2 id="理解-action"><a href="#理解-action" class="headerlink" title="理解 action"></a>理解 action</h2><p>action 实际上是一个 javascript 对象，包括 action 的类型值和载荷</p>
+<pre><code class="js">{
+  type: ADD_TODO,
+  text: &#39;Build my first Redux app&#39;
+}</code></pre>
+<h2 id="理解-reducer"><a href="#理解-reducer" class="headerlink" title="理解 reducer"></a>理解 reducer</h2><p>reducer 实际上是一个纯函数，通过输入的 state 和<code>action</code>分别输出新的 state 值：</p>
+<pre><code class="js">function todos(state = [], action) {
+  switch (action.type) {
+    case &#39;ADD_TODO&#39;:
+      return state.concat([{ text: action.text, completed: false }])
+    case &#39;TOGGLE_TODO&#39;:
+      return state.map(
+        (todo, index) =&gt;
+          action.index === index
+            ? { text: todo.text, completed: !todo.completed }
+      )
+    default:
+      return state
+  }
+}</code></pre>
+<h2 id="Redux-的工作原理"><a href="#Redux-的工作原理" class="headerlink" title="Redux 的工作原理"></a>Redux 的工作原理</h2><p>当前端交互需要改变状态时，首先会新建 action 对象，用来描述动作的类型和变化值，然后通过 Diapatcher 派发提交到 Store 中，经过 Reducer 函数基于当前 state 进行处理后，返回新的 State，然后映射到 DOM 上更新状态。</p>
+<p><img alt="Redux工作原理" data-src="https://img.yeyanjie.com/blog/201908/4.png"></p>
+<h2 id="Redux-提供的工具函数"><a href="#Redux-提供的工具函数" class="headerlink" title="Redux 提供的工具函数"></a>Redux 提供的工具函数</h2><ul>
+<li><p>bindActionCreators<br><code>bindActionCreators(ActionCreators, dispatch)</code>接收两个参数，一个是创建 Action 的函数，一个是 dispatch 方法。函数的返回值是可以派发相应 action 的 dispatch 方法</p>
+<pre><code class="js">function plusOne() {
+  return { type: &quot;PLUS_ONE&quot; };
+}
+
+plusOne = bindActionCreators(plusOne, store.dispatch);
+plusOne(); //  等价于 store.dispatch(plusOne())</code></pre>
+</li>
+<li><p>combineReducers<br><code>combineReducers({reducer1, reducer2, ...})</code>接收一个 reducers 对象,可以将不同的 reducer 同时连接到 store 上，每个 reducer 函数返回的 state 都相互独立。</p>
+<pre><code class="js">import { combineReducers } from &quot;redux&quot;;
+
+const todos = (state = {}, action) =&gt; state;
+const counter = (state = {}, action) =&gt; state;
+
+const store = createStore(
+  combineReducers({
+    todos,
+    counter
+  })
+);
+console.log(store); // {tods: {...}, counter: {...}}</code></pre>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    
+      
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/08/01/2019080101/">《React实战进阶》 学习笔记 20190801</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
+  <p><span>发布时间:</span>2019年08月01日 - 22:36</p>
+  <p><span>最后更新:</span>2019年08月05日 - 23:08</p>
+  <p><span>原始链接:</span><a href="/2019/08/01/2019080101/" title="《React实战进阶》 学习笔记 20190801">https://blog.yeyanjie.com/2019/08/01/2019080101/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/08/01/2019080101/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/react/" rel="tag"><i class="fa fa-tag"></i> react</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/07/31/2019073102/" rel="next" title="《React实战进阶》 学习笔记 20190731">
+                <i class="fa fa-chevron-left"></i> 《React实战进阶》 学习笔记 20190731
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/02/2019080201/" rel="prev" title="《React实战进阶》 学习笔记 20190802">
+                《React实战进阶》 学习笔记 20190802 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Jarvis Ye">
+  <p class="site-author-name" itemprop="name">Jarvis Ye</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yyj94" title="GitHub &rarr; https://github.com/yyj94" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:jarvisye94@gmail.com" title="E-Mail &rarr; mailto:jarvisye94@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://acuario.xyz/" title="https://acuario.xyz/" rel="noopener" target="_blank">Acuario</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Redux"><span class="nav-number">1.</span> <span class="nav-text">理解 Redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-特性"><span class="nav-number">2.</span> <span class="nav-text">Redux 特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Store"><span class="nav-number">3.</span> <span class="nav-text">理解 Store</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-action"><span class="nav-number">4.</span> <span class="nav-text">理解 action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-reducer"><span class="nav-number">5.</span> <span class="nav-text">理解 reducer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-的工作原理"><span class="nav-number">6.</span> <span class="nav-text">Redux 的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-提供的工具函数"><span class="nav-number">7.</span> <span class="nav-text">Redux 提供的工具函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jarvis Ye</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">18k</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+  <script color='51,51,51' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script src="/lib/lazyload/lozad.min.js?v=1.10.0"></script>
+  <script src="/lib/pangu/dist/pangu.min.js?v=4.0.7"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.2.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '601b7794c8729fb11884',
+    clientSecret: 'd5d980d3154b4d50c307fffc530b2ca30bdf8452',
+    repo: 'yyj94.github.io',
+    owner: 'yyj94',
+    admin: ['yyj94'],
+    id: md5(location.pathname),
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+
+  
+
+  
+    <script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+        prettyPrint();
+      }
+</script>
+  
+
+</body>
+</html>

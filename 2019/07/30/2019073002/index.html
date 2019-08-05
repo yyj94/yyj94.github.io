@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.icns?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-leaf.ico?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.ico?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+  <link href="/js/google-code-prettify/github-v2.css" type="text/css" rel="stylesheet" />
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="React 组件理解 React 组件 React 组件一般不提供方法，而是某种状态机 React 组件可以理解为一个纯函数 单向数据绑定">
+<meta name="keywords" content="前端,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《React实战进阶》 学习笔记 20190730">
+<meta property="og:url" content="https://blog.yeyanjie.com/2019/07/30/2019073002/index.html">
+<meta property="og:site_name" content="Jarvis&#39;s Blog">
+<meta property="og:description" content="React 组件理解 React 组件 React 组件一般不提供方法，而是某种状态机 React 组件可以理解为一个纯函数 单向数据绑定">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-05T15:08:53.277Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《React实战进阶》 学习笔记 20190730">
+<meta name="twitter:description" content="React 组件理解 React 组件 React 组件一般不提供方法，而是某种状态机 React 组件可以理解为一个纯函数 单向数据绑定">
+  <link rel="alternate" href="/atom.xml" title="Jarvis's Blog" type="application/atom+xml">
+  <link rel="canonical" href="https://blog.yeyanjie.com/2019/07/30/2019073002/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+    <script>
+  (function(d) {
+    var config = {
+      kitId: 'mmv0xbq',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+  <title>《React实战进阶》 学习笔记 20190730 | Jarvis's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jarvis's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">物来顺应 未来不迎</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/07/30/2019073002/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jarvis Ye">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jarvis's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">《React实战进阶》 学习笔记 20190730
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-30 23:18:06" itemprop="dateCreated datePublished" datetime="2019-07-30T23:18:06+08:00">2019-07-30</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-05 23:08:53" itemprop="dateModified" datetime="2019-08-05T23:08:53+08:00">2019-08-05</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon"
+              >
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          <br/>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">2k</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h2><h3 id="理解-React-组件"><a href="#理解-React-组件" class="headerlink" title="理解 React 组件"></a>理解 React 组件</h3><ol>
+<li>React 组件一般不提供方法，而是某种状态机</li>
+<li>React 组件可以理解为一个纯函数</li>
+<li>单向数据绑定</li>
+</ol>
+<p><img alt="react组件" data-src="https://img.yeyanjie.com/blog/201907/3.png"><a id="more"></a></p>
+<h3 id="受控组件-vs-非受控组件"><a href="#受控组件-vs-非受控组件" class="headerlink" title="受控组件 vs 非受控组件"></a>受控组件 vs 非受控组件</h3><p>React 组件可以根据组件状态是受内部还是外部控制分为受控组件和非受控组件两种</p>
+<p>以表单元素为例，表单元素状态由使用者维护是受控组件：</p>
+<pre><code class="jsx">&lt;input
+  type=&quot;text&quot;
+  value={this.state.value}
+  onChange={e =&gt; this.setState({ value: e.target.value })}
+/&gt;</code></pre>
+<p>如果表单元素状态由 DOM 自己维护，则属于非受控组件</p>
+<pre><code class="jsx">&lt;input type=&quot;text&quot; ref={node =&gt; (this.input = node)} /&gt;</code></pre>
+<h3 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h3><p>那么，什么时候创建组件呢？</p>
+<ol>
+<li>每个组件只做一件事</li>
+<li>如果组件变得复杂，那么应该拆分成小组件</li>
+</ol>
+<h3 id="DRY-原则"><a href="#DRY-原则" class="headerlink" title="DRY 原则"></a>DRY 原则</h3><p>组件的数据状态管理尽可能遵守以下两点：</p>
+<ol>
+<li>能计算得到的状态就不要单独存储</li>
+<li>组件尽量无状态，所需数据通过 props 获取</li>
+</ol>
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><h3 id="JSX-的本质"><a href="#JSX-的本质" class="headerlink" title="JSX 的本质"></a>JSX 的本质</h3><p>JSX 不是一种模板语法，而是语法糖，它可以在代码中直接书写 html 标签动态创建组件，实质上底层使用了原生的<code>document.createElement</code> API</p>
+<pre><code class="jsx">const name = &quot;Nate Wang&quot;;
+const element = &lt;h1&gt;Hello, {name}&lt;/h1&gt;;</code></pre>
+<p>等同于下面</p>
+<pre><code class="jsx">const name = &quot;Nate Wang&quot;;
+const element = React.createElement(&quot;h1&quot;, null, &quot;Hello, &quot;, name);</code></pre>
+<h3 id="JSX-表达式"><a href="#JSX-表达式" class="headerlink" title="JSX 表达式"></a>JSX 表达式</h3><p>JSX 中使用表达式主要有以下四种情形：</p>
+<ol>
+<li>JSX 本身也是表达式<pre><code class="jsx">const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;</code></pre>
+</li>
+<li>在属性中使用表达式<pre><code class="jsx">&lt;MyComponent foo={1 + 2 + 3 + 4} /&gt;</code></pre>
+</li>
+<li>延展属性<pre><code class="jsx">const props: {firstName: &#39;Ben&#39;, lastName: &#39;Hector&#39;};
+const greeting = &lt;Greeting {...props}/&gt;;</code></pre>
+</li>
+<li>表达式作为子元素<pre><code class="jsx">const element = &lt;li&gt;{props.message}&lt;/li&gt;;</code></pre>
+</li>
+</ol>
+<h3 id="JSX-的优点"><a href="#JSX-的优点" class="headerlink" title="JSX 的优点"></a>JSX 的优点</h3><ol>
+<li>声明式创建界面的直观</li>
+<li>代码动态创建界面的灵活</li>
+<li>无需学习新的模板语言</li>
+</ol>
+<h3 id="自定义组件命名规范"><a href="#自定义组件命名规范" class="headerlink" title="自定义组件命名规范"></a>自定义组件命名规范</h3><p>自定义组件以大写字母开头，因为 React 认为小写的标签式原生 DOM 节点，大写字母开头的标签式自定义组件。另外 JSX 标记可以直接使用属性语法，例如<code>&lt;menu.Item /&gt;</code>，这里可以不受大写字母开头约定限制。</p>
+<h2 id="React-组件生命周期"><a href="#React-组件生命周期" class="headerlink" title="React 组件生命周期"></a>React 组件生命周期</h2><p>React 组件生命周期根据场景的不同可以分为挂载时、更新时、卸载时三种情况，每种情况又可以分为三个阶段，分别为“Render 阶段”、“Pre-commit 阶段”、“Commit 阶段”。具体生命周期（react 16.4^）如下图所示</p>
+<p><img alt="react组件生命周期" data-src="https://img.yeyanjie.com/blog/201907/4.png"></p>
+<p>下面简单介绍几个主要的生命周期钩子</p>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><ol>
+<li>用于初始化内部状态，很少使用</li>
+<li>唯一可以直接修改 state 的地方</li>
+</ol>
+<h3 id="getDerivedStateFromProps-react-16-3-新增"><a href="#getDerivedStateFromProps-react-16-3-新增" class="headerlink" title="getDerivedStateFromProps (react 16.3 新增)"></a>getDerivedStateFromProps (react 16.3 新增)</h3><ol>
+<li>当 state 需要从 props 初始化时使用</li>
+<li>尽量不要使用：维护两者状态一致性会增加复杂度</li>
+<li>每次 render 都会调用</li>
+<li>典型场景：表单控件获取默认值</li>
+</ol>
+<h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h3><ol>
+<li>UI 渲染完成后调用</li>
+<li>只执行一次</li>
+<li>典型场景：获取外部资源（ajax 请求接口数据）</li>
+</ol>
+<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><ol>
+<li>组件移除时被调用</li>
+<li>典型场景：资源释放</li>
+</ol>
+<h3 id="getSnapshotBeforeUpdate-react-16-3-新增"><a href="#getSnapshotBeforeUpdate-react-16-3-新增" class="headerlink" title="getSnapshotBeforeUpdate (react 16.3 新增)"></a>getSnapshotBeforeUpdate (react 16.3 新增)</h3><ol>
+<li>在页面 render 之前调用，state 已更新</li>
+<li>典型场景：获取 render 之前的 DOM 状态</li>
+</ol>
+<h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h3><ol>
+<li>每次 UI 更新时被调用</li>
+<li>典型场景：页面需要根据 props 变化重新获取数据</li>
+</ol>
+<h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h3><ol>
+<li>决定 Virtual DOM 是否要重绘</li>
+<li>一般可以由 PureComponent 自动实现</li>
+<li>典型场景：性能优化</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    
+      
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/30/2019073002/">《React实战进阶》 学习笔记 20190730</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
+  <p><span>发布时间:</span>2019年07月30日 - 23:18</p>
+  <p><span>最后更新:</span>2019年08月05日 - 23:08</p>
+  <p><span>原始链接:</span><a href="/2019/07/30/2019073002/" title="《React实战进阶》 学习笔记 20190730">https://blog.yeyanjie.com/2019/07/30/2019073002/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/07/30/2019073002/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/react/" rel="tag"><i class="fa fa-tag"></i> react</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/07/29/2019072901/" rel="next" title="《React实战进阶》 学习笔记 20190729">
+                <i class="fa fa-chevron-left"></i> 《React实战进阶》 学习笔记 20190729
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/07/31/2019073102/" rel="prev" title="《React实战进阶》 学习笔记 20190731">
+                《React实战进阶》 学习笔记 20190731 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Jarvis Ye">
+  <p class="site-author-name" itemprop="name">Jarvis Ye</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yyj94" title="GitHub &rarr; https://github.com/yyj94" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:jarvisye94@gmail.com" title="E-Mail &rarr; mailto:jarvisye94@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://acuario.xyz/" title="https://acuario.xyz/" rel="noopener" target="_blank">Acuario</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-组件"><span class="nav-number">1.</span> <span class="nav-text">React 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解-React-组件"><span class="nav-number">1.1.</span> <span class="nav-text">理解 React 组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#受控组件-vs-非受控组件"><span class="nav-number">1.2.</span> <span class="nav-text">受控组件 vs 非受控组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责原则"><span class="nav-number">1.3.</span> <span class="nav-text">单一职责原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DRY-原则"><span class="nav-number">1.4.</span> <span class="nav-text">DRY 原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX"><span class="nav-number">2.</span> <span class="nav-text">JSX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX-的本质"><span class="nav-number">2.1.</span> <span class="nav-text">JSX 的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX-表达式"><span class="nav-number">2.2.</span> <span class="nav-text">JSX 表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX-的优点"><span class="nav-number">2.3.</span> <span class="nav-text">JSX 的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义组件命名规范"><span class="nav-number">2.4.</span> <span class="nav-text">自定义组件命名规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-组件生命周期"><span class="nav-number">3.</span> <span class="nav-text">React 组件生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">3.1.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getDerivedStateFromProps-react-16-3-新增"><span class="nav-number">3.2.</span> <span class="nav-text">getDerivedStateFromProps (react 16.3 新增)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentDidMount"><span class="nav-number">3.3.</span> <span class="nav-text">componentDidMount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentWillUnmount"><span class="nav-number">3.4.</span> <span class="nav-text">componentWillUnmount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getSnapshotBeforeUpdate-react-16-3-新增"><span class="nav-number">3.5.</span> <span class="nav-text">getSnapshotBeforeUpdate (react 16.3 新增)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentDidUpdate"><span class="nav-number">3.6.</span> <span class="nav-text">componentDidUpdate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shouldComponentUpdate"><span class="nav-number">3.7.</span> <span class="nav-text">shouldComponentUpdate</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jarvis Ye</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">18k</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+  <script color='51,51,51' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script src="/lib/lazyload/lozad.min.js?v=1.10.0"></script>
+  <script src="/lib/pangu/dist/pangu.min.js?v=4.0.7"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.2.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '601b7794c8729fb11884',
+    clientSecret: 'd5d980d3154b4d50c307fffc530b2ca30bdf8452',
+    repo: 'yyj94.github.io',
+    owner: 'yyj94',
+    admin: ['yyj94'],
+    id: md5(location.pathname),
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+
+  
+
+  
+    <script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+        prettyPrint();
+      }
+</script>
+  
+
+</body>
+</html>

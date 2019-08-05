@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Jarvis&#39;s Blog</title>
+  
+  <subtitle>物来顺应 未来不迎</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.yeyanjie.com/"/>
+  <updated>2019-08-05T15:50:41.012Z</updated>
+  <id>https://blog.yeyanjie.com/</id>
+  
+  <author>
+    <name>Jarvis Ye</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190805</title>
+    <link href="https://blog.yeyanjie.com/2019/08/05/2019080501/"/>
+    <id>https://blog.yeyanjie.com/2019/08/05/2019080501/</id>
+    <published>2019-08-05T15:10:57.000Z</published>
+    <updated>2019-08-05T15:50:41.012Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="UI组件库对比和介绍"><a href="#UI组件库对比和介绍" class="headerlink" title="UI组件库对比和介绍"></a>UI组件库对比和介绍</h2><ul><li>Ant.Design<br><a href="https://ant.design/index-cn" target="_blank" rel="noopener">Ant.Design</a>是蚂蚁金服开源的一个React UI组件库，主要适合研发企业级中后台产品。</li><li>Material UI<br><a href="https://material-ui.com/" target="_blank" rel="noopener">Material UI</a>是Google开源的React UI组件库，整体风格可能更加活泼，色彩更加丰富，适合面向消费者的产品。</li><li>Semantic UI<br><a href="https://semantic-ui.com/" target="_blank" rel="noopener">Semantic UI</a>是一个老牌的UI组件库，其历史可以追溯到jQuery时代。<a id="more"></a><h3 id="选择-UI-库的考虑因素"><a href="#选择-UI-库的考虑因素" class="headerlink" title="选择 UI 库的考虑因素"></a>选择 UI 库的考虑因素</h3></li></ul><ol><li>组件库是否齐全<br>antd拥有更齐全的组件库，如常用的Tree组件以及表格组件中的固定行、列等。</li><li>样式风格是否符合业务需求<br>antd设计风格简约直观，适合中后台系统，Matereial UI颜色更加大胆，可以用作面向消费者的产品</li><li>API设计是否便捷和灵活<br>组件API使用方式是否高效，antd专注于数据填充，免去其他两个框架对html细节的要求</li><li>技术支持是否完善<br>issue维护是否能够迅速响应，文档是否完善</li><li>开发是否活跃<br>项目团队更新和修复issue是否频繁且快速</li></ol><h2 id="使用Next-js-创建React同构应用"><a href="#使用Next-js-创建React同构应用" class="headerlink" title="使用Next.js 创建React同构应用"></a>使用Next.js 创建React同构应用</h2><h3 id="什么是同构应用？"><a href="#什么是同构应用？" class="headerlink" title="什么是同构应用？"></a>什么是同构应用？</h3><p>同构应用是指浏览器初次发送请求后，由服务器渲染好页面返回到浏览器，浏览器后续的路由控制和UI渲染继续由前端控制的应用</p><p><img alt="同构应用" data-src="https://img.yeyanjie.com/blog/201908/7.png"></p><h3 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h3><ol><li>页面就是pages目录下的一个组件</li><li>static目录映射静态文件</li><li>page具有特殊静态方法getInitialProps</li></ol><h3 id="在页面中使用其他React组件"><a href="#在页面中使用其他React组件" class="headerlink" title="在页面中使用其他React组件"></a>在页面中使用其他React组件</h3><ol><li>页面也是标准的node模块，可使用其它React组件</li><li>页面会针对性打包，仅包含其引入的组件</li></ol><h3 id="使用Link实现同构路由"><a href="#使用Link实现同构路由" class="headerlink" title="使用Link实现同构路由"></a>使用Link实现同构路由</h3><ol><li>使用<code>next/link</code>定义链接</li><li>点击链接时页面不会刷新</li><li>使用prefetch预加载目标资源</li><li>使用replace属性替换URL</li></ol><pre><code class="jsx">import Link from &#39;next/link&#39;export default () =&gt;  &lt;div&gt;    Click{&#39; &#39;}    &lt;Link href=&quot;/about&quot;&gt;      &lt;a&gt;here&lt;/a&gt;    &lt;/Link&gt;{&#39; &#39;}    to read more  &lt;/div&gt;</code></pre><h3 id="动态加载页面"><a href="#动态加载页面" class="headerlink" title="动态加载页面"></a>动态加载页面</h3><p>next支持实现页面的动态加载（懒加载），动态加载的页面会在打包文件的main.js外额外增加一个组件代码包。</p><pre><code class="jsx">import dynamic from &#39;next/dynamic&#39;const DynamicComponentWithCustomLoading = dynamic(  import(&#39;../componets/hello2&#39;), {    loading: () =&gt; &lt;p&gt;...&lt;/p&gt;  })export default () =&gt;  &lt;div&gt;    &lt;Header /&gt;    &lt;DynamicComponentWithCustomLoading /&gt;    &lt;p&gt;HOME PAGE is here!&lt;/p&gt;  &lt;/div&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;UI组件库对比和介绍&quot;&gt;&lt;a href=&quot;#UI组件库对比和介绍&quot; class=&quot;headerlink&quot; title=&quot;UI组件库对比和介绍&quot;&gt;&lt;/a&gt;UI组件库对比和介绍&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Ant.Design&lt;br&gt;&lt;a href=&quot;https://ant.design/index-cn&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Ant.Design&lt;/a&gt;是蚂蚁金服开源的一个React UI组件库，主要适合研发企业级中后台产品。&lt;/li&gt;
+&lt;li&gt;Material UI&lt;br&gt;&lt;a href=&quot;https://material-ui.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Material UI&lt;/a&gt;是Google开源的React UI组件库，整体风格可能更加活泼，色彩更加丰富，适合面向消费者的产品。&lt;/li&gt;
+&lt;li&gt;Semantic UI&lt;br&gt;&lt;a href=&quot;https://semantic-ui.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Semantic UI&lt;/a&gt;是一个老牌的UI组件库，其历史可以追溯到jQuery时代。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190803</title>
+    <link href="https://blog.yeyanjie.com/2019/08/04/2019080301/"/>
+    <id>https://blog.yeyanjie.com/2019/08/04/2019080301/</id>
+    <published>2019-08-04T14:46:24.000Z</published>
+    <updated>2019-08-05T15:08:53.280Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><p>React Router 虽然不是 React 官方出的，但是发展到现在已经成为 React 生态中路由的一种实现标准。</p><h3 id="为什么需要路由？"><a href="#为什么需要路由？" class="headerlink" title="为什么需要路由？"></a>为什么需要路由？</h3><ol><li>单页应用需要进行页面切换<br>现代前端框架构建的单页面应用仍然有页面切换的需要。</li><li>通过 URL 可以定位到页面<br>有了路由之后，用户可以通过具体的 URL 定位到对应的页面。</li><li>更有语义的组织资源<br>语义化的 URL 可以对应页面级别的组件，组织代码等资源。<a id="more"></a></li></ol><h3 id="路由实现的基本架构"><a href="#路由实现的基本架构" class="headerlink" title="路由实现的基本架构"></a>路由实现的基本架构</h3><p>首先由路由定义，定义具体路径匹配后渲染的组件名称，经过 Router 处理后，在组件容器中渲染对应组件的代码。</p><h3 id="React-Router-的实现"><a href="#React-Router-的实现" class="headerlink" title="React Router 的实现"></a>React Router 的实现</h3><p>下面是 React Router 实现的一个简单例子：</p><pre><code class="jsx">&lt;Router&gt;  &lt;div&gt;    &lt;ul id=&quot;menu&quot;&gt;      &lt;li&gt;        &lt;Link to=&quot;/home&quot;&gt;Home&lt;/Link&gt;      &lt;/li&gt;      &lt;li&gt;        &lt;Link to=&quot;/hello&quot;&gt;Hello&lt;/Link&gt;      &lt;/li&gt;      &lt;li&gt;        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;      &lt;/li&gt;    &lt;/ul&gt;    &lt;div id=&quot;page-container&quot;&gt;      &lt;Route path=&quot;/home&quot; component={Home} /&gt;      &lt;Route path=&quot;/hello&quot; component={Hello} /&gt;      &lt;Route path=&quot;/about&quot; component={About} /&gt;    &lt;/div&gt;  &lt;/div&gt;&lt;/Router&gt;</code></pre><h3 id="React-Router-的特性"><a href="#React-Router-的特性" class="headerlink" title="React Router 的特性"></a>React Router 的特性</h3><ol><li>声明式路由定义<br>React Router 只需要定义好匹配路径，指定匹配成功渲染的组件名称，即可定义路由</li><li>动态路由<br>React Router 的路由表并不是读取一个静态的路由表，而是在代码解析时完成路由的定义</li></ol><h3 id="三种路由实现方式"><a href="#三种路由实现方式" class="headerlink" title="三种路由实现方式"></a>三种路由实现方式</h3><ol><li>URL 路径<br>类似传统页面跳转，可以在页面不会刷新就可以实现浏览器地址栏的路径切换</li><li>hash 路由<br>有些老版本浏览器不支持 URL 路径变化时保持页面不刷新，可以采用这种路由方式，路径上带有#，实现页面不刷新路径切换</li><li>内存路由<br>路由切换状态是保存在内存中的，因此路径切换后，浏览器地址不会变化，一般用在服务器渲染</li></ol><h3 id="基于路由配置进行资源组织"><a href="#基于路由配置进行资源组织" class="headerlink" title="基于路由配置进行资源组织"></a>基于路由配置进行资源组织</h3><p>路由不仅仅是用来实现页面切换，也能帮助我们基于路由来进行资源的组织，主要有以下三个优点：</p><ol><li>实现业务逻辑的松耦合</li><li>易于扩展，重构和维护</li><li>路由层面实现 Lazy Load</li></ol><h3 id="React-Router-API"><a href="#React-Router-API" class="headerlink" title="React Router API"></a>React Router API</h3><ol><li><p><code>&lt;LInk&gt;</code><br>普通链接，不会触发浏览器刷新</p><pre><code class="jsx">import { Link } from &quot;react-router-dom&quot;;&lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;;</code></pre></li><li><p><code>&lt;NavLInk&gt;</code><br>类型 Link 但是会添加当前选中状态</p><pre><code class="jsx">&lt;NavLink to=&quot;/faq&quot; activeClassName=&quot;selected&quot;&gt;FAQs&lt;/NavLink&gt;`</code></pre></li><li><p><code>&lt;Prompt&gt;</code><br>满足条件时提示用户是否离开当前页面</p><pre><code class="jsx">import { Prompt } from &quot;react-router&quot;;&lt;Prompt  when={formIsHalfFilledOut}  message=&quot;Are you sure you want to leave?&quot;/&gt;;</code></pre></li><li><p><code>&lt;Redirect&gt;</code><br>重定向当前页面，例如登录判断</p><pre><code class="jsx">import { Link } from &quot;react-router-dom&quot;;&lt;Route  exact  path=&quot;/&quot;  render={() =&gt;    loggedIn ? &lt;Redirect to=&quot;/dashboard&quot; /&gt; : &lt;PublicHomePage /&gt;  }/&gt;;</code></pre></li><li><p><code>&lt;Route&gt;</code><br>路由配置的核心标记，路径匹配时显示对应组件</p><pre><code class="jsx">import { BrowserRouter as Router, Route } from &quot;react-router-dom&quot;;&lt;Router&gt;  &lt;div&gt;    &lt;Route exact path=&quot;/&quot; component={Home} /&gt;    &lt;Route path=&quot;/news&quot; component={NewFeed} /&gt;  &lt;/div&gt;&lt;/Router&gt;;</code></pre></li><li><p><code>&lt;Switch&gt;</code><br>只显示第一个匹配的路由</p><pre><code class="jsx">import { Switch, Route } from &quot;react-router&quot;;&lt;Switch&gt;  &lt;Route exact path=&quot;/&quot; component={Home} /&gt;  &lt;Route path=&quot;/about&quot; component={About} /&gt;  &lt;Route path=&quot;/:user&quot; component={User} /&gt;  &lt;Route component={NoMatch} /&gt;&lt;/Switch&gt;;</code></pre></li></ol><h2 id="React-Router-参数定义"><a href="#React-Router-参数定义" class="headerlink" title="React Router 参数定义"></a>React Router 参数定义</h2><h3 id="通过-URL-传递参数"><a href="#通过-URL-传递参数" class="headerlink" title="通过 URL 传递参数"></a>通过 URL 传递参数</h3><ol><li>如何通过 URL 传递参数？<pre><code class="jsx">&lt;Route path=&quot;/topic/:id&quot; ... /&gt;</code></pre></li><li>如何获取参数<br><code>this.props.match.params</code></li><li>一个将 url 转换成正则的方法<br><a href="https://github.com/pillarjs/path-to-regexp" target="_blank" rel="noopener">path-to-regexp</a></li></ol><h3 id="何时需要-URL-参数"><a href="#何时需要-URL-参数" class="headerlink" title="何时需要 URL 参数"></a>何时需要 URL 参数</h3><p>页面状态尽量通过 URL 参数定义，如基于时间或其他条件的查询页面，可以将时间状态定义到 URL 中，这样做的好处可以免于维护组件内部的时间状态，实现 url 变化组件的状态随之变化。</p><h2 id="理解-React-Router-嵌套路由"><a href="#理解-React-Router-嵌套路由" class="headerlink" title="理解 React Router 嵌套路由"></a>理解 React Router 嵌套路由</h2><ol><li>每个 React 组件都可以是路由容器</li><li>React Router 的声明式语法可以方便的定义嵌套路由</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;React-Router&quot;&gt;&lt;a href=&quot;#React-Router&quot; class=&quot;headerlink&quot; title=&quot;React Router&quot;&gt;&lt;/a&gt;React Router&lt;/h2&gt;&lt;p&gt;React Router 虽然不是 React 官方出的，但是发展到现在已经成为 React 生态中路由的一种实现标准。&lt;/p&gt;
+&lt;h3 id=&quot;为什么需要路由？&quot;&gt;&lt;a href=&quot;#为什么需要路由？&quot; class=&quot;headerlink&quot; title=&quot;为什么需要路由？&quot;&gt;&lt;/a&gt;为什么需要路由？&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;单页应用需要进行页面切换&lt;br&gt;现代前端框架构建的单页面应用仍然有页面切换的需要。&lt;/li&gt;
+&lt;li&gt;通过 URL 可以定位到页面&lt;br&gt;有了路由之后，用户可以通过具体的 URL 定位到对应的页面。&lt;/li&gt;
+&lt;li&gt;更有语义的组织资源&lt;br&gt;语义化的 URL 可以对应页面级别的组件，组织代码等资源。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190802</title>
+    <link href="https://blog.yeyanjie.com/2019/08/02/2019080201/"/>
+    <id>https://blog.yeyanjie.com/2019/08/02/2019080201/</id>
+    <published>2019-08-02T13:56:44.000Z</published>
+    <updated>2019-08-05T15:08:53.279Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="在-React-中使用-Redux"><a href="#在-React-中使用-Redux" class="headerlink" title="在 React 中使用 Redux"></a>在 React 中使用 Redux</h2><p>在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。<a id="more"></a></p><pre><code class="js">import { connect } from &quot;react-redux&quot;;class SidePanel extends Component {  // ...}function mapStateToProps(state) {  return {    nextgen: state.nextgen,    router: state.router  };}function mapDispatchToProps(dispatch) {  return {    actions: bindActionCreators({ ...actions }, dispatch)  };}export default connect(  mapStateToProps,  mapDispatchToProps)(SidePanel);</code></pre><h2 id="Redux-异步请求"><a href="#Redux-异步请求" class="headerlink" title="Redux 异步请求"></a>Redux 异步请求</h2><p>Redux 中支持异步请求，当 View 提交 Action 到 Dispatcher 时，先经过 Middlewares 中间件对异步请求（如 Ajax）进行处理，请求完成后根据不同的结果派发 dispatch 到 Reducer 进行下一步处理，再返回新的 state 映射到 View 上。<br>另外需要注意，异步 action 不是特殊 action，而是多个同步 action 的组合使用。</p><p><img alt="Redux异步请求流程" data-src="https://img.yeyanjie.com/blog/201908/5.png"></p><h3 id="Redux-中间件（Middleware）"><a href="#Redux-中间件（Middleware）" class="headerlink" title="Redux 中间件（Middleware）"></a>Redux 中间件（Middleware）</h3><p>Redux 中间件是将 actionCreator 函数返回值由原来的对象替换为一个函数，这个函数的返回值是一个 Promise 函数，告诉 React 这是一个异步请求操作，中间件就会截获 action，等待 Promise 函数的返回结果分别执行不同的 dispatch 操作。</p><h2 id="Redux-中-action-和-reducer-如何组织代码结构？"><a href="#Redux-中-action-和-reducer-如何组织代码结构？" class="headerlink" title="Redux 中 action 和 reducer 如何组织代码结构？"></a>Redux 中 action 和 reducer 如何组织代码结构？</h2><h3 id="标准形式"><a href="#标准形式" class="headerlink" title="标准形式"></a>标准形式</h3><p>传统 Redux Action 的组织形式是将所有的 action 存放在同一个文件中，这样会存在以下问题：</p><ol><li>所有 Action 放一个文件，会无限扩展</li><li>Action，Reducer 分开，实现业务逻辑时需要来回切换</li><li>系统中有哪些 Action 不够直观</li></ol><h3 id="新的方式"><a href="#新的方式" class="headerlink" title="新的方式"></a>新的方式</h3><p>针对传统方式的缺点，可以将单个 action 和 reducer 放在同一个文件内，每个文件一个 Action，最后将所有的 action 和 reducer 分别导出在一个总的 action 和 reducer 入口文件中。这样做的优点主要有以下四点：</p><ol><li>易于开发：不用再 action 和 reducer 文件间来回切换</li><li>易于维护：每个 action 文件都很小，容易理解</li><li>易于测试：每个业务逻辑只需对应一个测试文件</li><li>易于理解：文件名就是 action 名字，文件列表就是 action 列表</li></ol><h2 id="不可变数据（immutable-data）"><a href="#不可变数据（immutable-data）" class="headerlink" title="不可变数据（immutable data）"></a>不可变数据（immutable data）</h2><p>不可变数据就是在数据更新时始终存在部分数据的值或者引用不变的数据</p><p><img alt="不可变数据更新前后对比" data-src="https://img.yeyanjie.com/blog/201908/6.png"></p><p>从上图可以看到，当不可变数据某个节点发生变化时，只会更新该节点直系上的数据，其他分支上的数据保持不变</p><h3 id="为什么需要不可变数据？"><a href="#为什么需要不可变数据？" class="headerlink" title="为什么需要不可变数据？"></a>为什么需要不可变数据？</h3><ol><li>性能优化</li><li>易于调试和跟踪</li><li>易于推测</li></ol><h3 id="如何操作不可变数据"><a href="#如何操作不可变数据" class="headerlink" title="如何操作不可变数据?"></a>如何操作不可变数据?</h3><ol><li><p>原生写法：<code>{...}</code>，<code>Object.assign</code><br>在业务中常用，缺点是对象层级越多，代码结构越复杂</p><pre><code class="js">const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };// 对象扩展符const newState = { ...state, todos: [...state.todos, &quot;Learn Redux&quot;] };// ES6原生写法，性能最佳const newState2 = Object.assign({}, state, {  todos: [...state.todos, &quot;Learn Redux&quot;]});</code></pre></li><li><p>immutability-helper<br>适合对象嵌套层级较深的应用场景，写法相对简单优雅，缺点是需要使用特殊的语法</p><pre><code class="js">import update from &quot;immutability-helper&quot;;const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };const newState = update(state, { todos: { $push: [&quot;Learn Redux&quot;] } });</code></pre></li><li><p>immer<br>接近对象修改原生的写法，性能与前两者相比较差，适合小型应用或 demo 使用</p><pre><code class="js">import produce from &quot;immer&quot;;const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };const newState = produce(state, draftState =&gt; {  draftState.todos.push(&quot;Learn Redux&quot;);});</code></pre></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;在-React-中使用-Redux&quot;&gt;&lt;a href=&quot;#在-React-中使用-Redux&quot; class=&quot;headerlink&quot; title=&quot;在 React 中使用 Redux&quot;&gt;&lt;/a&gt;在 React 中使用 Redux&lt;/h2&gt;&lt;p&gt;在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190801</title>
+    <link href="https://blog.yeyanjie.com/2019/08/01/2019080101/"/>
+    <id>https://blog.yeyanjie.com/2019/08/01/2019080101/</id>
+    <published>2019-08-01T14:36:39.000Z</published>
+    <updated>2019-08-05T15:08:53.278Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="理解-Redux"><a href="#理解-Redux" class="headerlink" title="理解 Redux"></a>理解 Redux</h2><p>Redux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。</p><h2 id="Redux-特性"><a href="#Redux-特性" class="headerlink" title="Redux 特性"></a>Redux 特性</h2><ul><li><p>Single Source of Truth<br>传统 MVC 架构，数据层 Model 与视图层 View 之间往往是多对多的关系，一个 view 上的状态可能受多个 model 控制，管理起来十分复杂。<a id="more"></a></p><p><img alt="MVC模式View与Model的关系" data-src="https://img.yeyanjie.com/blog/201908/1.png"></p><p>而在 Redux 模式中，不同的 view 上的状态全部存放在外部一个统一的 Store 容器中，View 与 Store 之间是简单的一对一关系，数据流向清晰多了。</p><p><img alt="Redux中View与Store的关系" data-src="https://img.yeyanjie.com/blog/201908/2.png"></p></li><li><p>可预测性</p><p>Redux 中的数据变化是可以预测的，如果状态发生了变化，一定是在当前的 state 状态下派发了一个 action，其结果是返回一个新的 state 状态</p><p><img alt="Redux的可预测性" data-src="https://img.yeyanjie.com/blog/201908/3.png"></p></li><li><p>纯函数更新 Store</p><p>Redux 中数据状态的更新是由一个纯函数来处理，它接收当前的 state 状态和 action 对象作为参数，根据不同的 action 返回新的 state 状态。函数的输出都是依赖输入值的不同且确定的。</p></li></ul><h2 id="理解-Store"><a href="#理解-Store" class="headerlink" title="理解 Store"></a>理解 Store</h2><p>Store 是数据存放的容器，通过 <code>createStore(reducer)</code> 新建，<code>getState()</code> 可以获取当前的 state 值，如果修改<code>state</code>一定得通过<code>diapatch(action)</code>的方式派发一个 action，而<code>subscribe(listener)</code>用来监听 state 的响应变化</p><h2 id="理解-action"><a href="#理解-action" class="headerlink" title="理解 action"></a>理解 action</h2><p>action 实际上是一个 javascript 对象，包括 action 的类型值和载荷</p><pre><code class="js">{  type: ADD_TODO,  text: &#39;Build my first Redux app&#39;}</code></pre><h2 id="理解-reducer"><a href="#理解-reducer" class="headerlink" title="理解 reducer"></a>理解 reducer</h2><p>reducer 实际上是一个纯函数，通过输入的 state 和<code>action</code>分别输出新的 state 值：</p><pre><code class="js">function todos(state = [], action) {  switch (action.type) {    case &#39;ADD_TODO&#39;:      return state.concat([{ text: action.text, completed: false }])    case &#39;TOGGLE_TODO&#39;:      return state.map(        (todo, index) =&gt;          action.index === index            ? { text: todo.text, completed: !todo.completed }      )    default:      return state  }}</code></pre><h2 id="Redux-的工作原理"><a href="#Redux-的工作原理" class="headerlink" title="Redux 的工作原理"></a>Redux 的工作原理</h2><p>当前端交互需要改变状态时，首先会新建 action 对象，用来描述动作的类型和变化值，然后通过 Diapatcher 派发提交到 Store 中，经过 Reducer 函数基于当前 state 进行处理后，返回新的 State，然后映射到 DOM 上更新状态。</p><p><img alt="Redux工作原理" data-src="https://img.yeyanjie.com/blog/201908/4.png"></p><h2 id="Redux-提供的工具函数"><a href="#Redux-提供的工具函数" class="headerlink" title="Redux 提供的工具函数"></a>Redux 提供的工具函数</h2><ul><li><p>bindActionCreators<br><code>bindActionCreators(ActionCreators, dispatch)</code>接收两个参数，一个是创建 Action 的函数，一个是 dispatch 方法。函数的返回值是可以派发相应 action 的 dispatch 方法</p><pre><code class="js">function plusOne() {  return { type: &quot;PLUS_ONE&quot; };}plusOne = bindActionCreators(plusOne, store.dispatch);plusOne(); //  等价于 store.dispatch(plusOne())</code></pre></li><li><p>combineReducers<br><code>combineReducers({reducer1, reducer2, ...})</code>接收一个 reducers 对象,可以将不同的 reducer 同时连接到 store 上，每个 reducer 函数返回的 state 都相互独立。</p><pre><code class="js">import { combineReducers } from &quot;redux&quot;;const todos = (state = {}, action) =&gt; state;const counter = (state = {}, action) =&gt; state;const store = createStore(  combineReducers({    todos,    counter  }));console.log(store); // {tods: {...}, counter: {...}}</code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;理解-Redux&quot;&gt;&lt;a href=&quot;#理解-Redux&quot; class=&quot;headerlink&quot; title=&quot;理解 Redux&quot;&gt;&lt;/a&gt;理解 Redux&lt;/h2&gt;&lt;p&gt;Redux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。&lt;/p&gt;
+&lt;h2 id=&quot;Redux-特性&quot;&gt;&lt;a href=&quot;#Redux-特性&quot; class=&quot;headerlink&quot; title=&quot;Redux 特性&quot;&gt;&lt;/a&gt;Redux 特性&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Single Source of Truth&lt;br&gt;传统 MVC 架构，数据层 Model 与视图层 View 之间往往是多对多的关系，一个 view 上的状态可能受多个 model 控制，管理起来十分复杂。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190731</title>
+    <link href="https://blog.yeyanjie.com/2019/07/31/2019073102/"/>
+    <id>https://blog.yeyanjie.com/2019/07/31/2019073102/</id>
+    <published>2019-07-31T14:09:38.000Z</published>
+    <updated>2019-08-05T15:08:53.278Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h2><p>React 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。</p><h3 id="虚拟-DOM-是如何工作的？"><a href="#虚拟-DOM-是如何工作的？" class="headerlink" title="虚拟 DOM 是如何工作的？"></a>虚拟 DOM 是如何工作的？</h3><p>虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：<br>首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节点上更新或调整顺序，不发生移除和新增节点操作。如果节点类型发生变化，则会移除原有节点后新增节点。即使节点只是发生跨层移动，归属到另一个父节点下，仍然会移除原有节点，并在新的层级新增节点。</p><p>Diff 算法为了降低算法的复杂度，放弃了深度上的节点移动，是结合了 UI 更新的实际场景。通常，UI 变化以自身属性变化和同级顺序调整为主，几乎很少出现跨层移动的情况。所以放弃深度上的节点计算，能够降低算法复杂度<code>O(n)</code>，极大提高页面渲染性能。<a id="more"></a></p><h3 id="虚拟-DOM-的两个假设"><a href="#虚拟-DOM-的两个假设" class="headerlink" title="虚拟 DOM 的两个假设"></a>虚拟 DOM 的两个假设</h3><ol><li>组件的 DOM 结构是相对稳定的</li><li>类型相同的兄弟节点可以被唯一标识（key 属性的重要性）</li></ol><h2 id="组件设计模式"><a href="#组件设计模式" class="headerlink" title="组件设计模式"></a>组件设计模式</h2><p>不同的组件设计模式是为了可以实现更多场景的组件复用</p><h3 id="高阶组件（HOC）"><a href="#高阶组件（HOC）" class="headerlink" title="高阶组件（HOC）"></a>高阶组件（HOC）</h3><p>react 高阶组件本质上是一个函数，接收一个组件作为参数，返回新的组件</p><pre><code class="jsx">const EnhancedComponent = higherOrderComponent(WrappedComponent);</code></pre><h3 id="函数作为子组件"><a href="#函数作为子组件" class="headerlink" title="函数作为子组件"></a>函数作为子组件</h3><p>组件里设计好子组件的使用形式，由使用者定义函数返回不同内容</p><pre><code class="jsx">class MyComponent extends React.Component {  render() {    return &lt;div&gt;{this.props.children(&quot;Nate Wang&quot;)}&lt;/div&gt;;  }}</code></pre><pre><code class="jsx">&lt;MyComponent&gt;{name =&gt; &lt;div&gt;{name}&lt;/div&gt;}&lt;/MyComponent&gt;</code></pre><h2 id="Context-API-React-16-3-新增"><a href="#Context-API-React-16-3-新增" class="headerlink" title="Context API(React 16.3 新增)"></a>Context API(React 16.3 新增)</h2><p>Context API 主要由三个部分构成：context（存放状态数据）、provider（在父组件上提供共享状态）、consumer（在子组件上接收共享状态并使用）。</p><pre><code class="jsx">const ThemeContext = React.createContext(&quot;light&quot;);class App extends React.Component {  render() {    return (      &lt;ThemeContext.Provider value=&quot;dark&quot;&gt;        &lt;ThemedButton /&gt;      &lt;/ThemeContext.Provider&gt;    );  }}function ThemedButton(props) {  return (    &lt;ThemeContext.Consumer&gt;      {theme =&gt; &lt;Button {...props} theme={theme} /&gt;}    &lt;/ThemeContext.Consumer&gt;  );}</code></pre><h2 id="脚手架工具"><a href="#脚手架工具" class="headerlink" title="脚手架工具"></a>脚手架工具</h2><h3 id="为什么需要脚手架工具？"><a href="#为什么需要脚手架工具？" class="headerlink" title="为什么需要脚手架工具？"></a>为什么需要脚手架工具？</h3><p>如今的前端开发初始化项目需要配置全家桶及相关的编译、打包、代码格式检查等插件，拿 react 全家桶举例，就得安装配置 React、Redux、React-Router 等，再加上 Babel、webpack、ESLint 等通用辅助插件。这些插件生态又依赖更多的插件，一个个了解并配置都比较麻烦，而且基本上初始构建开发环境的配置又大致相同，所以出现了许多脚手架工具帮助我们一键配置这些开发环境。</p><h3 id="常见的脚手架工具"><a href="#常见的脚手架工具" class="headerlink" title="常见的脚手架工具"></a>常见的脚手架工具</h3><ul><li>create-react-app # 适合新手入门使用，默认封装好最基础的开发配置</li><li>Rekit # 在 CRA 基础上增加了 Redux、React Router、Less/Scss 等</li><li>CodeSandbox # 一个在线开发工具</li></ul><h3 id="为什么需要打包？"><a href="#为什么需要打包？" class="headerlink" title="为什么需要打包？"></a>为什么需要打包？</h3><p>以往，只有后台语言项目才会有打包的概念，但是随着前端技术生态的发展，前端项目也需要借助打包工具来生成项目文件。主要有以下 3 个目的：</p><ol><li>编译 ES6 语法特性，编译 JSX</li><li>整合资源，例如图片，Less/Sass</li><li>优化代码体积</li></ol><p>前端项目目前主要使用 Webpack 进行打包</p><h3 id="打包注意事项"><a href="#打包注意事项" class="headerlink" title="打包注意事项"></a>打包注意事项</h3><ol><li>设置 nodejs 环境为 production</li><li>禁用开发时专用代码，比如 logger</li><li>设置应用根路径</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Virtual-DOM&quot;&gt;&lt;a href=&quot;#Virtual-DOM&quot; class=&quot;headerlink&quot; title=&quot;Virtual DOM&quot;&gt;&lt;/a&gt;Virtual DOM&lt;/h2&gt;&lt;p&gt;React 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。&lt;/p&gt;
+&lt;h3 id=&quot;虚拟-DOM-是如何工作的？&quot;&gt;&lt;a href=&quot;#虚拟-DOM-是如何工作的？&quot; class=&quot;headerlink&quot; title=&quot;虚拟 DOM 是如何工作的？&quot;&gt;&lt;/a&gt;虚拟 DOM 是如何工作的？&lt;/h3&gt;&lt;p&gt;虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：&lt;br&gt;首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节点上更新或调整顺序，不发生移除和新增节点操作。如果节点类型发生变化，则会移除原有节点后新增节点。即使节点只是发生跨层移动，归属到另一个父节点下，仍然会移除原有节点，并在新的层级新增节点。&lt;/p&gt;
+&lt;p&gt;Diff 算法为了降低算法的复杂度，放弃了深度上的节点移动，是结合了 UI 更新的实际场景。通常，UI 变化以自身属性变化和同级顺序调整为主，几乎很少出现跨层移动的情况。所以放弃深度上的节点计算，能够降低算法复杂度&lt;code&gt;O(n)&lt;/code&gt;，极大提高页面渲染性能。
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190730</title>
+    <link href="https://blog.yeyanjie.com/2019/07/30/2019073002/"/>
+    <id>https://blog.yeyanjie.com/2019/07/30/2019073002/</id>
+    <published>2019-07-30T15:18:06.000Z</published>
+    <updated>2019-08-05T15:08:53.277Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h2><h3 id="理解-React-组件"><a href="#理解-React-组件" class="headerlink" title="理解 React 组件"></a>理解 React 组件</h3><ol><li>React 组件一般不提供方法，而是某种状态机</li><li>React 组件可以理解为一个纯函数</li><li>单向数据绑定</li></ol><p><img alt="react组件" data-src="https://img.yeyanjie.com/blog/201907/3.png"><a id="more"></a></p><h3 id="受控组件-vs-非受控组件"><a href="#受控组件-vs-非受控组件" class="headerlink" title="受控组件 vs 非受控组件"></a>受控组件 vs 非受控组件</h3><p>React 组件可以根据组件状态是受内部还是外部控制分为受控组件和非受控组件两种</p><p>以表单元素为例，表单元素状态由使用者维护是受控组件：</p><pre><code class="jsx">&lt;input  type=&quot;text&quot;  value={this.state.value}  onChange={e =&gt; this.setState({ value: e.target.value })}/&gt;</code></pre><p>如果表单元素状态由 DOM 自己维护，则属于非受控组件</p><pre><code class="jsx">&lt;input type=&quot;text&quot; ref={node =&gt; (this.input = node)} /&gt;</code></pre><h3 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h3><p>那么，什么时候创建组件呢？</p><ol><li>每个组件只做一件事</li><li>如果组件变得复杂，那么应该拆分成小组件</li></ol><h3 id="DRY-原则"><a href="#DRY-原则" class="headerlink" title="DRY 原则"></a>DRY 原则</h3><p>组件的数据状态管理尽可能遵守以下两点：</p><ol><li>能计算得到的状态就不要单独存储</li><li>组件尽量无状态，所需数据通过 props 获取</li></ol><h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><h3 id="JSX-的本质"><a href="#JSX-的本质" class="headerlink" title="JSX 的本质"></a>JSX 的本质</h3><p>JSX 不是一种模板语法，而是语法糖，它可以在代码中直接书写 html 标签动态创建组件，实质上底层使用了原生的<code>document.createElement</code> API</p><pre><code class="jsx">const name = &quot;Nate Wang&quot;;const element = &lt;h1&gt;Hello, {name}&lt;/h1&gt;;</code></pre><p>等同于下面</p><pre><code class="jsx">const name = &quot;Nate Wang&quot;;const element = React.createElement(&quot;h1&quot;, null, &quot;Hello, &quot;, name);</code></pre><h3 id="JSX-表达式"><a href="#JSX-表达式" class="headerlink" title="JSX 表达式"></a>JSX 表达式</h3><p>JSX 中使用表达式主要有以下四种情形：</p><ol><li>JSX 本身也是表达式<pre><code class="jsx">const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;</code></pre></li><li>在属性中使用表达式<pre><code class="jsx">&lt;MyComponent foo={1 + 2 + 3 + 4} /&gt;</code></pre></li><li>延展属性<pre><code class="jsx">const props: {firstName: &#39;Ben&#39;, lastName: &#39;Hector&#39;};const greeting = &lt;Greeting {...props}/&gt;;</code></pre></li><li>表达式作为子元素<pre><code class="jsx">const element = &lt;li&gt;{props.message}&lt;/li&gt;;</code></pre></li></ol><h3 id="JSX-的优点"><a href="#JSX-的优点" class="headerlink" title="JSX 的优点"></a>JSX 的优点</h3><ol><li>声明式创建界面的直观</li><li>代码动态创建界面的灵活</li><li>无需学习新的模板语言</li></ol><h3 id="自定义组件命名规范"><a href="#自定义组件命名规范" class="headerlink" title="自定义组件命名规范"></a>自定义组件命名规范</h3><p>自定义组件以大写字母开头，因为 React 认为小写的标签式原生 DOM 节点，大写字母开头的标签式自定义组件。另外 JSX 标记可以直接使用属性语法，例如<code>&lt;menu.Item /&gt;</code>，这里可以不受大写字母开头约定限制。</p><h2 id="React-组件生命周期"><a href="#React-组件生命周期" class="headerlink" title="React 组件生命周期"></a>React 组件生命周期</h2><p>React 组件生命周期根据场景的不同可以分为挂载时、更新时、卸载时三种情况，每种情况又可以分为三个阶段，分别为“Render 阶段”、“Pre-commit 阶段”、“Commit 阶段”。具体生命周期（react 16.4^）如下图所示</p><p><img alt="react组件生命周期" data-src="https://img.yeyanjie.com/blog/201907/4.png"></p><p>下面简单介绍几个主要的生命周期钩子</p><h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><ol><li>用于初始化内部状态，很少使用</li><li>唯一可以直接修改 state 的地方</li></ol><h3 id="getDerivedStateFromProps-react-16-3-新增"><a href="#getDerivedStateFromProps-react-16-3-新增" class="headerlink" title="getDerivedStateFromProps (react 16.3 新增)"></a>getDerivedStateFromProps (react 16.3 新增)</h3><ol><li>当 state 需要从 props 初始化时使用</li><li>尽量不要使用：维护两者状态一致性会增加复杂度</li><li>每次 render 都会调用</li><li>典型场景：表单控件获取默认值</li></ol><h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h3><ol><li>UI 渲染完成后调用</li><li>只执行一次</li><li>典型场景：获取外部资源（ajax 请求接口数据）</li></ol><h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><ol><li>组件移除时被调用</li><li>典型场景：资源释放</li></ol><h3 id="getSnapshotBeforeUpdate-react-16-3-新增"><a href="#getSnapshotBeforeUpdate-react-16-3-新增" class="headerlink" title="getSnapshotBeforeUpdate (react 16.3 新增)"></a>getSnapshotBeforeUpdate (react 16.3 新增)</h3><ol><li>在页面 render 之前调用，state 已更新</li><li>典型场景：获取 render 之前的 DOM 状态</li></ol><h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h3><ol><li>每次 UI 更新时被调用</li><li>典型场景：页面需要根据 props 变化重新获取数据</li></ol><h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h3><ol><li>决定 Virtual DOM 是否要重绘</li><li>一般可以由 PureComponent 自动实现</li><li>典型场景：性能优化</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;React-组件&quot;&gt;&lt;a href=&quot;#React-组件&quot; class=&quot;headerlink&quot; title=&quot;React 组件&quot;&gt;&lt;/a&gt;React 组件&lt;/h2&gt;&lt;h3 id=&quot;理解-React-组件&quot;&gt;&lt;a href=&quot;#理解-React-组件&quot; class=&quot;headerlink&quot; title=&quot;理解 React 组件&quot;&gt;&lt;/a&gt;理解 React 组件&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;React 组件一般不提供方法，而是某种状态机&lt;/li&gt;
+&lt;li&gt;React 组件可以理解为一个纯函数&lt;/li&gt;
+&lt;li&gt;单向数据绑定&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt=&quot;react组件&quot; data-src=&quot;https://img.yeyanjie.com/blog/201907/3.png&quot;&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190729</title>
+    <link href="https://blog.yeyanjie.com/2019/07/29/2019072901/"/>
+    <id>https://blog.yeyanjie.com/2019/07/29/2019072901/</id>
+    <published>2019-07-29T14:00:00.000Z</published>
+    <updated>2019-08-05T15:08:53.276Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="React-出现的历史背景及特性介绍"><a href="#React-出现的历史背景及特性介绍" class="headerlink" title="React 出现的历史背景及特性介绍"></a>React 出现的历史背景及特性介绍</h2><h3 id="历史背景"><a href="#历史背景" class="headerlink" title="历史背景"></a>历史背景</h3><p>facebook 的工程师在上线顶部状态栏后发现了一个 bug，点击消息通知后，图标上的悬浮的消息数量并没有更新或者消失。在这个“简单”的问题上，这个 bug 反复出现。</p><p>后来他们总结了问题出现的根源，主要有一下两点：</p><ol><li>传统 UI 操作关注太多细节</li><li>应用程序状态分散在各处，难以追踪和维护<a id="more"></a></li></ol><h3 id="特性介绍"><a href="#特性介绍" class="headerlink" title="特性介绍"></a>特性介绍</h3><blockquote><p>1 个新概念<br>4 个必须 API<br>单向数据流<br>完善的错误提示</p></blockquote><p>对于传统 DOM API 关注太多细节的问题，React 提出始终整体刷新页面，无需关注细节。</p><p>传统 MVC 数据模型难以扩展和维护，下图可以看到 Model 与 View 之间的关系错综复杂，数据双向绑定，遇到问题之后很难迅速判断到底是 Model 还是 View 上产生的。</p><p><img alt="传统 MVC 难以扩展和维护" data-src="https://img.yeyanjie.com/blog/201907/1.png"></p><p>那么 React 是如何解决数据模型的问题呢？React 提出了一个 Flux 架构，核心思想是单向数据流，React Views（UI）上发生用户操作时会产生一个 Action，这个 Action 会通过 Dispatcher 派发出去，由 Store 进行处理，而 React Views 是绑定在 Store 上的，所以当 Store 有任何变化时，React Views 会更新。Flux 架构是建立在 React 始终以状态为基础来展示 UI，所以不需要关心细节，就能把 React View connect 到 Store 上</p><p><img alt="Flex 架构" data-src="https://img.yeyanjie.com/blog/201907/2.png"></p><p>Flex 架构的衍生项目</p><ul><li>Redux</li><li>MobX</li></ul><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol><li>传统 Web UI 开发的问题</li><li>React：始终整体刷新页面</li><li>Flux：单向数据流</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;React-出现的历史背景及特性介绍&quot;&gt;&lt;a href=&quot;#React-出现的历史背景及特性介绍&quot; class=&quot;headerlink&quot; title=&quot;React 出现的历史背景及特性介绍&quot;&gt;&lt;/a&gt;React 出现的历史背景及特性介绍&lt;/h2&gt;&lt;h3 id=&quot;历史背景&quot;&gt;&lt;a href=&quot;#历史背景&quot; class=&quot;headerlink&quot; title=&quot;历史背景&quot;&gt;&lt;/a&gt;历史背景&lt;/h3&gt;&lt;p&gt;facebook 的工程师在上线顶部状态栏后发现了一个 bug，点击消息通知后，图标上的悬浮的消息数量并没有更新或者消失。在这个“简单”的问题上，这个 bug 反复出现。&lt;/p&gt;
+&lt;p&gt;后来他们总结了问题出现的根源，主要有一下两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;传统 UI 操作关注太多细节&lt;/li&gt;
+&lt;li&gt;应用程序状态分散在各处，难以追踪和维护
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rsync 同步文件到服务器</title>
+    <link href="https://blog.yeyanjie.com/2019/05/24/2019073001/"/>
+    <id>https://blog.yeyanjie.com/2019/05/24/2019073001/</id>
+    <published>2019-05-24T00:44:00.000Z</published>
+    <updated>2019-08-05T15:08:53.277Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="rsync-简介"><a href="#rsync-简介" class="headerlink" title="rsync 简介"></a>rsync 简介</h3><p>rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。</p><p>它的特性如下：</p><ul><li>可以镜像保存整个目录树和文件系统。</li><li>可以很容易做到保持原来文件的权限、时间、软硬链接等等。</li><li>无须特殊权限即可安装。</li><li>快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。rsync 在传输数据的过程中可以实行压缩及解压缩操作，因此以使用更少的带宽。</li><li>安全：可以使用 scp、ssh 等方式来传输文件，当然也可以通过直接 socket 连接。</li><li>支持匿名传输，以方便进行网站镜像。<a id="more"></a></li></ul><h3 id="服务器端部署"><a href="#服务器端部署" class="headerlink" title="服务器端部署"></a>服务器端部署</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre><code class="bash">$ yum install -y rsync  // CentOS</code></pre><h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><pre><code class="bash">$ vi /etc/rsyncd.conf// rsyncd.conf#全局配置uid = rootgid = rootincoming chmod = Du=rwx,Dog=rx,Fu=rwx,Fgo=rxexclude = node_modules/ .git/# 模块配置[www]host allow = *path = /home/wwwrootcomment = wwwauth users = publishsecrets file = /etc/rsyncd.passwdread only = no</code></pre><h4 id="创建密码文件"><a href="#创建密码文件" class="headerlink" title="创建密码文件"></a>创建密码文件</h4><pre><code class="bash">$ vi /etc/rsyncd.passwd备份用户:备份密码   // 如publish:abc123</code></pre><h4 id="指定目录并赋予权限"><a href="#指定目录并赋予权限" class="headerlink" title="指定目录并赋予权限"></a>指定目录并赋予权限</h4><pre><code class="bash">chmod 600 /etc/rsyncd.passwdchown -R publish:publish 备份目录</code></pre><h4 id="启动-停止服务"><a href="#启动-停止服务" class="headerlink" title="启动/停止服务"></a>启动/停止服务</h4><pre><code class="bash">查看服务器进程$ ps aux | grep rsync杀死进程$ pkill rsync启动服务$ rsync --daemon --config=/etc/rsyncd.conf</code></pre><h3 id="客户端-windows"><a href="#客户端-windows" class="headerlink" title="客户端(windows)"></a>客户端(windows)</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>cwRsync (windows 版)</p><h4 id="配置文件结构"><a href="#配置文件结构" class="headerlink" title="配置文件结构"></a>配置文件结构</h4><p>– publish<br>– – pubToProd.sh （备份脚本）<br>– – PwdPubToProd.pwd （密码文件）</p><h4 id="配置文件实例"><a href="#配置文件实例" class="headerlink" title="配置文件实例"></a>配置文件实例</h4><pre><code class="bash">// pubToProd.shecho &#39;*************发布正式环境******************&#39;echo &#39;*                                         *&#39;echo &#39;*         地址: xxx.xxx.xxx.xxx           *&#39;echo &#39;*         密码: 隐藏                       *&#39;echo &#39;*                                         *&#39;echo &#39;*******************************************&#39;echo &#39;                                           &#39;echo &#39;*              starting...                *&#39;echo &#39;                                           &#39;echo -n &quot; 确认发布到正式环境!!!!!!请输入(yes) -&gt; &quot;read intif [[ &quot;$int&quot; == &quot;yes&quot; || &quot;$int&quot; == &quot;y&quot; ]]; thenecho &#39;                                           &#39;echo &#39;                                           &#39;rsync -aP --progress  --password-file=&#39;客户端密码文件相对路径&#39; &#39;备份文件夹相对路径&#39; &#39;备份用户&#39;@&#39;IP地址&#39;::&#39;模块名&#39;/&#39;模块路径后相对路径&#39;echo &#39;                                           &#39;echo &#39;                                           &#39;echo &#39;******************END**********************&#39;echo &#39;                                           &#39;elseecho &#39;                                           &#39;echo &#39;                                           &#39;echo &#39;*******************************************&#39;echo &#39;*                                         *&#39;echo -e &#39;*     \033[31m    确认失败,请重新发布！ \033[0m          *&#39;echo &#39;*                                         *&#39;echo &#39;*******************************************&#39;fi// PwdPubToProd.pwd备份密码</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;rsync-简介&quot;&gt;&lt;a href=&quot;#rsync-简介&quot; class=&quot;headerlink&quot; title=&quot;rsync 简介&quot;&gt;&lt;/a&gt;rsync 简介&lt;/h3&gt;&lt;p&gt;rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。&lt;/p&gt;
+&lt;p&gt;它的特性如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以镜像保存整个目录树和文件系统。&lt;/li&gt;
+&lt;li&gt;可以很容易做到保持原来文件的权限、时间、软硬链接等等。&lt;/li&gt;
+&lt;li&gt;无须特殊权限即可安装。&lt;/li&gt;
+&lt;li&gt;快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。rsync 在传输数据的过程中可以实行压缩及解压缩操作，因此以使用更少的带宽。&lt;/li&gt;
+&lt;li&gt;安全：可以使用 scp、ssh 等方式来传输文件，当然也可以通过直接 socket 连接。&lt;/li&gt;
+&lt;li&gt;支持匿名传输，以方便进行网站镜像。
+    
+    </summary>
+    
+      <category term="教程" scheme="https://blog.yeyanjie.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="镜像备份" scheme="https://blog.yeyanjie.com/tags/%E9%95%9C%E5%83%8F%E5%A4%87%E4%BB%BD/"/>
+    
+      <category term="服务器" scheme="https://blog.yeyanjie.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node版本管理工具——nvm安装配置</title>
+    <link href="https://blog.yeyanjie.com/2018/09/22/2019073101/"/>
+    <id>https://blog.yeyanjie.com/2018/09/22/2019073101/</id>
+    <published>2018-09-22T13:43:08.000Z</published>
+    <updated>2019-08-05T15:08:53.277Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现代前端框架的插件引入和打包构建都是基于 node 环境，对于前端童鞋来说，安装配置 node 环境是必须要掌握的基本技能。</p><p>一般来讲，直接从 node 官网上下载开发平台相关的安装包或二进制文件进行安装，就能满足正常的开发需求。但是随着 node 版本的不断完善和快速迭代，许多主流的前端框架会在较大的迭代版本中支持这些新出的特性，所以一些框架或插件会对项目运行时的最低 node 版本存在要求，如果低于该版本，则会编译报错。某些情况下，某些老项目插件在较高 node 版本时，也可能报错。因此，直接安装单一 node 版本的弊端就出现了，如果两个项目在高版本 node 和低版本 node 相互不兼容的情况下需要同时进行开发调试，不能灵活切换 node 版本会严重影响开发效率。</p><p>接下来就要介绍本期的主角—— nvm，它支持 Windows/MacOS/Linux 等多种开发平台，<a id="more"></a>安装方式也十分简（sha）单（gua），本文主要讲下 windows 环境下的安装和配置</p><h2 id="安装-nvm"><a href="#安装-nvm" class="headerlink" title="安装 nvm"></a>安装 nvm</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>安装 nvm-windows <a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">下载地址</a></p><h2 id="nvm-设置淘宝镜像源"><a href="#nvm-设置淘宝镜像源" class="headerlink" title="nvm 设置淘宝镜像源"></a>nvm 设置淘宝镜像源</h2><p>安装完成后，在 nvm 安装目录中找到 settings.txt 文件，在后面加上：</p><pre><code class="bash">node_mirror: http://npm.taobao.org/mirrors/node/  # 设置node镜像下载源地址npm_mirror: https://npm.taobao.org/mirrors/npm/  # 设置npm镜像下载源地址</code></pre><p>提示：如果不设置淘宝镜像源，可能由于网络错误导致 node 或 npm 下载缓慢甚至失败！</p><h2 id="使用-nvm-安装-node"><a href="#使用-nvm-安装-node" class="headerlink" title="使用 nvm 安装 node"></a>使用 nvm 安装 node</h2><pre><code class="bash">$ nvm install &#39;node版本号&#39;  # 安装指定node版本$ nvm use &#39;node版本号&#39;  # 切换当前node版本</code></pre><h2 id="设置-npm-全局安装和缓存目录"><a href="#设置-npm-全局安装和缓存目录" class="headerlink" title="设置 npm 全局安装和缓存目录"></a>设置 npm 全局安装和缓存目录</h2><pre><code class="bash">$ npm config set prefix &quot;E:\node\npm-global&quot;  # 设置全局安装目录$ npm config set cache &quot;E:\node\npm-cache&quot;  # 设置全局缓存目录</code></pre><h2 id="为-npm-全局安装配置环境变量"><a href="#为-npm-全局安装配置环境变量" class="headerlink" title="为 npm 全局安装配置环境变量"></a>为 npm 全局安装配置环境变量</h2><p>如果希望在 node 版本切换后，之前全局安装的 npm 插件依然能够正常使用，需要在系统环境变量里增加 NPM_HOME 变量，变量值是 npm 全局安装目录，需要放在其他 nvm 自动配置的变量前面</p><h2 id="npm-设置淘宝镜像源"><a href="#npm-设置淘宝镜像源" class="headerlink" title="npm 设置淘宝镜像源"></a>npm 设置淘宝镜像源</h2><pre><code class="bash"># npm$ npm config set registry https://registry.npm.taobao.org --global  # 插件库镜像源$ npm config set disturl https://npm.taobao.org/dist --global   # node源代码镜像源# 安装cnpm$ npm install -g cnpm --registry=https://registry.npm.taobao.org# 一些难下载的包$ npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ # node-sass插件$ npm config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/ # phantomjs插件</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;现代前端框架的插件引入和打包构建都是基于 node 环境，对于前端童鞋来说，安装配置 node 环境是必须要掌握的基本技能。&lt;/p&gt;
+&lt;p&gt;一般来讲，直接从 node 官网上下载开发平台相关的安装包或二进制文件进行安装，就能满足正常的开发需求。但是随着 node 版本的不断完善和快速迭代，许多主流的前端框架会在较大的迭代版本中支持这些新出的特性，所以一些框架或插件会对项目运行时的最低 node 版本存在要求，如果低于该版本，则会编译报错。某些情况下，某些老项目插件在较高 node 版本时，也可能报错。因此，直接安装单一 node 版本的弊端就出现了，如果两个项目在高版本 node 和低版本 node 相互不兼容的情况下需要同时进行开发调试，不能灵活切换 node 版本会严重影响开发效率。&lt;/p&gt;
+&lt;p&gt;接下来就要介绍本期的主角—— nvm，它支持 Windows/MacOS/Linux 等多种开发平台，
+    
+    </summary>
+    
+      <category term="教程" scheme="https://blog.yeyanjie.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="node" scheme="https://blog.yeyanjie.com/tags/node/"/>
+    
+  </entry>
+  
+</feed>
