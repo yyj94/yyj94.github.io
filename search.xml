@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[《React实战进阶》 学习笔记 20190806]]></title>
+    <url>%2F2019%2F08%2F06%2F2019080601%2F</url>
+    <content type="text"><![CDATA[使用Jest， Enzyme等工具进行单元测试React让前端单元测试变得容易 React应用很少需要访问浏览器API 虚拟DOM可以在NodeJS环境运行和测试 Redux隔离了状态管理，纯数据层单元测试 单元测试涉及的工具 Jest：Facebook开源的JS单元测试框架 const add = require(&#39;./add&#39;); describe(&#39;add&#39;, () =&gt; { it(&#39;should add two numbers&#39;, () =&gt; { expect(add(1, 2).toBe(3)); }) }) JS DOM：浏览器环境的NodeJS模拟 const JSDOM = require(&#39;jsdom&#39;).JSDOM; global.window = new JSDOM(&#39;&lt;!DOCTYPE html&gt;&lt;div id=&quot;react-root&quot;&gt;&lt;/div&gt;&#39;).window; global.document = window.document; global.navigator = window.navigator; global.HTMLElement = window.HTMLElement; Enzyme：React组件渲染和测试 import React from &#39;react&#39;; import { shallow } from &#39;enzyme&#39;; import { DefaultPage } from &#39;src/features/home/DefaultPage&#39;; describe(&#39;home/DefaultPage&#39;, () =&gt; { it(&#39;renders node with correct class name&#39;, () =&gt; { const pageProps = { home: {}, actions: {}, }; const renderedComponent = shallow( &lt;DefaultPage {...pageProps} /&gt; ); expect( renderedComponent.find(&#39;.home-default-page&#39;).getElement() ).to.exist; }); }); nock：模拟HTTP请求 it(&#39;handles fetchRedditReactjsList failure&#39;, () =&gt; { nock(&#39;http://www.reddit.com/&#39;) .get(&#39;/r/reactjs.json&#39;) .reply(500, null); const store = mockStore({ redditReactjsList: []}); return store.dispathc(fetchRedditReactjsList()) .catch(() =&gt; { const actions = store.getActions(); expect(actions[0]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_BEGIN); expect(actions[1]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_FAILURE): expect(actions[1]).to.have.nested.property(&#39;data.error&#39;).that.exist; }); }); sinon：函数模拟和调用跟踪 it(&#39;counter actions are called when buttons clicked&#39;, () =&gt; { const pageProps = { home: {}, actions: { counterPlusOne: sinon.spy(), counterMinusOne: sinon.spy(), resetCounter: sinon.spy(), fetchRedditReactjsList: sinon.spy(), }, }; const renderedComponent = shallow( &lt;DefaultPage {...pageProps} /&gt; ); renderedComponent.find(&#39;.btn-plus-one&#39;).simulate(&#39;click&#39;); renderedComponent.find(&#39;.btn-minus-one&#39;).simulate(&#39;click&#39;); renderedComponent.find(&#39;.btn-reset-counter&#39;).simulate(&#39;click&#39;); renderedComponent.find(&#39;.btn-fetch-reddit&#39;).simulate(&#39;click&#39;); expect(pageProps.actions.counterPlusOne).to.have.property(&#39;callCount&#39;, 1); expect(pageProps.actions.counterMinusOne).to.have.property(&#39;callCount&#39;, 1); expect(pageProps.actions.resetCounter).to.have.property(&#39;callCount&#39;, 1); expect(pageProps.actions.fetchRedditReactjsList).to.have.property(&#39;callCount&#39;, 1); }) istanbul：单元测试覆盖率 常用开发调试工具 ESLint 使用.eslintrc进行规则的配置 使用airbnb的JavaScript代码风格 Pretter 代码过格式化的神器 保证更容易写出风格一致的代码 React DevTool Redux DevTool]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《React实战进阶》 学习笔记 20190805]]></title>
     <url>%2F2019%2F08%2F05%2F2019080501%2F</url>
     <content type="text"><![CDATA[UI组件库对比和介绍 Ant.DesignAnt.Design是蚂蚁金服开源的一个React UI组件库，主要适合研发企业级中后台产品。 Material UIMaterial UI是Google开源的React UI组件库，整体风格可能更加活泼，色彩更加丰富，适合面向消费者的产品。 Semantic UISemantic UI是一个老牌的UI组件库，其历史可以追溯到jQuery时代。选择 UI 库的考虑因素 组件库是否齐全antd拥有更齐全的组件库，如常用的Tree组件以及表格组件中的固定行、列等。 样式风格是否符合业务需求antd设计风格简约直观，适合中后台系统，Matereial UI颜色更加大胆，可以用作面向消费者的产品 API设计是否便捷和灵活组件API使用方式是否高效，antd专注于数据填充，免去其他两个框架对html细节的要求 技术支持是否完善issue维护是否能够迅速响应，文档是否完善 开发是否活跃项目团队更新和修复issue是否频繁且快速 使用Next.js 创建React同构应用什么是同构应用？同构应用是指浏览器初次发送请求后，由服务器渲染好页面返回到浏览器，浏览器后续的路由控制和UI渲染继续由前端控制的应用 创建页面 页面就是pages目录下的一个组件 static目录映射静态文件 page具有特殊静态方法getInitialProps 在页面中使用其他React组件 页面也是标准的node模块，可使用其它React组件 页面会针对性打包，仅包含其引入的组件 使用Link实现同构路由 使用next/link定义链接 点击链接时页面不会刷新 使用prefetch预加载目标资源 使用replace属性替换URL import Link from &#39;next/link&#39; export default () =&gt; &lt;div&gt; Click{&#39; &#39;} &lt;Link href=&quot;/about&quot;&gt; &lt;a&gt;here&lt;/a&gt; &lt;/Link&gt;{&#39; &#39;} to read more &lt;/div&gt; 动态加载页面next支持实现页面的动态加载（懒加载），动态加载的页面会在打包文件的main.js外额外增加一个组件代码包。 import dynamic from &#39;next/dynamic&#39; const DynamicComponentWithCustomLoading = dynamic( import(&#39;../componets/hello2&#39;), { loading: () =&gt; &lt;p&gt;...&lt;/p&gt; } ) export default () =&gt; &lt;div&gt; &lt;Header /&gt; &lt;DynamicComponentWithCustomLoading /&gt; &lt;p&gt;HOME PAGE is here!&lt;/p&gt; &lt;/div&gt;]]></content>
@@ -92,9 +104,9 @@
         <category>教程</category>
       </categories>
       <tags>
+        <tag>开发工具</tag>
         <tag>镜像备份</tag>
         <tag>服务器</tag>
-        <tag>开发工具</tag>
       </tags>
   </entry>
   <entry>
@@ -105,8 +117,8 @@
         <category>教程</category>
       </categories>
       <tags>
-        <tag>开发工具</tag>
         <tag>node</tag>
+        <tag>开发工具</tag>
       </tags>
   </entry>
 </search>

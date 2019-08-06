@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.yeyanjie.com/"/>
-  <updated>2019-08-05T15:50:41.012Z</updated>
+  <updated>2019-08-06T14:54:23.441Z</updated>
   <id>https://blog.yeyanjie.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190806</title>
+    <link href="https://blog.yeyanjie.com/2019/08/06/2019080601/"/>
+    <id>https://blog.yeyanjie.com/2019/08/06/2019080601/</id>
+    <published>2019-08-06T14:20:10.000Z</published>
+    <updated>2019-08-06T14:54:23.441Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="使用Jest，-Enzyme等工具进行单元测试"><a href="#使用Jest，-Enzyme等工具进行单元测试" class="headerlink" title="使用Jest， Enzyme等工具进行单元测试"></a>使用Jest， Enzyme等工具进行单元测试</h2><h3 id="React让前端单元测试变得容易"><a href="#React让前端单元测试变得容易" class="headerlink" title="React让前端单元测试变得容易"></a>React让前端单元测试变得容易</h3><ol><li>React应用很少需要访问浏览器API</li><li>虚拟DOM可以在NodeJS环境运行和测试</li><li>Redux隔离了状态管理，纯数据层单元测试</li></ol><h3 id="单元测试涉及的工具"><a href="#单元测试涉及的工具" class="headerlink" title="单元测试涉及的工具"></a>单元测试涉及的工具</h3><a id="more"></a><ol><li><p>Jest：Facebook开源的JS单元测试框架</p><pre><code class="js">const add = require(&#39;./add&#39;);describe(&#39;add&#39;, () =&gt; {  it(&#39;should add two numbers&#39;, () =&gt; {    expect(add(1, 2).toBe(3));  })})</code></pre></li><li><p>JS DOM：浏览器环境的NodeJS模拟</p><pre><code class="js">const JSDOM = require(&#39;jsdom&#39;).JSDOM;global.window = new JSDOM(&#39;&lt;!DOCTYPE html&gt;&lt;div id=&quot;react-root&quot;&gt;&lt;/div&gt;&#39;).window;global.document = window.document;global.navigator = window.navigator;global.HTMLElement = window.HTMLElement;</code></pre></li><li><p>Enzyme：React组件渲染和测试</p><pre><code class="jsx">import React from &#39;react&#39;;import { shallow } from &#39;enzyme&#39;;import { DefaultPage } from &#39;src/features/home/DefaultPage&#39;;describe(&#39;home/DefaultPage&#39;, () =&gt; {  it(&#39;renders node with correct class name&#39;, () =&gt; {    const pageProps = {      home: {},      actions: {},    };    const renderedComponent = shallow(      &lt;DefaultPage {...pageProps} /&gt;    );    expect(      renderedComponent.find(&#39;.home-default-page&#39;).getElement()    ).to.exist;  });});</code></pre></li><li><p>nock：模拟HTTP请求</p><pre><code class="js">it(&#39;handles fetchRedditReactjsList failure&#39;, () =&gt; { nock(&#39;http://www.reddit.com/&#39;)   .get(&#39;/r/reactjs.json&#39;)   .reply(500, null); const store = mockStore({ redditReactjsList: []}); return store.dispathc(fetchRedditReactjsList())   .catch(() =&gt; {     const actions = store.getActions();     expect(actions[0]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_BEGIN);     expect(actions[1]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_FAILURE):     expect(actions[1]).to.have.nested.property(&#39;data.error&#39;).that.exist;   });});</code></pre></li><li><p>sinon：函数模拟和调用跟踪</p><pre><code class="jsx">it(&#39;counter actions are called when buttons clicked&#39;, () =&gt; {  const pageProps = {    home: {},    actions: {      counterPlusOne: sinon.spy(),      counterMinusOne: sinon.spy(),      resetCounter: sinon.spy(),      fetchRedditReactjsList: sinon.spy(),    },  };  const renderedComponent = shallow(    &lt;DefaultPage {...pageProps} /&gt;  );  renderedComponent.find(&#39;.btn-plus-one&#39;).simulate(&#39;click&#39;);  renderedComponent.find(&#39;.btn-minus-one&#39;).simulate(&#39;click&#39;);  renderedComponent.find(&#39;.btn-reset-counter&#39;).simulate(&#39;click&#39;);  renderedComponent.find(&#39;.btn-fetch-reddit&#39;).simulate(&#39;click&#39;);  expect(pageProps.actions.counterPlusOne).to.have.property(&#39;callCount&#39;, 1);  expect(pageProps.actions.counterMinusOne).to.have.property(&#39;callCount&#39;, 1);  expect(pageProps.actions.resetCounter).to.have.property(&#39;callCount&#39;, 1);  expect(pageProps.actions.fetchRedditReactjsList).to.have.property(&#39;callCount&#39;, 1);})</code></pre></li><li><p>istanbul：单元测试覆盖率</p></li></ol><h2 id="常用开发调试工具"><a href="#常用开发调试工具" class="headerlink" title="常用开发调试工具"></a>常用开发调试工具</h2><ul><li>ESLint<ol><li>使用.eslintrc进行规则的配置</li><li>使用airbnb的JavaScript代码风格</li></ol></li><li>Pretter<ol><li>代码过格式化的神器</li><li>保证更容易写出风格一致的代码</li></ol></li><li>React DevTool</li><li>Redux DevTool</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;使用Jest，-Enzyme等工具进行单元测试&quot;&gt;&lt;a href=&quot;#使用Jest，-Enzyme等工具进行单元测试&quot; class=&quot;headerlink&quot; title=&quot;使用Jest， Enzyme等工具进行单元测试&quot;&gt;&lt;/a&gt;使用Jest， Enzyme等工具进行单元测试&lt;/h2&gt;&lt;h3 id=&quot;React让前端单元测试变得容易&quot;&gt;&lt;a href=&quot;#React让前端单元测试变得容易&quot; class=&quot;headerlink&quot; title=&quot;React让前端单元测试变得容易&quot;&gt;&lt;/a&gt;React让前端单元测试变得容易&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;React应用很少需要访问浏览器API&lt;/li&gt;
+&lt;li&gt;虚拟DOM可以在NodeJS环境运行和测试&lt;/li&gt;
+&lt;li&gt;Redux隔离了状态管理，纯数据层单元测试&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;单元测试涉及的工具&quot;&gt;&lt;a href=&quot;#单元测试涉及的工具&quot; class=&quot;headerlink&quot; title=&quot;单元测试涉及的工具&quot;&gt;&lt;/a&gt;单元测试涉及的工具&lt;/h3&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
   
   <entry>
     <title>《React实战进阶》 学习笔记 20190805</title>
@@ -230,11 +259,11 @@
       <category term="教程" scheme="https://blog.yeyanjie.com/categories/%E6%95%99%E7%A8%8B/"/>
     
     
+      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
       <category term="镜像备份" scheme="https://blog.yeyanjie.com/tags/%E9%95%9C%E5%83%8F%E5%A4%87%E4%BB%BD/"/>
     
       <category term="服务器" scheme="https://blog.yeyanjie.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -258,9 +287,9 @@
       <category term="教程" scheme="https://blog.yeyanjie.com/categories/%E6%95%99%E7%A8%8B/"/>
     
     
-      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="node" scheme="https://blog.yeyanjie.com/tags/node/"/>
+    
+      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
