@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[《React实战进阶》 学习笔记 20190807]]></title>
+    <url>%2F2019%2F08%2F07%2F2019080701%2F</url>
+    <content type="text"><![CDATA[前端项目的理想架构前端项目的理想架构主要包括五个维度：易于开发、易于维护、易于构建、易于测试、易于扩展，这些维度之间可能相互冲突，比如易于开发便意味着不易于扩展，因此理想的状态是在这五个要素之间找到平衡点。 易于开发 开发工具是否完善 生态圈是否繁荣 社区是否活跃 易于扩展 增加新功能是否容易 新功能是否会显著增加系统复杂度 易于维护 代码是否容易理解 文档是否健全 易于测试 功能的分层是否清晰 副作用少 尽量使用纯函数 易于构建 使用通用技术和架构 构建工具的选择]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《React实战进阶》 学习笔记 20190806]]></title>
     <url>%2F2019%2F08%2F06%2F2019080601%2F</url>
     <content type="text"><![CDATA[使用Jest， Enzyme等工具进行单元测试React让前端单元测试变得容易 React应用很少需要访问浏览器API 虚拟DOM可以在NodeJS环境运行和测试 Redux隔离了状态管理，纯数据层单元测试 单元测试涉及的工具 Jest：Facebook开源的JS单元测试框架 const add = require(&#39;./add&#39;); describe(&#39;add&#39;, () =&gt; { it(&#39;should add two numbers&#39;, () =&gt; { expect(add(1, 2).toBe(3)); }) }) JS DOM：浏览器环境的NodeJS模拟 const JSDOM = require(&#39;jsdom&#39;).JSDOM; global.window = new JSDOM(&#39;&lt;!DOCTYPE html&gt;&lt;div id=&quot;react-root&quot;&gt;&lt;/div&gt;&#39;).window; global.document = window.document; global.navigator = window.navigator; global.HTMLElement = window.HTMLElement; Enzyme：React组件渲染和测试 import React from &#39;react&#39;; import { shallow } from &#39;enzyme&#39;; import { DefaultPage } from &#39;src/features/home/DefaultPage&#39;; describe(&#39;home/DefaultPage&#39;, () =&gt; { it(&#39;renders node with correct class name&#39;, () =&gt; { const pageProps = { home: {}, actions: {}, }; const renderedComponent = shallow( &lt;DefaultPage {...pageProps} /&gt; ); expect( renderedComponent.find(&#39;.home-default-page&#39;).getElement() ).to.exist; }); }); nock：模拟HTTP请求 it(&#39;handles fetchRedditReactjsList failure&#39;, () =&gt; { nock(&#39;http://www.reddit.com/&#39;) .get(&#39;/r/reactjs.json&#39;) .reply(500, null); const store = mockStore({ redditReactjsList: []}); return store.dispathc(fetchRedditReactjsList()) .catch(() =&gt; { const actions = store.getActions(); expect(actions[0]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_BEGIN); expect(actions[1]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_FAILURE): expect(actions[1]).to.have.nested.property(&#39;data.error&#39;).that.exist; }); }); sinon：函数模拟和调用跟踪 it(&#39;counter actions are called when buttons clicked&#39;, () =&gt; { const pageProps = { home: {}, actions: { counterPlusOne: sinon.spy(), counterMinusOne: sinon.spy(), resetCounter: sinon.spy(), fetchRedditReactjsList: sinon.spy(), }, }; const renderedComponent = shallow( &lt;DefaultPage {...pageProps} /&gt; ); renderedComponent.find(&#39;.btn-plus-one&#39;).simulate(&#39;click&#39;); renderedComponent.find(&#39;.btn-minus-one&#39;).simulate(&#39;click&#39;); renderedComponent.find(&#39;.btn-reset-counter&#39;).simulate(&#39;click&#39;); renderedComponent.find(&#39;.btn-fetch-reddit&#39;).simulate(&#39;click&#39;); expect(pageProps.actions.counterPlusOne).to.have.property(&#39;callCount&#39;, 1); expect(pageProps.actions.counterMinusOne).to.have.property(&#39;callCount&#39;, 1); expect(pageProps.actions.resetCounter).to.have.property(&#39;callCount&#39;, 1); expect(pageProps.actions.fetchRedditReactjsList).to.have.property(&#39;callCount&#39;, 1); }) istanbul：单元测试覆盖率 常用开发调试工具 ESLint 使用.eslintrc进行规则的配置 使用airbnb的JavaScript代码风格 Pretter 代码过格式化的神器 保证更容易写出风格一致的代码 React DevTool Redux DevTool]]></content>

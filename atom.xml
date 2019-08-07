@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.yeyanjie.com/"/>
-  <updated>2019-08-06T14:54:23.441Z</updated>
+  <updated>2019-08-07T14:28:02.401Z</updated>
   <id>https://blog.yeyanjie.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190807</title>
+    <link href="https://blog.yeyanjie.com/2019/08/07/2019080701/"/>
+    <id>https://blog.yeyanjie.com/2019/08/07/2019080701/</id>
+    <published>2019-08-07T14:10:29.000Z</published>
+    <updated>2019-08-07T14:28:02.401Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前端项目的理想架构"><a href="#前端项目的理想架构" class="headerlink" title="前端项目的理想架构"></a>前端项目的理想架构</h2><p>前端项目的理想架构主要包括五个维度：易于开发、易于维护、易于构建、易于测试、易于扩展，这些维度之间可能相互冲突，比如易于开发便意味着不易于扩展，因此理想的状态是在这五个要素之间找到平衡点。</p><p><img alt="前端项目理想架构" data-src="https://img.yeyanjie.com/blog/201908/8.png"><a id="more"></a></p><h3 id="易于开发"><a href="#易于开发" class="headerlink" title="易于开发"></a>易于开发</h3><ol><li>开发工具是否完善</li><li>生态圈是否繁荣</li><li>社区是否活跃</li></ol><h3 id="易于扩展"><a href="#易于扩展" class="headerlink" title="易于扩展"></a>易于扩展</h3><ol><li>增加新功能是否容易</li><li>新功能是否会显著增加系统复杂度</li></ol><h3 id="易于维护"><a href="#易于维护" class="headerlink" title="易于维护"></a>易于维护</h3><ol><li>代码是否容易理解</li><li>文档是否健全</li></ol><h3 id="易于测试"><a href="#易于测试" class="headerlink" title="易于测试"></a>易于测试</h3><ol><li>功能的分层是否清晰</li><li>副作用少</li><li>尽量使用纯函数</li></ol><h3 id="易于构建"><a href="#易于构建" class="headerlink" title="易于构建"></a>易于构建</h3><ol><li>使用通用技术和架构</li><li>构建工具的选择</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前端项目的理想架构&quot;&gt;&lt;a href=&quot;#前端项目的理想架构&quot; class=&quot;headerlink&quot; title=&quot;前端项目的理想架构&quot;&gt;&lt;/a&gt;前端项目的理想架构&lt;/h2&gt;&lt;p&gt;前端项目的理想架构主要包括五个维度：易于开发、易于维护、易于构建、易于测试、易于扩展，这些维度之间可能相互冲突，比如易于开发便意味着不易于扩展，因此理想的状态是在这五个要素之间找到平衡点。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;前端项目理想架构&quot; data-src=&quot;https://img.yeyanjie.com/blog/201908/8.png&quot;&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://blog.yeyanjie.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="前端" scheme="https://blog.yeyanjie.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="react" scheme="https://blog.yeyanjie.com/tags/react/"/>
+    
+  </entry>
   
   <entry>
     <title>《React实战进阶》 学习笔记 20190806</title>
