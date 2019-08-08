@@ -59,20 +59,20 @@
   };
 </script>
 
-  <meta name="description" content="在 React 中使用 Redux在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。">
+  <meta name="description" content="Virtual DOMReact 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。 虚拟 DOM 是如何工作的？虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节">
 <meta name="keywords" content="前端,React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《React实战进阶》 学习笔记 20190802">
-<meta property="og:url" content="https://blog.yeyanjie.com/2019/08/02/2019080201/index.html">
+<meta property="og:title" content="《React实战进阶》 学习笔记 20190731">
+<meta property="og:url" content="https://blog.yeyanjie.com/2019/07/31/2019073101/index.html">
 <meta property="og:site_name" content="Jarvis&#39;s Blog">
-<meta property="og:description" content="在 React 中使用 Redux在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。">
+<meta property="og:description" content="Virtual DOMReact 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。 虚拟 DOM 是如何工作的？虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-08T13:58:55.085Z">
+<meta property="og:updated_time" content="2019-08-08T13:58:55.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《React实战进阶》 学习笔记 20190802">
-<meta name="twitter:description" content="在 React 中使用 Redux在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。">
+<meta name="twitter:title" content="《React实战进阶》 学习笔记 20190731">
+<meta name="twitter:description" content="Virtual DOMReact 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。 虚拟 DOM 是如何工作的？虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节">
   <link rel="alternate" href="/atom.xml" title="Jarvis's Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://blog.yeyanjie.com/2019/08/02/2019080201/">
+  <link rel="canonical" href="https://blog.yeyanjie.com/2019/07/31/2019073101/">
 
 
 <script id="page.configurations">
@@ -91,7 +91,7 @@
     h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
   })(document);
 </script>
-  <title>《React实战进阶》 学习笔记 20190802 | Jarvis's Blog</title>
+  <title>《React实战进阶》 学习笔记 20190731 | Jarvis's Blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/08/02/2019080201/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/07/31/2019073101/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jarvis Ye">
@@ -271,7 +271,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">《React实战进阶》 学习笔记 20190802
+          <h1 class="post-title" itemprop="name headline">《React实战进阶》 学习笔记 20190731
 
               
             
@@ -291,7 +291,7 @@
                 
               
 
-              <time title="创建时间：2019-08-02 21:56:44" itemprop="dateCreated datePublished" datetime="2019-08-02T21:56:44+08:00">2019-08-02</time>
+              <time title="创建时间：2019-07-31 22:09:38" itemprop="dateCreated datePublished" datetime="2019-07-31T22:09:38+08:00">2019-07-31</time>
             </span>
           
             
@@ -341,7 +341,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">2.4k</span>
+              <span title="本文字数">2k</span>
             </span>
           
             <span class="post-meta-item">
@@ -351,7 +351,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">4 分钟</span>
+              <span title="阅读时长">3 分钟</span>
             </span>
           
 
@@ -364,80 +364,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="在-React-中使用-Redux"><a href="#在-React-中使用-Redux" class="headerlink" title="在 React 中使用 Redux"></a>在 React 中使用 Redux</h2><p>在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。<a id="more"></a></p>
-<pre><code class="js">import { connect } from &quot;react-redux&quot;;
+        <h2 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h2><p>React 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。</p>
+<h3 id="虚拟-DOM-是如何工作的？"><a href="#虚拟-DOM-是如何工作的？" class="headerlink" title="虚拟 DOM 是如何工作的？"></a>虚拟 DOM 是如何工作的？</h3><p>虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：<br>首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节点上更新或调整顺序，不发生移除和新增节点操作。如果节点类型发生变化，则会移除原有节点后新增节点。即使节点只是发生跨层移动，归属到另一个父节点下，仍然会移除原有节点，并在新的层级新增节点。</p>
+<p>Diff 算法为了降低算法的复杂度，放弃了深度上的节点移动，是结合了 UI 更新的实际场景。通常，UI 变化以自身属性变化和同级顺序调整为主，几乎很少出现跨层移动的情况。所以放弃深度上的节点计算，能够降低算法复杂度<code>O(n)</code>，极大提高页面渲染性能。<a id="more"></a></p>
+<h3 id="虚拟-DOM-的两个假设"><a href="#虚拟-DOM-的两个假设" class="headerlink" title="虚拟 DOM 的两个假设"></a>虚拟 DOM 的两个假设</h3><ol>
+<li>组件的 DOM 结构是相对稳定的</li>
+<li>类型相同的兄弟节点可以被唯一标识（key 属性的重要性）</li>
+</ol>
+<h2 id="组件设计模式"><a href="#组件设计模式" class="headerlink" title="组件设计模式"></a>组件设计模式</h2><p>不同的组件设计模式是为了可以实现更多场景的组件复用</p>
+<h3 id="高阶组件（HOC）"><a href="#高阶组件（HOC）" class="headerlink" title="高阶组件（HOC）"></a>高阶组件（HOC）</h3><p>react 高阶组件本质上是一个函数，接收一个组件作为参数，返回新的组件</p>
+<pre><code class="jsx">const EnhancedComponent = higherOrderComponent(WrappedComponent);</code></pre>
+<h3 id="函数作为子组件"><a href="#函数作为子组件" class="headerlink" title="函数作为子组件"></a>函数作为子组件</h3><p>组件里设计好子组件的使用形式，由使用者定义函数返回不同内容</p>
+<pre><code class="jsx">class MyComponent extends React.Component {
+  render() {
+    return &lt;div&gt;{this.props.children(&quot;Nate Wang&quot;)}&lt;/div&gt;;
+  }
+}</code></pre>
+<pre><code class="jsx">&lt;MyComponent&gt;{name =&gt; &lt;div&gt;{name}&lt;/div&gt;}&lt;/MyComponent&gt;</code></pre>
+<h2 id="Context-API-React-16-3-新增"><a href="#Context-API-React-16-3-新增" class="headerlink" title="Context API(React 16.3 新增)"></a>Context API(React 16.3 新增)</h2><p>Context API 主要由三个部分构成：context（存放状态数据）、provider（在父组件上提供共享状态）、consumer（在子组件上接收共享状态并使用）。</p>
+<pre><code class="jsx">const ThemeContext = React.createContext(&quot;light&quot;);
 
-class SidePanel extends Component {
-  // ...
+class App extends React.Component {
+  render() {
+    return (
+      &lt;ThemeContext.Provider value=&quot;dark&quot;&gt;
+        &lt;ThemedButton /&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
 }
 
-function mapStateToProps(state) {
-  return {
-    nextgen: state.nextgen,
-    router: state.router
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({ ...actions }, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SidePanel);</code></pre>
-<h2 id="Redux-异步请求"><a href="#Redux-异步请求" class="headerlink" title="Redux 异步请求"></a>Redux 异步请求</h2><p>Redux 中支持异步请求，当 View 提交 Action 到 Dispatcher 时，先经过 Middlewares 中间件对异步请求（如 Ajax）进行处理，请求完成后根据不同的结果派发 dispatch 到 Reducer 进行下一步处理，再返回新的 state 映射到 View 上。<br>另外需要注意，异步 action 不是特殊 action，而是多个同步 action 的组合使用。</p>
-<p><img alt="Redux异步请求流程" data-src="https://img.yeyanjie.com/blog/201908/5.png"></p>
-<h3 id="Redux-中间件（Middleware）"><a href="#Redux-中间件（Middleware）" class="headerlink" title="Redux 中间件（Middleware）"></a>Redux 中间件（Middleware）</h3><p>Redux 中间件是将 actionCreator 函数返回值由原来的对象替换为一个函数，这个函数的返回值是一个 Promise 函数，告诉 React 这是一个异步请求操作，中间件就会截获 action，等待 Promise 函数的返回结果分别执行不同的 dispatch 操作。</p>
-<h2 id="Redux-中-action-和-reducer-如何组织代码结构？"><a href="#Redux-中-action-和-reducer-如何组织代码结构？" class="headerlink" title="Redux 中 action 和 reducer 如何组织代码结构？"></a>Redux 中 action 和 reducer 如何组织代码结构？</h2><h3 id="标准形式"><a href="#标准形式" class="headerlink" title="标准形式"></a>标准形式</h3><p>传统 Redux Action 的组织形式是将所有的 action 存放在同一个文件中，这样会存在以下问题：</p>
+function ThemedButton(props) {
+  return (
+    &lt;ThemeContext.Consumer&gt;
+      {theme =&gt; &lt;Button {...props} theme={theme} /&gt;}
+    &lt;/ThemeContext.Consumer&gt;
+  );
+}</code></pre>
+<h2 id="脚手架工具"><a href="#脚手架工具" class="headerlink" title="脚手架工具"></a>脚手架工具</h2><h3 id="为什么需要脚手架工具？"><a href="#为什么需要脚手架工具？" class="headerlink" title="为什么需要脚手架工具？"></a>为什么需要脚手架工具？</h3><p>如今的前端开发初始化项目需要配置全家桶及相关的编译、打包、代码格式检查等插件，拿 react 全家桶举例，就得安装配置 React、Redux、React-Router 等，再加上 Babel、webpack、ESLint 等通用辅助插件。这些插件生态又依赖更多的插件，一个个了解并配置都比较麻烦，而且基本上初始构建开发环境的配置又大致相同，所以出现了许多脚手架工具帮助我们一键配置这些开发环境。</p>
+<h3 id="常见的脚手架工具"><a href="#常见的脚手架工具" class="headerlink" title="常见的脚手架工具"></a>常见的脚手架工具</h3><ul>
+<li>create-react-app # 适合新手入门使用，默认封装好最基础的开发配置</li>
+<li>Rekit # 在 CRA 基础上增加了 Redux、React Router、Less/Scss 等</li>
+<li>CodeSandbox # 一个在线开发工具</li>
+</ul>
+<h3 id="为什么需要打包？"><a href="#为什么需要打包？" class="headerlink" title="为什么需要打包？"></a>为什么需要打包？</h3><p>以往，只有后台语言项目才会有打包的概念，但是随着前端技术生态的发展，前端项目也需要借助打包工具来生成项目文件。主要有以下 3 个目的：</p>
 <ol>
-<li>所有 Action 放一个文件，会无限扩展</li>
-<li>Action，Reducer 分开，实现业务逻辑时需要来回切换</li>
-<li>系统中有哪些 Action 不够直观</li>
+<li>编译 ES6 语法特性，编译 JSX</li>
+<li>整合资源，例如图片，Less/Sass</li>
+<li>优化代码体积</li>
 </ol>
-<h3 id="新的方式"><a href="#新的方式" class="headerlink" title="新的方式"></a>新的方式</h3><p>针对传统方式的缺点，可以将单个 action 和 reducer 放在同一个文件内，每个文件一个 Action，最后将所有的 action 和 reducer 分别导出在一个总的 action 和 reducer 入口文件中。这样做的优点主要有以下四点：</p>
-<ol>
-<li>易于开发：不用再 action 和 reducer 文件间来回切换</li>
-<li>易于维护：每个 action 文件都很小，容易理解</li>
-<li>易于测试：每个业务逻辑只需对应一个测试文件</li>
-<li>易于理解：文件名就是 action 名字，文件列表就是 action 列表</li>
-</ol>
-<h2 id="不可变数据（immutable-data）"><a href="#不可变数据（immutable-data）" class="headerlink" title="不可变数据（immutable data）"></a>不可变数据（immutable data）</h2><p>不可变数据就是在数据更新时始终存在部分数据的值或者引用不变的数据</p>
-<p><img alt="不可变数据更新前后对比" data-src="https://img.yeyanjie.com/blog/201908/6.png"></p>
-<p>从上图可以看到，当不可变数据某个节点发生变化时，只会更新该节点直系上的数据，其他分支上的数据保持不变</p>
-<h3 id="为什么需要不可变数据？"><a href="#为什么需要不可变数据？" class="headerlink" title="为什么需要不可变数据？"></a>为什么需要不可变数据？</h3><ol>
-<li>性能优化</li>
-<li>易于调试和跟踪</li>
-<li>易于推测</li>
-</ol>
-<h3 id="如何操作不可变数据"><a href="#如何操作不可变数据" class="headerlink" title="如何操作不可变数据?"></a>如何操作不可变数据?</h3><ol>
-<li><p>原生写法：<code>{...}</code>，<code>Object.assign</code><br>在业务中常用，缺点是对象层级越多，代码结构越复杂</p>
-<pre><code class="js">const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };
-// 对象扩展符
-const newState = { ...state, todos: [...state.todos, &quot;Learn Redux&quot;] };
-// ES6原生写法，性能最佳
-const newState2 = Object.assign({}, state, {
-  todos: [...state.todos, &quot;Learn Redux&quot;]
-});</code></pre>
-</li>
-<li><p>immutability-helper<br>适合对象嵌套层级较深的应用场景，写法相对简单优雅，缺点是需要使用特殊的语法</p>
-<pre><code class="js">import update from &quot;immutability-helper&quot;;
-
-const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };
-
-const newState = update(state, { todos: { $push: [&quot;Learn Redux&quot;] } });</code></pre>
-</li>
-<li><p>immer<br>接近对象修改原生的写法，性能与前两者相比较差，适合小型应用或 demo 使用</p>
-<pre><code class="js">import produce from &quot;immer&quot;;
-
-const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };
-
-const newState = produce(state, draftState =&gt; {
-  draftState.todos.push(&quot;Learn Redux&quot;);
-});</code></pre>
-</li>
+<p>前端项目目前主要使用 Webpack 进行打包</p>
+<h3 id="打包注意事项"><a href="#打包注意事项" class="headerlink" title="打包注意事项"></a>打包注意事项</h3><ol>
+<li>设置 nodejs 环境为 production</li>
+<li>禁用开发时专用代码，比如 logger</li>
+<li>设置应用根路径</li>
 </ol>
 
     </div>
@@ -454,12 +434,12 @@ const newState = produce(state, draftState =&gt; {
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/08/02/2019080201/">《React实战进阶》 学习笔记 20190802</a></p>
+  <p><span>本文标题:</span><a href="/2019/07/31/2019073101/">《React实战进阶》 学习笔记 20190731</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
-  <p><span>发布时间:</span>2019年08月02日 - 21:56</p>
+  <p><span>发布时间:</span>2019年07月31日 - 22:09</p>
   <p><span>最后更新:</span>2019年08月08日 - 21:58</p>
-  <p><span>原始链接:</span><a href="/2019/08/02/2019080201/" title="《React实战进阶》 学习笔记 20190802">https://blog.yeyanjie.com/2019/08/02/2019080201/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/08/02/2019080201/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2019/07/31/2019073101/" title="《React实战进阶》 学习笔记 20190731">https://blog.yeyanjie.com/2019/07/31/2019073101/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/07/31/2019073101/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -490,8 +470,8 @@ const newState = produce(state, draftState =&gt; {
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/01/2019080101/" rel="next" title="《React实战进阶》 学习笔记 20190801">
-                <i class="fa fa-chevron-left"></i> 《React实战进阶》 学习笔记 20190801
+              <a href="/2019/07/30/2019073001/" rel="next" title="《React实战进阶》 学习笔记 20190730">
+                <i class="fa fa-chevron-left"></i> 《React实战进阶》 学习笔记 20190730
               </a>
             
           </div>
@@ -499,8 +479,8 @@ const newState = produce(state, draftState =&gt; {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/04/2019080301/" rel="prev" title="《React实战进阶》 学习笔记 20190803">
-                《React实战进阶》 学习笔记 20190803 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/01/2019080101/" rel="prev" title="《React实战进阶》 学习笔记 20190801">
+                《React实战进阶》 学习笔记 20190801 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -674,7 +654,7 @@ const newState = produce(state, draftState =&gt; {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在-React-中使用-Redux"><span class="nav-number">1.</span> <span class="nav-text">在 React 中使用 Redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-异步请求"><span class="nav-number">2.</span> <span class="nav-text">Redux 异步请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-中间件（Middleware）"><span class="nav-number">2.1.</span> <span class="nav-text">Redux 中间件（Middleware）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-中-action-和-reducer-如何组织代码结构？"><span class="nav-number">3.</span> <span class="nav-text">Redux 中 action 和 reducer 如何组织代码结构？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准形式"><span class="nav-number">3.1.</span> <span class="nav-text">标准形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新的方式"><span class="nav-number">3.2.</span> <span class="nav-text">新的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不可变数据（immutable-data）"><span class="nav-number">4.</span> <span class="nav-text">不可变数据（immutable data）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要不可变数据？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么需要不可变数据？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何操作不可变数据"><span class="nav-number">4.2.</span> <span class="nav-text">如何操作不可变数据?</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-DOM"><span class="nav-number">1.</span> <span class="nav-text">Virtual DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟-DOM-是如何工作的？"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟 DOM 是如何工作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟-DOM-的两个假设"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟 DOM 的两个假设</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件设计模式"><span class="nav-number">2.</span> <span class="nav-text">组件设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶组件（HOC）"><span class="nav-number">2.1.</span> <span class="nav-text">高阶组件（HOC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数作为子组件"><span class="nav-number">2.2.</span> <span class="nav-text">函数作为子组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-API-React-16-3-新增"><span class="nav-number">3.</span> <span class="nav-text">Context API(React 16.3 新增)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚手架工具"><span class="nav-number">4.</span> <span class="nav-text">脚手架工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要脚手架工具？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么需要脚手架工具？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的脚手架工具"><span class="nav-number">4.2.</span> <span class="nav-text">常见的脚手架工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要打包？"><span class="nav-number">4.3.</span> <span class="nav-text">为什么需要打包？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包注意事项"><span class="nav-number">4.4.</span> <span class="nav-text">打包注意事项</span></a></li></ol></li></ol></div>
             
 
           </div>

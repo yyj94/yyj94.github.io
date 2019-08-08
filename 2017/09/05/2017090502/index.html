@@ -59,16 +59,20 @@
   };
 </script>
 
-  <meta name="keywords" content="博客 前端博客 个人网站">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jarvis&#39;s Blog">
-<meta property="og:url" content="https://blog.yeyanjie.com/archives/2018/index.html">
+  <meta name="description" content="安装git：$ sudo apt-get install git  # ubuntu环境 创建一个git用户，用来运行git服务：$ sudo adduser git">
+<meta name="keywords" content="Git,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建 Git 服务器">
+<meta property="og:url" content="https://blog.yeyanjie.com/2017/09/05/2017090502/index.html">
 <meta property="og:site_name" content="Jarvis&#39;s Blog">
+<meta property="og:description" content="安装git：$ sudo apt-get install git  # ubuntu环境 创建一个git用户，用来运行git服务：$ sudo adduser git">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-08T13:58:55.081Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jarvis&#39;s Blog">
+<meta name="twitter:title" content="搭建 Git 服务器">
+<meta name="twitter:description" content="安装git：$ sudo apt-get install git  # ubuntu环境 创建一个git用户，用来运行git服务：$ sudo adduser git">
   <link rel="alternate" href="/atom.xml" title="Jarvis's Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://blog.yeyanjie.com/archives/2018/">
+  <link rel="canonical" href="https://blog.yeyanjie.com/2017/09/05/2017090502/">
 
 
 <script id="page.configurations">
@@ -87,7 +91,7 @@
     h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
   })(document);
 </script>
-  <title>归档 | Jarvis's Blog</title>
+  <title>搭建 Git 服务器 | Jarvis's Blog</title>
   
 
 
@@ -126,7 +130,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -194,7 +198,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
       
     
 
@@ -242,96 +246,225 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 11 篇日志。 继续努力。
-      </span>
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
+  <div id="posts" class="posts-expand">
+    
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2017/09/05/2017090502/">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2018/09/22/2019073101/" itemprop="url">
-            
-              <span itemprop="name">node版本管理工具——nvm安装配置</span>
-            
-          </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jarvis Ye">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jarvis's Blog">
+    </span>
+      <header class="post-header">
+
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">搭建 Git 服务器
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-22T21:43:08+08:00"
-              content="2018-09-22">
-          09-22
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
+              
+                
+              
 
+              <time title="创建时间：2017-09-05 10:59:51" itemprop="dateCreated datePublished" datetime="2017-09-05T10:59:51+08:00">2017-09-05</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-08 21:58:55" itemprop="dateModified" datetime="2019-08-08T21:58:55+08:00">2019-08-08</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/安装教程/" itemprop="url" rel="index"><span itemprop="name">安装教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon"
+              >
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          <br/>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">652</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <h3 id="安装git："><a href="#安装git：" class="headerlink" title="安装git："></a>安装<code>git</code>：</h3><pre><code class="bash">$ sudo apt-get install git  # ubuntu环境</code></pre>
+<h3 id="创建一个git用户，用来运行git服务："><a href="#创建一个git用户，用来运行git服务：" class="headerlink" title="创建一个git用户，用来运行git服务："></a>创建一个<code>git</code>用户，用来运行<code>git</code>服务：</h3><pre><code class="bash">$ sudo adduser git</code></pre>
+<a id="more"></a>
+
+<h3 id="免密登录："><a href="#免密登录：" class="headerlink" title="免密登录："></a>免密登录：</h3><p>收集所有需要登录的用户的公钥，就是他们自己的<code>id_rsa.pub</code>文件，把所有公钥导入到<code>/home/git/.ssh/authorized_keys</code>文件里，一行一个。</p>
+<h3 id="初始化-Git-仓库："><a href="#初始化-Git-仓库：" class="headerlink" title="初始化 Git 仓库："></a>初始化 Git 仓库：</h3><p>先选定一个目录作为 Git 仓库，假定是<code>/srv/sample.git</code>，在<code>/srv</code>目录下输入命令：</p>
+<pre><code class="bash">$ sudo git init --bare sample.git</code></pre>
+<p>然后，把 owner 改为<code>git</code>：</p>
+<pre><code class="bash">$ sudo chown -R git:git sample.git</code></pre>
+<h3 id="禁用-shell-登录："><a href="#禁用-shell-登录：" class="headerlink" title="禁用 shell 登录："></a>禁用 shell 登录：</h3><p>出于安全考虑，第二步创建的 git 用户不允许登录 shell，这可以通过编辑<code>/etc/passwd</code>文件完成。找到类似下面的一行：</p>
+<pre><code class="bash"># /etc/passwd
+...
+$ git:x:1001:1001:,,,:/home/git:/bin/bash</code></pre>
+<p>改为</p>
+<pre><code class="bash"># /etc/passwd
+...
+git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</code></pre>
+<h3 id="克隆代码"><a href="#克隆代码" class="headerlink" title="克隆代码"></a>克隆代码</h3><pre><code class="bash">git clone git@server:/srv/sample.git    # 默认协议
+git clone ssh://git@server-name:[ssh端口号]/path/repo-name.git  # 使用ssh协议</code></pre>
 
     </div>
+
+    
+    
+    
+
+    
+      
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2017/09/05/2017090502/">搭建 Git 服务器</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
+  <p><span>发布时间:</span>2017年09月05日 - 10:59</p>
+  <p><span>最后更新:</span>2019年08月08日 - 21:58</p>
+  <p><span>原始链接:</span><a href="/2017/09/05/2017090502/" title="搭建 Git 服务器">https://blog.yeyanjie.com/2017/09/05/2017090502/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2017/09/05/2017090502/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+          
+            <a href="/tags/服务器/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2017/09/05/2017090501/" rel="next" title="Git常用命令">
+                <i class="fa fa-chevron-left"></i> Git常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2017/12/01/2017120101/" rel="prev" title="node版本管理工具——nvm安装配置">
+                node版本管理工具——nvm安装配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
 
         </div>
           
@@ -346,8 +479,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -362,7 +504,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -381,7 +523,9 @@
         
           
         
-        <span class="site-state-item-count">2</span>
+          
+        
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -408,7 +552,11 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -460,6 +608,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装git："><span class="nav-number">1.</span> <span class="nav-text">安装git：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个git用户，用来运行git服务："><span class="nav-number">2.</span> <span class="nav-text">创建一个git用户，用来运行git服务：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#免密登录："><span class="nav-number">3.</span> <span class="nav-text">免密登录：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-Git-仓库："><span class="nav-number">4.</span> <span class="nav-text">初始化 Git 仓库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁用-shell-登录："><span class="nav-number">5.</span> <span class="nav-text">禁用 shell 登录：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆代码"><span class="nav-number">6.</span> <span class="nav-text">克隆代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
         <div class="back-to-top">
           <i class="fa fa-arrow-up"></i>
           
@@ -487,7 +652,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">34k</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -549,6 +714,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
@@ -566,25 +735,6 @@
 
 
 
-    
-      
-    
-  
-    <script src="/lib/quicklink/quicklink.umd.js"></script>
-    <script>
-      
-        window.addEventListener('load', () => {
-      
-        quicklink({
-          timeout: 3000,
-          priority: true,
-          ignores: [uri => uri.includes('#'),uri => uri == 'https://blog.yeyanjie.com/archives/2018/',]
-        });
-      
-        });
-      
-    </script>
-  
 
 
 
@@ -617,6 +767,24 @@
 
 
     
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '601b7794c8729fb11884',
+    clientSecret: 'd5d980d3154b4d50c307fffc530b2ca30bdf8452',
+    repo: 'yyj94.github.io',
+    owner: 'yyj94',
+    admin: ['yyj94'],
+    id: md5(location.pathname),
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
 
 
   
