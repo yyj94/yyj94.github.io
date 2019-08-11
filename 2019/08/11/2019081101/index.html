@@ -59,20 +59,20 @@
   };
 </script>
 
-  <meta name="description" content="理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux">
+  <meta name="description" content="使用 Rekit 构建前端项目Rekit 介绍Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 github 的 star 数已经超过 4k。">
 <meta name="keywords" content="前端,React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《React实战进阶》 学习笔记 20190801">
-<meta property="og:url" content="https://blog.yeyanjie.com/2019/08/01/2019080101/index.html">
+<meta property="og:title" content="《React 实战进阶》 学习笔记 20190808">
+<meta property="og:url" content="https://blog.yeyanjie.com/2019/08/11/2019081101/index.html">
 <meta property="og:site_name" content="Jarvis&#39;s Blog">
-<meta property="og:description" content="理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux">
+<meta property="og:description" content="使用 Rekit 构建前端项目Rekit 介绍Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 github 的 star 数已经超过 4k。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-08T13:58:55.085Z">
+<meta property="og:updated_time" content="2019-08-11T15:46:27.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《React实战进阶》 学习笔记 20190801">
-<meta name="twitter:description" content="理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux">
+<meta name="twitter:title" content="《React 实战进阶》 学习笔记 20190808">
+<meta name="twitter:description" content="使用 Rekit 构建前端项目Rekit 介绍Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 github 的 star 数已经超过 4k。">
   <link rel="alternate" href="/atom.xml" title="Jarvis's Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://blog.yeyanjie.com/2019/08/01/2019080101/">
+  <link rel="canonical" href="https://blog.yeyanjie.com/2019/08/11/2019081101/">
 
 
 <script id="page.configurations">
@@ -91,7 +91,7 @@
     h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
   })(document);
 </script>
-  <title>《React实战进阶》 学习笔记 20190801 | Jarvis's Blog</title>
+  <title>《React 实战进阶》 学习笔记 20190808 | Jarvis's Blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/08/01/2019080101/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/08/11/2019081101/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jarvis Ye">
@@ -271,7 +271,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">《React实战进阶》 学习笔记 20190801
+          <h1 class="post-title" itemprop="name headline">《React 实战进阶》 学习笔记 20190808
 
               
             
@@ -291,21 +291,11 @@
                 
               
 
-              <time title="创建时间：2019-08-01 22:36:39" itemprop="dateCreated datePublished" datetime="2019-08-01T22:36:39+08:00">2019-08-01</time>
+              <time title="创建时间：2019-08-11 21:54:38 / 修改时间：23:46:27" itemprop="dateCreated datePublished" datetime="2019-08-11T21:54:38+08:00">2019-08-11</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-08 21:58:55" itemprop="dateModified" datetime="2019-08-08T21:58:55+08:00">2019-08-08</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -341,7 +331,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">2.2k</span>
+              <span title="本文字数">992</span>
             </span>
           
             <span class="post-meta-item">
@@ -351,7 +341,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">4 分钟</span>
+              <span title="阅读时长">2 分钟</span>
             </span>
           
 
@@ -364,68 +354,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="理解-Redux"><a href="#理解-Redux" class="headerlink" title="理解 Redux"></a>理解 Redux</h2><p>Redux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。</p>
-<h2 id="Redux-特性"><a href="#Redux-特性" class="headerlink" title="Redux 特性"></a>Redux 特性</h2><ul>
-<li><p>Single Source of Truth<br>传统 MVC 架构，数据层 Model 与视图层 View 之间往往是多对多的关系，一个 view 上的状态可能受多个 model 控制，管理起来十分复杂。<a id="more"></a></p>
-<p><img alt="MVC模式View与Model的关系" data-src="https://img.yeyanjie.com/blog/201908/1.png"></p>
-<p>而在 Redux 模式中，不同的 view 上的状态全部存放在外部一个统一的 Store 容器中，View 与 Store 之间是简单的一对一关系，数据流向清晰多了。</p>
-<p><img alt="Redux中View与Store的关系" data-src="https://img.yeyanjie.com/blog/201908/2.png"></p>
+        <h2 id="使用-Rekit-构建前端项目"><a href="#使用-Rekit-构建前端项目" class="headerlink" title="使用 Rekit 构建前端项目"></a>使用 Rekit 构建前端项目</h2><h3 id="Rekit-介绍"><a href="#Rekit-介绍" class="headerlink" title="Rekit 介绍"></a>Rekit 介绍</h3><p>Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 <a href="https://github.com/rekit/rekit" target="_blank" rel="noopener">github</a> 的 star 数已经超过 4k。<a id="more"></a></p>
+<h3 id="Rekit-Studio-的优点"><a href="#Rekit-Studio-的优点" class="headerlink" title="Rekit Studio 的优点"></a>Rekit Studio 的优点</h3><h4 id="更好的代码导航"><a href="#更好的代码导航" class="headerlink" title="更好的代码导航"></a>更好的代码导航</h4><ol>
+<li>语义化的组织源代码文件<br>各个 Feature 的代码统一放在 Routes、Actions、Components 等语义化清晰的文件夹下进行管理</li>
+<li>使用子 Tab 来展示项目元素的各个部分<br>IDE 打开文件代码以新增标签页形式，能够方便的在不同的代码文件之间切换。</li>
+<li>直观的显示和导航某个功能的所有依赖<br>功能代码页面在右边侧边栏下方区域清晰的显示当前文件与其他文件之间的依赖关系</li>
+</ol>
+<p><img alt="Rekit Studio界面展示" data-src="https://img.yeyanjie.com/blog/201908/11.png"></p>
+<h4 id="一键生成项目元素"><a href="#一键生成项目元素" class="headerlink" title="一键生成项目元素"></a>一键生成项目元素</h4><ol>
+<li>直观的 UI 用于生成组件，action，reducer 等<br>在项目目录上右键，可以点击新增组件，生成组件代码</li>
+<li>模板代码遵循最佳实践<br>模板代码按照最佳实践自动生成</li>
+<li>支持命令行方式创建项目元素<br>支持使用命令行的形式创建项目元素</li>
+</ol>
+<p><img alt="一键生成项目元素" data-src="https://img.yeyanjie.com/blog/201908/12.png"></p>
+<h4 id="重构非常容易"><a href="#重构非常容易" class="headerlink" title="重构非常容易"></a>重构非常容易</h4><ol>
+<li><p>右键菜单重命名或者删除某个项目元素<br>右键菜单栏提供项目元素重命名和删除选项</p>
 </li>
-<li><p>可预测性</p>
-<p>Redux 中的数据变化是可以预测的，如果状态发生了变化，一定是在当前的 state 状态下派发了一个 action，其结果是返回一个新的 state 状态</p>
-<p><img alt="Redux的可预测性" data-src="https://img.yeyanjie.com/blog/201908/3.png"></p>
+<li><p>所有相关代码都会一次性重构从而保证一致性<br>所有的重命名和删除操作会同时修改项目中所有引用的位置</p>
 </li>
-<li><p>纯函数更新 Store</p>
-<p>Redux 中数据状态的更新是由一个纯函数来处理，它接收当前的 state 状态和 action 对象作为参数，根据不同的 action 返回新的 state 状态。函数的输出都是依赖输入值的不同且确定的。</p>
+<li><p>详细的 log 信息显示重构的完整修改<br>日志提供重构步骤的所有详细信息</p>
+<p><img alt="重构日志" data-src="https://img.yeyanjie.com/blog/201908/13.png"></p>
 </li>
-</ul>
-<h2 id="理解-Store"><a href="#理解-Store" class="headerlink" title="理解 Store"></a>理解 Store</h2><p>Store 是数据存放的容器，通过 <code>createStore(reducer)</code> 新建，<code>getState()</code> 可以获取当前的 state 值，如果修改<code>state</code>一定得通过<code>diapatch(action)</code>的方式派发一个 action，而<code>subscribe(listener)</code>用来监听 state 的响应变化</p>
-<h2 id="理解-action"><a href="#理解-action" class="headerlink" title="理解 action"></a>理解 action</h2><p>action 实际上是一个 javascript 对象，包括 action 的类型值和载荷</p>
-<pre><code class="js">{
-  type: ADD_TODO,
-  text: &#39;Build my first Redux app&#39;
-}</code></pre>
-<h2 id="理解-reducer"><a href="#理解-reducer" class="headerlink" title="理解 reducer"></a>理解 reducer</h2><p>reducer 实际上是一个纯函数，通过输入的 state 和<code>action</code>分别输出新的 state 值：</p>
-<pre><code class="js">function todos(state = [], action) {
-  switch (action.type) {
-    case &#39;ADD_TODO&#39;:
-      return state.concat([{ text: action.text, completed: false }])
-    case &#39;TOGGLE_TODO&#39;:
-      return state.map(
-        (todo, index) =&gt;
-          action.index === index
-            ? { text: todo.text, completed: !todo.completed }
-      )
-    default:
-      return state
-  }
-}</code></pre>
-<h2 id="Redux-的工作原理"><a href="#Redux-的工作原理" class="headerlink" title="Redux 的工作原理"></a>Redux 的工作原理</h2><p>当前端交互需要改变状态时，首先会新建 action 对象，用来描述动作的类型和变化值，然后通过 Diapatcher 派发提交到 Store 中，经过 Reducer 函数基于当前 state 进行处理后，返回新的 State，然后映射到 DOM 上更新状态。</p>
-<p><img alt="Redux工作原理" data-src="https://img.yeyanjie.com/blog/201908/4.png"></p>
-<h2 id="Redux-提供的工具函数"><a href="#Redux-提供的工具函数" class="headerlink" title="Redux 提供的工具函数"></a>Redux 提供的工具函数</h2><ul>
-<li><p>bindActionCreators<br><code>bindActionCreators(ActionCreators, dispatch)</code>接收两个参数，一个是创建 Action 的函数，一个是 dispatch 方法。函数的返回值是可以派发相应 action 的 dispatch 方法</p>
-<pre><code class="js">function plusOne() {
-  return { type: &quot;PLUS_ONE&quot; };
-}
-
-plusOne = bindActionCreators(plusOne, store.dispatch);
-plusOne(); //  等价于 store.dispatch(plusOne())</code></pre>
+</ol>
+<h4 id="可视化的项目架构"><a href="#可视化的项目架构" class="headerlink" title="可视化的项目架构"></a>可视化的项目架构</h4><ol>
+<li><p>项目总体架构的可视化图表</p>
+<p><img alt="项目总体架构" data-src="https://img.yeyanjie.com/blog/201908/14.png"></p>
 </li>
-<li><p>combineReducers<br><code>combineReducers({reducer1, reducer2, ...})</code>接收一个 reducers 对象,可以将不同的 reducer 同时连接到 store 上，每个 reducer 函数返回的 state 都相互独立。</p>
-<pre><code class="js">import { combineReducers } from &quot;redux&quot;;
-
-const todos = (state = {}, action) =&gt; state;
-const counter = (state = {}, action) =&gt; state;
-
-const store = createStore(
-  combineReducers({
-    todos,
-    counter
-  })
-);
-console.log(store); // {tods: {...}, counter: {...}}</code></pre>
+<li><p>项目依赖关系的图表</p>
+<p><img alt="项目依赖关系" data-src="https://img.yeyanjie.com/blog/201908/14.png"></p>
 </li>
-</ul>
+</ol>
+<h4 id="集成单元测试、单元测试覆盖率、项目打包"><a href="#集成单元测试、单元测试覆盖率、项目打包" class="headerlink" title="集成单元测试、单元测试覆盖率、项目打包"></a>集成单元测试、单元测试覆盖率、项目打包</h4><h3 id="Rekit-是如何工作的"><a href="#Rekit-是如何工作的" class="headerlink" title="Rekit 是如何工作的"></a>Rekit 是如何工作的</h3><ol>
+<li>定义了基于 feature 的可扩展文件夹结构<br>Rekit 默认项目文件结构按照 feature 的代码组织结构作为前提条件</li>
+<li>基于最佳实践生成代码和管理项目元素<br>新增代码和管理项目元素都是按照最佳代码组织实践</li>
+<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>提供可视化 IDE 及相关功能自动化处理，保持项目始终按照最佳实践迭代</li>
+</ol>
+<h4 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h4><ol>
+<li>以 feature 方式组织代码</li>
+<li>拆分组件，action 和 reducer</li>
+<li>拆分路由配置</li>
+</ol>
+<h4 id="通过代码自动生成保持一致"><a href="#通过代码自动生成保持一致" class="headerlink" title="通过代码自动生成保持一致"></a>通过代码自动生成保持一致</h4><ol>
+<li>文件夹结构一致性</li>
+<li>文件名一致性</li>
+<li>变量名一致性</li>
+<li>代码逻辑的一致性</li>
+</ol>
 
     </div>
 
@@ -441,12 +415,12 @@ console.log(store); // {tods: {...}, counter: {...}}</code></pre>
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/08/01/2019080101/">《React实战进阶》 学习笔记 20190801</a></p>
+  <p><span>本文标题:</span><a href="/2019/08/11/2019081101/">《React 实战进阶》 学习笔记 20190808</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
-  <p><span>发布时间:</span>2019年08月01日 - 22:36</p>
-  <p><span>最后更新:</span>2019年08月08日 - 21:58</p>
-  <p><span>原始链接:</span><a href="/2019/08/01/2019080101/" title="《React实战进阶》 学习笔记 20190801">https://blog.yeyanjie.com/2019/08/01/2019080101/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/08/01/2019080101/"  aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年08月11日 - 21:54</p>
+  <p><span>最后更新:</span>2019年08月11日 - 23:46</p>
+  <p><span>原始链接:</span><a href="/2019/08/11/2019081101/" title="《React 实战进阶》 学习笔记 20190808">https://blog.yeyanjie.com/2019/08/11/2019081101/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/08/11/2019081101/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -477,8 +451,8 @@ console.log(store); // {tods: {...}, counter: {...}}</code></pre>
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/07/31/2019073101/" rel="next" title="《React实战进阶》 学习笔记 20190731">
-                <i class="fa fa-chevron-left"></i> 《React实战进阶》 学习笔记 20190731
+              <a href="/2019/08/08/2019080803/" rel="next" title="《React实战进阶》 学习笔记 20190808">
+                <i class="fa fa-chevron-left"></i> 《React实战进阶》 学习笔记 20190808
               </a>
             
           </div>
@@ -486,10 +460,6 @@ console.log(store); // {tods: {...}, counter: {...}}</code></pre>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/02/2019080201/" rel="prev" title="《React实战进阶》 学习笔记 20190802">
-                《React实战进阶》 学习笔记 20190802 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -661,7 +631,7 @@ console.log(store); // {tods: {...}, counter: {...}}</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Redux"><span class="nav-number">1.</span> <span class="nav-text">理解 Redux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-特性"><span class="nav-number">2.</span> <span class="nav-text">Redux 特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Store"><span class="nav-number">3.</span> <span class="nav-text">理解 Store</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-action"><span class="nav-number">4.</span> <span class="nav-text">理解 action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-reducer"><span class="nav-number">5.</span> <span class="nav-text">理解 reducer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-的工作原理"><span class="nav-number">6.</span> <span class="nav-text">Redux 的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-提供的工具函数"><span class="nav-number">7.</span> <span class="nav-text">Redux 提供的工具函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Rekit-构建前端项目"><span class="nav-number">1.</span> <span class="nav-text">使用 Rekit 构建前端项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Rekit-介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Rekit 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rekit-Studio-的优点"><span class="nav-number">1.2.</span> <span class="nav-text">Rekit Studio 的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的代码导航"><span class="nav-number">1.2.1.</span> <span class="nav-text">更好的代码导航</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一键生成项目元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">一键生成项目元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重构非常容易"><span class="nav-number">1.2.3.</span> <span class="nav-text">重构非常容易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视化的项目架构"><span class="nav-number">1.2.4.</span> <span class="nav-text">可视化的项目架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集成单元测试、单元测试覆盖率、项目打包"><span class="nav-number">1.2.5.</span> <span class="nav-text">集成单元测试、单元测试覆盖率、项目打包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rekit-是如何工作的"><span class="nav-number">1.3.</span> <span class="nav-text">Rekit 是如何工作的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遵循最佳实践"><span class="nav-number">1.3.1.</span> <span class="nav-text">遵循最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过代码自动生成保持一致"><span class="nav-number">1.3.2.</span> <span class="nav-text">通过代码自动生成保持一致</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
