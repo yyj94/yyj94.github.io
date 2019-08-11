@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.yeyanjie.com/"/>
-  <updated>2019-08-11T15:46:27.671Z</updated>
+  <updated>2019-08-11T15:48:28.342Z</updated>
   <id>https://blog.yeyanjie.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>《React 实战进阶》 学习笔记 20190808</title>
+    <title>《React 实战进阶》 学习笔记 20190811</title>
     <link href="https://blog.yeyanjie.com/2019/08/11/2019081101/"/>
     <id>https://blog.yeyanjie.com/2019/08/11/2019081101/</id>
     <published>2019-08-11T13:54:38.000Z</published>
-    <updated>2019-08-11T15:46:27.671Z</updated>
+    <updated>2019-08-11T15:48:28.342Z</updated>
     
     <content type="html"><![CDATA[<h2 id="使用-Rekit-构建前端项目"><a href="#使用-Rekit-构建前端项目" class="headerlink" title="使用 Rekit 构建前端项目"></a>使用 Rekit 构建前端项目</h2><h3 id="Rekit-介绍"><a href="#Rekit-介绍" class="headerlink" title="Rekit 介绍"></a>Rekit 介绍</h3><p>Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 <a href="https://github.com/rekit/rekit" target="_blank" rel="noopener">github</a> 的 star 数已经超过 4k。<a id="more"></a></p><h3 id="Rekit-Studio-的优点"><a href="#Rekit-Studio-的优点" class="headerlink" title="Rekit Studio 的优点"></a>Rekit Studio 的优点</h3><h4 id="更好的代码导航"><a href="#更好的代码导航" class="headerlink" title="更好的代码导航"></a>更好的代码导航</h4><ol><li>语义化的组织源代码文件<br>各个 Feature 的代码统一放在 Routes、Actions、Components 等语义化清晰的文件夹下进行管理</li><li>使用子 Tab 来展示项目元素的各个部分<br>IDE 打开文件代码以新增标签页形式，能够方便的在不同的代码文件之间切换。</li><li>直观的显示和导航某个功能的所有依赖<br>功能代码页面在右边侧边栏下方区域清晰的显示当前文件与其他文件之间的依赖关系</li></ol><p><img alt="Rekit Studio界面展示" data-src="https://img.yeyanjie.com/blog/201908/11.png"></p><h4 id="一键生成项目元素"><a href="#一键生成项目元素" class="headerlink" title="一键生成项目元素"></a>一键生成项目元素</h4><ol><li>直观的 UI 用于生成组件，action，reducer 等<br>在项目目录上右键，可以点击新增组件，生成组件代码</li><li>模板代码遵循最佳实践<br>模板代码按照最佳实践自动生成</li><li>支持命令行方式创建项目元素<br>支持使用命令行的形式创建项目元素</li></ol><p><img alt="一键生成项目元素" data-src="https://img.yeyanjie.com/blog/201908/12.png"></p><h4 id="重构非常容易"><a href="#重构非常容易" class="headerlink" title="重构非常容易"></a>重构非常容易</h4><ol><li><p>右键菜单重命名或者删除某个项目元素<br>右键菜单栏提供项目元素重命名和删除选项</p></li><li><p>所有相关代码都会一次性重构从而保证一致性<br>所有的重命名和删除操作会同时修改项目中所有引用的位置</p></li><li><p>详细的 log 信息显示重构的完整修改<br>日志提供重构步骤的所有详细信息</p><p><img alt="重构日志" data-src="https://img.yeyanjie.com/blog/201908/13.png"></p></li></ol><h4 id="可视化的项目架构"><a href="#可视化的项目架构" class="headerlink" title="可视化的项目架构"></a>可视化的项目架构</h4><ol><li><p>项目总体架构的可视化图表</p><p><img alt="项目总体架构" data-src="https://img.yeyanjie.com/blog/201908/14.png"></p></li><li><p>项目依赖关系的图表</p><p><img alt="项目依赖关系" data-src="https://img.yeyanjie.com/blog/201908/14.png"></p></li></ol><h4 id="集成单元测试、单元测试覆盖率、项目打包"><a href="#集成单元测试、单元测试覆盖率、项目打包" class="headerlink" title="集成单元测试、单元测试覆盖率、项目打包"></a>集成单元测试、单元测试覆盖率、项目打包</h4><h3 id="Rekit-是如何工作的"><a href="#Rekit-是如何工作的" class="headerlink" title="Rekit 是如何工作的"></a>Rekit 是如何工作的</h3><ol><li>定义了基于 feature 的可扩展文件夹结构<br>Rekit 默认项目文件结构按照 feature 的代码组织结构作为前提条件</li><li>基于最佳实践生成代码和管理项目元素<br>新增代码和管理项目元素都是按照最佳代码组织实践</li><li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>提供可视化 IDE 及相关功能自动化处理，保持项目始终按照最佳实践迭代</li></ol><h4 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h4><ol><li>以 feature 方式组织代码</li><li>拆分组件，action 和 reducer</li><li>拆分路由配置</li></ol><h4 id="通过代码自动生成保持一致"><a href="#通过代码自动生成保持一致" class="headerlink" title="通过代码自动生成保持一致"></a>通过代码自动生成保持一致</h4><ol><li>文件夹结构一致性</li><li>文件名一致性</li><li>变量名一致性</li><li>代码逻辑的一致性</li></ol>]]></content>
     
@@ -381,9 +381,9 @@
       <category term="安装教程" scheme="https://blog.yeyanjie.com/categories/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
     
     
-      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="服务器" scheme="https://blog.yeyanjie.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+      <category term="开发工具" scheme="https://blog.yeyanjie.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
       <category term="镜像备份" scheme="https://blog.yeyanjie.com/tags/%E9%95%9C%E5%83%8F%E5%A4%87%E4%BB%BD/"/>
     
