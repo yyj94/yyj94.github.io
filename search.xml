@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[进程管理工具 —— pm2 的配置使用]]></title>
     <url>%2F2019%2F10%2F07%2F2019100701%2F</url>
-    <content type="text"><![CDATA[进程管理工具 —— pm2 的配置使用PM2 的作用PM2 是服务端常用的进程管理工具，使用它可以方便的对web服务进程进行后台管理，例如后台运行、停止、重启、打印（输出）日志、监控报警。它的价值主要体现在以下方面： 守护进程，服务崩溃后自动重启 支持多进程，充分利用 CPU 和内存资源 日志记录功能 PM2 下载安装 $ npm install -g pm2 安装完成后，查看版本确认是否安装成功： $ pm2 --version # 4.2.0 PM2 主要命令 运行 $ pm2 start &lt;AppName&gt;/&lt;id&gt; # 启动进程 启动成功后如下图所示： 查看进程列表 $ pm2 list # 查看进程列表 重启 $ pm2 restart &lt;AppName&gt;/&lt;id&gt; # 重启进程 停止 $ pm2 stop &lt;AppName&gt;/&lt;id&gt; # 暂停进程 删除 $ pm2 delete &lt;AppName&gt;/&lt;id&gt; # 删除进程 查看其它信息 $ pm2 info &lt;id&gt; # 查看进程详情 $ pm2 log &lt;id&gt; # 打印进程日志 $ pm2 monit &lt;id&gt; # 打开进程监控面板 通过配置文件启动PM2PM2作为一个功能强大的进程管理工具，可以配置更多的选项参数来使用。首先需要新建一个json格式的PM2配置文件（例如： pm2.config.json） #pm2.config.json { &quot;apps&quot;: { &quot;name&quot;: &quot;pm2-test-server&quot;, # 自定义进程名 &quot;script&quot;: &quot;app.js&quot;, # 服务脚本路径 &quot;watch&quot;: true, # 是否监听脚本变化重启服务 &quot;ignore_watch&quot;: [&quot;node_modules&quot;, &quot;logs&quot;], # 监听忽略文件列表 &quot;instances&quot;: 4, # 启用多进程支持，进程数 &quot;error_file&quot;: &quot;logs/err.log&quot;, # 错误日志输出文件路径 &quot;out_file&quot;: &quot;logs/out.log&quot;, # 打印日志输出文件路径 &quot;log_date_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot; # 日志时间戳格式 } } 然后以配置文件的方式启动 $ pm2 start &lt;PM2ConfigName&gt; # 通过配置文件启动 启动成功后如下图所示，进程name已经使用自定义配置，并且watching选项也配置为enabled: 如果配置文件中配置了多进程参数，启动的服务脚本会同时运行多个进程服务，PM2会根据进程资源使用情况，自动进行负载均衡。另外不同进程的日志会自动分拆成不同日志文件输出，方便查看管理： 注意事项如果采用多进程运行服务，需要注意保存在每个进程实例内存中的信息是无法共享的。以web服务为例，如果将session等状态信息保存在进程内存中，通过pm2多进程启动的其它进程是无法共享获取到的，因此对需要使用内存管理的状态信息需要借用外部的内存数据库，如Redis进行状态管理，可以轻松解决这种需求。]]></content>
+    <content type="text"><![CDATA[PM2 的作用&emsp;&emsp;PM2 是服务端常用的进程管理工具，使用它可以方便的对web服务进程进行后台管理，例如后台运行、停止、重启、打印（输出）日志、监控报警。它的价值主要体现在以下方面： 守护进程，服务崩溃后自动重启 支持多进程，充分利用 CPU 和内存资源 日志记录功能 PM2 下载安装$ npm install -g pm2 &emsp;&emsp;安装完成后，查看版本确认是否安装成功： $ pm2 --version # 4.2.0 PM2 主要命令运行 $ pm2 start &lt;AppName&gt;/&lt;id&gt; # 启动进程 &emsp;&emsp;启动成功后如下图所示： 查看进程列表 $ pm2 list # 查看进程列表 重启 $ pm2 restart &lt;AppName&gt;/&lt;id&gt; # 重启进程 停止 $ pm2 stop &lt;AppName&gt;/&lt;id&gt; # 暂停进程 删除 $ pm2 delete &lt;AppName&gt;/&lt;id&gt; # 删除进程 查看其它信息 $ pm2 info &lt;id&gt; # 查看进程详情 $ pm2 log &lt;id&gt; # 打印进程日志 $ pm2 monit &lt;id&gt; # 打开进程监控面板 通过配置文件启动PM2&emsp;&emsp;PM2作为一个功能强大的进程管理工具，可以配置更多的选项参数来使用。首先需要新建一个json格式的PM2配置文件（例如： pm2.config.json） #pm2.config.json { &quot;apps&quot;: { &quot;name&quot;: &quot;pm2-test-server&quot;, # 自定义进程名 &quot;script&quot;: &quot;app.js&quot;, # 服务脚本路径 &quot;watch&quot;: true, # 是否监听脚本变化重启服务 &quot;ignore_watch&quot;: [&quot;node_modules&quot;, &quot;logs&quot;], # 监听忽略文件列表 &quot;instances&quot;: 4, # 启用多进程支持，进程数 &quot;error_file&quot;: &quot;logs/err.log&quot;, # 错误日志输出文件路径 &quot;out_file&quot;: &quot;logs/out.log&quot;, # 打印日志输出文件路径 &quot;log_date_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot; # 日志时间戳格式 } } &emsp;&emsp;然后以配置文件的方式启动 $ pm2 start &lt;PM2ConfigName&gt; # 通过配置文件启动 &emsp;&emsp;启动成功后如下图所示，进程name已经使用自定义配置，并且watching选项也配置为enabled: &emsp;&emsp;如果配置文件中配置了多进程参数，启动的服务脚本会同时运行多个进程服务，PM2会根据进程资源使用情况，自动进行负载均衡。另外不同进程的日志会自动分拆成不同日志文件输出，方便查看管理： 注意事项 &emsp;&emsp;如果采用多进程运行服务，需要注意保存在每个进程实例内存中的信息是无法共享的。以web服务为例，如果将session等状态信息保存在进程内存中，通过pm2多进程启动的其它进程是无法共享获取到的，因此对需要使用内存管理的状态信息需要借用外部的内存数据库，如Redis进行状态管理，可以轻松解决这种需求。]]></content>
       <categories>
         <category>安装教程</category>
       </categories>
@@ -175,9 +175,9 @@
         <category>安装教程</category>
       </categories>
       <tags>
+        <tag>服务器</tag>
         <tag>开发工具</tag>
         <tag>镜像备份</tag>
-        <tag>服务器</tag>
       </tags>
   </entry>
   <entry>
