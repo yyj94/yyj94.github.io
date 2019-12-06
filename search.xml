@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[进程管理工具 —— pm2 的配置使用]]></title>
+    <url>%2F2019%2F10%2F07%2F2019100701%2F</url>
+    <content type="text"><![CDATA[进程管理工具 —— pm2 的配置使用PM2 的作用PM2 是服务端常用的进程管理工具，使用它可以方便的对web服务进程进行后台管理，例如后台运行、停止、重启、打印（输出）日志、监控报警。它的价值主要体现在以下方面： 守护进程，服务崩溃后自动重启 支持多进程，充分利用 CPU 和内存资源 日志记录功能 PM2 下载安装 $ npm install -g pm2 安装完成后，查看版本确认是否安装成功： $ pm2 --version # 4.2.0 PM2 主要命令 运行 $ pm2 start &lt;AppName&gt;/&lt;id&gt; # 启动进程 启动成功后如下图所示： 查看进程列表 $ pm2 list # 查看进程列表 重启 $ pm2 restart &lt;AppName&gt;/&lt;id&gt; # 重启进程 停止 $ pm2 stop &lt;AppName&gt;/&lt;id&gt; # 暂停进程 删除 $ pm2 delete &lt;AppName&gt;/&lt;id&gt; # 删除进程 查看其它信息 $ pm2 info &lt;id&gt; # 查看进程详情 $ pm2 log &lt;id&gt; # 打印进程日志 $ pm2 monit &lt;id&gt; # 打开进程监控面板 通过配置文件启动PM2PM2作为一个功能强大的进程管理工具，可以配置更多的选项参数来使用。首先需要新建一个json格式的PM2配置文件（例如： pm2.config.json） #pm2.config.json { &quot;apps&quot;: { &quot;name&quot;: &quot;pm2-test-server&quot;, # 自定义进程名 &quot;script&quot;: &quot;app.js&quot;, # 服务脚本路径 &quot;watch&quot;: true, # 是否监听脚本变化重启服务 &quot;ignore_watch&quot;: [&quot;node_modules&quot;, &quot;logs&quot;], # 监听忽略文件列表 &quot;instances&quot;: 4, # 启用多进程支持，进程数 &quot;error_file&quot;: &quot;logs/err.log&quot;, # 错误日志输出文件路径 &quot;out_file&quot;: &quot;logs/out.log&quot;, # 打印日志输出文件路径 &quot;log_date_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot; # 日志时间戳格式 } } 然后以配置文件的方式启动 $ pm2 start &lt;PM2ConfigName&gt; # 通过配置文件启动 启动成功后如下图所示，进程name已经使用自定义配置，并且watching选项也配置为enabled: 如果配置文件中配置了多进程参数，启动的服务脚本会同时运行多个进程服务，PM2会根据进程资源使用情况，自动进行负载均衡。另外不同进程的日志会自动分拆成不同日志文件输出，方便查看管理： 注意事项如果采用多进程运行服务，需要注意保存在每个进程实例内存中的信息是无法共享的。以web服务为例，如果将session等状态信息保存在进程内存中，通过pm2多进程启动的其它进程是无法共享获取到的，因此对需要使用内存管理的状态信息需要借用外部的内存数据库，如Redis进行状态管理，可以轻松解决这种需求。]]></content>
+      <categories>
+        <category>安装教程</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+        <tag>运维工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《React 实战进阶》 学习笔记 20190811]]></title>
     <url>%2F2019%2F08%2F11%2F2019081101%2F</url>
     <content type="text"><![CDATA[使用 Rekit 构建前端项目Rekit 介绍Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 github 的 star 数已经超过 4k。 Rekit Studio 的优点更好的代码导航 语义化的组织源代码文件各个 Feature 的代码统一放在 Routes、Actions、Components 等语义化清晰的文件夹下进行管理 使用子 Tab 来展示项目元素的各个部分IDE 打开文件代码以新增标签页形式，能够方便的在不同的代码文件之间切换。 直观的显示和导航某个功能的所有依赖功能代码页面在右边侧边栏下方区域清晰的显示当前文件与其他文件之间的依赖关系 一键生成项目元素 直观的 UI 用于生成组件，action，reducer 等在项目目录上右键，可以点击新增组件，生成组件代码 模板代码遵循最佳实践模板代码按照最佳实践自动生成 支持命令行方式创建项目元素支持使用命令行的形式创建项目元素 重构非常容易 右键菜单重命名或者删除某个项目元素右键菜单栏提供项目元素重命名和删除选项 所有相关代码都会一次性重构从而保证一致性所有的重命名和删除操作会同时修改项目中所有引用的位置 详细的 log 信息显示重构的完整修改日志提供重构步骤的所有详细信息 可视化的项目架构 项目总体架构的可视化图表 项目依赖关系的图表 集成单元测试、单元测试覆盖率、项目打包Rekit 是如何工作的 定义了基于 feature 的可扩展文件夹结构Rekit 默认项目文件结构按照 feature 的代码组织结构作为前提条件 基于最佳实践生成代码和管理项目元素新增代码和管理项目元素都是按照最佳代码组织实践 提供工具和 IDE 确保代码和文件夹结构遵循最佳实践提供可视化 IDE 及相关功能自动化处理，保持项目始终按照最佳实践迭代 遵循最佳实践 以 feature 方式组织代码 拆分组件，action 和 reducer 拆分路由配置 通过代码自动生成保持一致 文件夹结构一致性 文件名一致性 变量名一致性 代码逻辑的一致性]]></content>
@@ -163,9 +175,9 @@
         <category>安装教程</category>
       </categories>
       <tags>
-        <tag>服务器</tag>
         <tag>开发工具</tag>
         <tag>镜像备份</tag>
+        <tag>服务器</tag>
       </tags>
   </entry>
   <entry>
