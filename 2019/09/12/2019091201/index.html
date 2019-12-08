@@ -59,20 +59,20 @@
   };
 </script>
 
-  <meta name="description" content="rsync 简介rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。 它的特性如下：  可以镜像保存整个目录树和文件系统。 可以很容易做到保持原来文件的权限、时间、软硬链接等等。 无须特殊权限即可安装。 快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。r">
-<meta name="keywords" content="服务器,镜像备份,开发工具">
+  <meta name="description" content="express 中间件示例&amp;emsp;&amp;emsp;express 通过app.use()注册中间件函数，app.use()有两个参数，第一个参数是要匹配路由的路径字符串，如果不传，默认值为/，匹配所有路由。第二个参数是中间件处理函数，有三个参数req、res、next，分别是 http 请求request对象、response对象、以及指代下一个中间件函数的next方法。当前中间件函数执行完后，如">
+<meta name="keywords" content="Node,express">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rsync 同步文件到服务器">
-<meta property="og:url" content="https://blog.yeyanjie.com/2019/05/24/2019052401/index.html">
+<meta property="og:title" content="手动实现 express 中间件机制">
+<meta property="og:url" content="https://blog.yeyanjie.com/2019/09/12/2019091201/index.html">
 <meta property="og:site_name" content="Jarvis&#39;s Blog">
-<meta property="og:description" content="rsync 简介rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。 它的特性如下：  可以镜像保存整个目录树和文件系统。 可以很容易做到保持原来文件的权限、时间、软硬链接等等。 无须特殊权限即可安装。 快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。r">
+<meta property="og:description" content="express 中间件示例&amp;emsp;&amp;emsp;express 通过app.use()注册中间件函数，app.use()有两个参数，第一个参数是要匹配路由的路径字符串，如果不传，默认值为/，匹配所有路由。第二个参数是中间件处理函数，有三个参数req、res、next，分别是 http 请求request对象、response对象、以及指代下一个中间件函数的next方法。当前中间件函数执行完后，如">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T11:24:58.082Z">
+<meta property="og:updated_time" content="2019-12-08T07:25:14.864Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rsync 同步文件到服务器">
-<meta name="twitter:description" content="rsync 简介rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。 它的特性如下：  可以镜像保存整个目录树和文件系统。 可以很容易做到保持原来文件的权限、时间、软硬链接等等。 无须特殊权限即可安装。 快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。r">
+<meta name="twitter:title" content="手动实现 express 中间件机制">
+<meta name="twitter:description" content="express 中间件示例&amp;emsp;&amp;emsp;express 通过app.use()注册中间件函数，app.use()有两个参数，第一个参数是要匹配路由的路径字符串，如果不传，默认值为/，匹配所有路由。第二个参数是中间件处理函数，有三个参数req、res、next，分别是 http 请求request对象、response对象、以及指代下一个中间件函数的next方法。当前中间件函数执行完后，如">
   <link rel="alternate" href="/atom.xml" title="Jarvis's Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://blog.yeyanjie.com/2019/05/24/2019052401/">
+  <link rel="canonical" href="https://blog.yeyanjie.com/2019/09/12/2019091201/">
 
 
 <script id="page.configurations">
@@ -91,7 +91,7 @@
     h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
   })(document);
 </script>
-  <title>rsync 同步文件到服务器 | Jarvis's Blog</title>
+  <title>手动实现 express 中间件机制 | Jarvis's Blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/05/24/2019052401/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeyanjie.com/2019/09/12/2019091201/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jarvis Ye">
@@ -271,7 +271,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">rsync 同步文件到服务器
+          <h1 class="post-title" itemprop="name headline">手动实现 express 中间件机制
 
               
             
@@ -291,7 +291,7 @@
                 
               
 
-              <time title="创建时间：2019-05-24 08:44:00" itemprop="dateCreated datePublished" datetime="2019-05-24T08:44:00+08:00">2019-05-24</time>
+              <time title="创建时间：2019-09-12 19:23:07" itemprop="dateCreated datePublished" datetime="2019-09-12T19:23:07+08:00">2019-09-12</time>
             </span>
           
             
@@ -304,7 +304,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-12-07 19:24:58" itemprop="dateModified" datetime="2019-12-07T19:24:58+08:00">2019-12-07</time>
+                <time title="修改时间：2019-12-08 15:25:14" itemprop="dateModified" datetime="2019-12-08T15:25:14+08:00">2019-12-08</time>
               </span>
             
           
@@ -316,7 +316,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具教程/" itemprop="url" rel="index"><span itemprop="name">工具教程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发札记/" itemprop="url" rel="index"><span itemprop="name">开发札记</span></a></span>
 
                 
                 
@@ -341,7 +341,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">1.7k</span>
+              <span title="本文字数">5.1k</span>
             </span>
           
             <span class="post-meta-item">
@@ -351,7 +351,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">3 分钟</span>
+              <span title="阅读时长">9 分钟</span>
             </span>
           
 
@@ -364,86 +364,274 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="rsync-简介"><a href="#rsync-简介" class="headerlink" title="rsync 简介"></a>rsync 简介</h3><p>rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。</p>
-<p>它的特性如下：</p>
-<ul>
-<li>可以镜像保存整个目录树和文件系统。</li>
-<li>可以很容易做到保持原来文件的权限、时间、软硬链接等等。</li>
-<li>无须特殊权限即可安装。</li>
-<li>快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。rsync 在传输数据的过程中可以实行压缩及解压缩操作，因此以使用更少的带宽。</li>
-<li>安全：可以使用 scp、ssh 等方式来传输文件，当然也可以通过直接 socket 连接。</li>
-<li>支持匿名传输，以方便进行网站镜像。<a id="more"></a></li>
-</ul>
-<h3 id="服务器端部署"><a href="#服务器端部署" class="headerlink" title="服务器端部署"></a>服务器端部署</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre><code class="bash">$ yum install -y rsync  // CentOS</code></pre>
-<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><pre><code class="bash">$ vi /etc/rsyncd.conf
+        <h3 id="express-中间件示例"><a href="#express-中间件示例" class="headerlink" title="express 中间件示例"></a>express 中间件示例</h3><p>&emsp;&emsp;express 通过<code>app.use()</code>注册中间件函数，<code>app.use()</code>有两个参数，第一个参数是要匹配路由的路径字符串，如果不传，默认值为<code>/</code>，匹配所有路由。第二个参数是中间件处理函数，有三个参数<code>req</code>、<code>res</code>、<code>next</code>，分别是 http 请求<code>request</code>对象、<code>response</code>对象、以及指代下一个中间件函数的<code>next</code>方法。当前中间件函数执行完后，如果需要执行下一个中间件函数，只需要调用<code>next</code>方法</p>
+<pre><code class="javascript">const express = require(&quot;express&quot;); // 引入express
+const app = express(); // 新建express实例
 
-// rsyncd.conf
+// 处理任意路由
+app.use((req, res, next) =&gt; {
+  console.log(&quot;请求开始...&quot;, req.method, req.url);
+  next();
+});
 
-#全局配置
-uid = root
-gid = root
-incoming chmod = Du=rwx,Dog=rx,Fu=rwx,Fgo=rx
-exclude = node_modules/ .git/
+// 处理api路由
+app.use(&quot;/api&quot;, (req, res, next) =&gt; {
+  next();
+});
 
-# 模块配置
-[www]
-host allow = *
-path = /home/wwwroot
-comment = www
-auth users = publish
-secrets file = /etc/rsyncd.passwd
-read only = no</code></pre>
-<h4 id="创建密码文件"><a href="#创建密码文件" class="headerlink" title="创建密码文件"></a>创建密码文件</h4><pre><code class="bash">$ vi /etc/rsyncd.passwd
+// 处理 GET api/get路由...
+app.get(&quot;/api/get&quot;, (req, res, next) =&gt; {
+  res.json({
+    code: 0,
+    data: &quot;get data&quot;
+  });
+  next();
+});
 
-备份用户:备份密码   // 如publish:abc123</code></pre>
-<h4 id="指定目录并赋予权限"><a href="#指定目录并赋予权限" class="headerlink" title="指定目录并赋予权限"></a>指定目录并赋予权限</h4><pre><code class="bash">chmod 600 /etc/rsyncd.passwd
-chown -R publish:publish 备份目录</code></pre>
-<h4 id="启动-停止服务"><a href="#启动-停止服务" class="headerlink" title="启动/停止服务"></a>启动/停止服务</h4><pre><code class="bash">查看服务器进程
-$ ps aux | grep rsync
+// 模拟登录检验中间件
+const loginCheck = (req, res, next) =&gt; {
+  setTimeout(() =&gt; {
+    next();
+  }, 1000);
+};
 
-杀死进程
-$ pkill rsync
+// 处理 GET api/post路由...
+app.post(&quot;/api/post&quot;, loginCheck, (req, res, next) =&gt; {
+  res.json({
+    code: 0,
+    data: &quot;post data&quot;
+  });
+  next();
+});
 
-启动服务
-$ rsync --daemon --config=/etc/rsyncd.conf</code></pre>
-<h3 id="客户端-windows"><a href="#客户端-windows" class="headerlink" title="客户端(windows)"></a>客户端(windows)</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>cwRsync (windows 版)</p>
-<h4 id="配置文件结构"><a href="#配置文件结构" class="headerlink" title="配置文件结构"></a>配置文件结构</h4><p>– publish<br>– – pubToProd.sh （备份脚本）<br>– – PwdPubToProd.pwd （密码文件）</p>
-<h4 id="配置文件实例"><a href="#配置文件实例" class="headerlink" title="配置文件实例"></a>配置文件实例</h4><pre><code class="bash">// pubToProd.sh
+// 处理404
+app.use((req, res, next) =&gt; {
+  next();
+});
 
-echo &#39;*************发布正式环境******************&#39;
-echo &#39;*                                         *&#39;
-echo &#39;*         地址: xxx.xxx.xxx.xxx           *&#39;
-echo &#39;*         密码: 隐藏                       *&#39;
-echo &#39;*                                         *&#39;
-echo &#39;*******************************************&#39;
-echo &#39;                                           &#39;
-echo &#39;*              starting...                *&#39;
-echo &#39;                                           &#39;
-echo -n &quot; 确认发布到正式环境!!!!!!请输入(yes) -&gt; &quot;
-read int
-if [[ &quot;$int&quot; == &quot;yes&quot; || &quot;$int&quot; == &quot;y&quot; ]]; then
+// 监听 3000 端口
+app.listen(3000, () =&gt; {
+  console.log(&quot;listen port on 3000...&quot;);
+});</code></pre>
+<h3 id="手动实现-express-中间件处理机制"><a href="#手动实现-express-中间件处理机制" class="headerlink" title="手动实现 express 中间件处理机制"></a>手动实现 express 中间件处理机制</h3><h4 id="创建类-express-class-类"><a href="#创建类-express-class-类" class="headerlink" title="创建类 express class 类"></a>创建类 express class 类</h4><p>&emsp;&emsp;express 框架有四个主要方法：<code>use()</code>、<code>get()</code>、<code>post()</code>、<code>listen()</code>：</p>
+<pre><code class="javascript">const http = require(&quot;http&quot;);
 
-echo &#39;                                           &#39;
-echo &#39;                                           &#39;
-rsync -aP --progress  --password-file=&#39;客户端密码文件相对路径&#39; &#39;备份文件夹相对路径&#39; &#39;备份用户&#39;@&#39;IP地址&#39;::&#39;模块名&#39;/&#39;模块路径后相对路径&#39;
+class NewExpress {
+  constructor() {}
 
-echo &#39;                                           &#39;
-echo &#39;                                           &#39;
-echo &#39;******************END**********************&#39;
-echo &#39;                                           &#39;
-else
-echo &#39;                                           &#39;
-echo &#39;                                           &#39;
-echo &#39;*******************************************&#39;
-echo &#39;*                                         *&#39;
-echo -e &#39;*     \033[31m    确认失败,请重新发布！ \033[0m          *&#39;
-echo &#39;*                                         *&#39;
-echo &#39;*******************************************&#39;
-fi
+  use() {
+    // use方法处理逻辑...
+  }
 
-// PwdPubToProd.pwd
+  get() {
+    // get方法处理逻辑...
+  }
 
-备份密码</code></pre>
+  post() {
+    // post方法处理逻辑...
+  }
+
+  listen() {
+    // listen方法处理逻辑...
+  }
+}
+
+module.exports = () =&gt; {
+  return new NewExpress(); // 使用工厂函数返回实例对象
+};</code></pre>
+<h4 id="完善核心-API-处理逻辑"><a href="#完善核心-API-处理逻辑" class="headerlink" title="完善核心 API 处理逻辑"></a>完善核心 API 处理逻辑</h4><pre><code class="javascript">const http = require(&quot;http&quot;);
+
+class NewExpress {
+  constructor() {
+    this.routes = {
+      all: [], // 存放use方法注册的中间件
+      get: [], // 存放get方法注册的中间件
+      post: [] // 存放post方法注册的中间件
+    };
+  }
+
+  register(path) {
+    // 统一处理中间件注册参数逻辑...
+  }
+
+  use() {
+    const info = this.register.apply(this, arguments); // 使用统一的注册函数处理参数
+    this.routes.all.push(info); // 将处理好的中间件push到this.routes.all中
+  }
+
+  get() {
+    const info = this.register.apply(this, arguments); // 使用统一的注册函数处理参数
+    this.routes.get.push(info); // 将处理好的中间件push到this.routes.get中
+  }
+
+  post() {
+    const info = this.register.apply(this, arguments); // 使用统一的注册函数处理参数
+    this.routes.post.push(info); // 将处理好的中间件push到this.routes.post中
+  }
+
+  callback() {
+    // 默认的服务器回调处理逻辑...
+  }
+
+  listen(...args) {
+    const server = http.createServer(this.callback()); // 创建http服务对象，传入默认的回调函数
+    server.listen(...args); // 将参数传入server.listen()
+  }
+}
+
+// ...</code></pre>
+<h4 id="实现register函数"><a href="#实现register函数" class="headerlink" title="实现register函数"></a>实现<code>register</code>函数</h4><p>&emsp;&emsp;<code>register</code>方法用来统一处理中间件参数，如果第一个参数是字符串，则认为是需要匹配的路由路径，将第二个参数以后的所有参数转成数组存入 stack 属性；如果第一个参数不是字符串类型，则默认匹配所有路由，将 path 属性设置为<code>/</code>，并将所有参数转换为数组存入 stack 属性：</p>
+<pre><code class="javascript">const slice = Array.prototype.slice
+
+register(path) {
+  const info = {};
+  if (typeof path === &quot;string&quot;) {
+    info.path = path;
+    // 从第二个参数开始, 转换为数组，存入stack
+    info.stack = slice.call(arguments, 1);
+  } else {
+    info.path = &quot;/&quot;;
+    // 从第1个参数开始, 转换为数组，存入stack
+    info.stack = slice.call(arguments, 0);
+  }
+  return info;
+}</code></pre>
+<h4 id="实现callback函数"><a href="#实现callback函数" class="headerlink" title="实现callback函数"></a>实现<code>callback</code>函数</h4><p>&emsp;&emsp;<code>callback</code>方法作为默认的服务器实例回调函数，用来设置 express 特有的一些方法，如<code>res.json</code>等。同时根据<code>req.method</code>的不同筛选出匹配的中间件列表，最后通过 handle 函数去执行中间件。</p>
+<pre><code class="javascript">callback() {
+  return (req, res) =&gt; {
+    res.json = data =&gt; {
+      res.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+      res.end(JSON.stringify(data));
+    };
+    const url = req.url;
+    const method = req.method.toLowerCase();
+    const resultList = this.match(method, url);
+    this.handle(req, res, resultList);
+  };
+}</code></pre>
+<h4 id="实现match、handle函数"><a href="#实现match、handle函数" class="headerlink" title="实现match、handle函数"></a>实现<code>match</code>、<code>handle</code>函数</h4><p>&emsp;&emsp;<code>match</code>函数有两个参数，一个是请求的方法类型，一个是请求的路由路径。根据请求方法不同，先将<code>this.routes.all</code>中和对应方法的<code>routes</code>数组合并，然后遍历生成需要执行的中间件函数列表。<code>handle</code>函数是实现<code>next</code>机制的核心方法，函数内部创建一个<code>next</code>函数，这个函数会取得中间列表第一个函数，如果存在，就会一直执行下去</p>
+<pre><code class="javascript">match(method, url) {
+  let stack = [];
+  if (url === &quot;/favicon.icon&quot;) {
+    return stack;
+  }
+  // 获取 routes
+  let curRoutes = [];
+  curRoutes = curRoutes.concat(this.routes.all);
+  curRoutes = curRoutes.concat(this.routes[method]);
+  curRoutes.forEach(routeInfo =&gt; {
+    if (url.indexOf(routeInfo.path) === 0) {
+      stack = stack.concat(routeInfo.stack);
+    }
+  });
+  return stack;
+}
+
+handle(req, res, stack) {
+  const next = () =&gt; {
+    // 拿到第一个匹配的中间件
+    const middleware = stack.shift();
+    if (middleware) {
+      // 执行中间件函数
+      middleware(req, res, next);
+    }
+  };
+  next();
+}</code></pre>
+<h4 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h4><p>&emsp;&emsp;下面是完整的实现代码</p>
+<pre><code class="javascript">const http = require(&quot;http&quot;);
+const slice = Array.prototype.slice;
+
+class NewExpress {
+  constructor() {
+    this.routes = {
+      all: [],
+      get: [],
+      post: []
+    };
+  }
+
+  register(path) {
+    const info = {};
+    if (typeof path === &quot;string&quot;) {
+      info.path = path;
+      info.stack = slice.call(arguments, 1);
+    } else {
+      info.path = &quot;/&quot;;
+      info.stack = slice.call(arguments, 0);
+    }
+    return info;
+  }
+
+  use() {
+    const info = this.register.apply(this, arguments);
+    this.routes.all.push(info);
+  }
+
+  get() {
+    const info = this.register.apply(this, arguments);
+    this.routes.get.push(info);
+  }
+
+  post() {
+    const info = this.register.apply(this, arguments);
+    this.routes.post.push(info);
+  }
+
+  match(method, url) {
+    let stack = [];
+    if (url === &quot;/favicon.icon&quot;) {
+      return stack;
+    }
+
+    let curRoutes = [];
+    curRoutes = curRoutes.concat(this.routes.all);
+    curRoutes = curRoutes.concat(this.routes[method]);
+
+    curRoutes.forEach(routeInfo =&gt; {
+      if (url.indexOf(routeInfo.path) === 0) {
+        stack = stack.concat(routeInfo.stack);
+      }
+    });
+    return stack;
+  }
+
+  // 核心的 next 机制
+  handle(req, res, stack) {
+    const next = () =&gt; {
+      const middleware = stack.shift();
+      if (middleware) {
+        middleware(req, res, next);
+      }
+    };
+    next();
+  }
+
+  callback() {
+    return (req, res) =&gt; {
+      z;
+      res.json = data =&gt; {
+        res.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+        res.end(JSON.stringify(data));
+      };
+      const url = req.url;
+      const method = req.method.toLowerCase();
+
+      const resultList = this.match(method, url);
+      this.handle(req, res, resultList);
+    };
+  }
+
+  listen(...args) {
+    const server = http.createServer(this.callback());
+    server.listen(...args);
+  }
+}
+
+module.exports = () =&gt; {
+  return new NewExpress();
+};</code></pre>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>&emsp;&emsp;相比原生语法开发而言，使用框架是为了减少反复造轮子，为日常的开发工作提效赋能。而学习框架一般而言对照官方文档，看看示例，大致就知道简单的使用了。如果把知道如何使用框架进行基本的业务开发称作：“学会了某某框架”，未免有点名过其实。只有了解框架的设计思路，学习理解框架核心功能的实现机制才能让我们在使用框架过程中更加游刃有余。对个人的技术素养及储备来说，也大有益处。</p>
 
     </div>
 
@@ -459,12 +647,12 @@ fi
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/05/24/2019052401/">rsync 同步文件到服务器</a></p>
+  <p><span>本文标题:</span><a href="/2019/09/12/2019091201/">手动实现 express 中间件机制</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
-  <p><span>发布时间:</span>2019年05月24日 - 08:44</p>
-  <p><span>最后更新:</span>2019年12月07日 - 19:24</p>
-  <p><span>原始链接:</span><a href="/2019/05/24/2019052401/" title="rsync 同步文件到服务器">https://blog.yeyanjie.com/2019/05/24/2019052401/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/05/24/2019052401/"  aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年09月12日 - 19:23</p>
+  <p><span>最后更新:</span>2019年12月08日 - 15:25</p>
+  <p><span>原始链接:</span><a href="/2019/09/12/2019091201/" title="手动实现 express 中间件机制">https://blog.yeyanjie.com/2019/09/12/2019091201/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/09/12/2019091201/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -488,17 +676,15 @@ fi
           
         
         <div class="post-tags">
-            <a href="/tags/服务器/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+            <a href="/tags/Node/" rel="tag"><i class="fa fa-tag"></i> Node</a>
           
-            <a href="/tags/镜像备份/" rel="tag"><i class="fa fa-tag"></i> 镜像备份</a>
-          
-            <a href="/tags/开发工具/" rel="tag"><i class="fa fa-tag"></i> 开发工具</a>
+            <a href="/tags/express/" rel="tag"><i class="fa fa-tag"></i> express</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2017/12/01/2017120101/" rel="next" title="node版本管理工具——nvm安装配置">
-                <i class="fa fa-chevron-left"></i> node版本管理工具——nvm安装配置
+              <a href="/2019/08/11/2019081101/" rel="next" title="《React 实战进阶》 学习笔记 20190811">
+                <i class="fa fa-chevron-left"></i> 《React 实战进阶》 学习笔记 20190811
               </a>
             
           </div>
@@ -506,8 +692,8 @@ fi
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/07/29/2019072901/" rel="prev" title="《React实战进阶》 学习笔记 20190729">
-                《React实战进阶》 学习笔记 20190729 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/12/2019091202/" rel="prev" title="手动实现 koa2 中间件机制">
+                手动实现 koa2 中间件机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -687,7 +873,7 @@ fi
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#rsync-简介"><span class="nav-number">1.</span> <span class="nav-text">rsync 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器端部署"><span class="nav-number">2.</span> <span class="nav-text">服务器端部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建密码文件"><span class="nav-number">2.3.</span> <span class="nav-text">创建密码文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定目录并赋予权限"><span class="nav-number">2.4.</span> <span class="nav-text">指定目录并赋予权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动-停止服务"><span class="nav-number">2.5.</span> <span class="nav-text">启动/停止服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端-windows"><span class="nav-number">3.</span> <span class="nav-text">客户端(windows)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件结构"><span class="nav-number">3.2.</span> <span class="nav-text">配置文件结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件实例"><span class="nav-number">3.3.</span> <span class="nav-text">配置文件实例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#express-中间件示例"><span class="nav-number">1.</span> <span class="nav-text">express 中间件示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动实现-express-中间件处理机制"><span class="nav-number">2.</span> <span class="nav-text">手动实现 express 中间件处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建类-express-class-类"><span class="nav-number">2.1.</span> <span class="nav-text">创建类 express class 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完善核心-API-处理逻辑"><span class="nav-number">2.2.</span> <span class="nav-text">完善核心 API 处理逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现register函数"><span class="nav-number">2.3.</span> <span class="nav-text">实现register函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现callback函数"><span class="nav-number">2.4.</span> <span class="nav-text">实现callback函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现match、handle函数"><span class="nav-number">2.5.</span> <span class="nav-text">实现match、handle函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终效果"><span class="nav-number">2.6.</span> <span class="nav-text">最终效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
             
 
           </div>

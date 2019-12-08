@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[进程管理工具 —— pm2 的配置使用]]></title>
-    <url>%2F2019%2F10%2F07%2F2019100701%2F</url>
-    <content type="text"><![CDATA[PM2 的作用&emsp;&emsp;PM2 是服务端常用的进程管理工具，使用它可以方便的对web服务进程进行后台管理，例如后台运行、停止、重启、打印（输出）日志、监控报警。它的价值主要体现在以下方面： 守护进程，服务崩溃后自动重启 支持多进程，充分利用 CPU 和内存资源 日志记录功能 PM2 下载安装$ npm install -g pm2 &emsp;&emsp;安装完成后，查看版本确认是否安装成功： $ pm2 --version # 4.2.0 PM2 主要命令运行 $ pm2 start &lt;AppName&gt;/&lt;id&gt; # 启动进程 &emsp;&emsp;启动成功后如下图所示： 查看进程列表 $ pm2 list # 查看进程列表 重启 $ pm2 restart &lt;AppName&gt;/&lt;id&gt; # 重启进程 停止 $ pm2 stop &lt;AppName&gt;/&lt;id&gt; # 暂停进程 删除 $ pm2 delete &lt;AppName&gt;/&lt;id&gt; # 删除进程 查看其它信息 $ pm2 info &lt;id&gt; # 查看进程详情 $ pm2 log &lt;id&gt; # 打印进程日志 $ pm2 monit &lt;id&gt; # 打开进程监控面板 通过配置文件启动PM2&emsp;&emsp;PM2作为一个功能强大的进程管理工具，可以配置更多的选项参数来使用。首先需要新建一个json格式的PM2配置文件（例如： pm2.config.json） #pm2.config.json { &quot;apps&quot;: { &quot;name&quot;: &quot;pm2-test-server&quot;, # 自定义进程名 &quot;script&quot;: &quot;app.js&quot;, # 服务脚本路径 &quot;watch&quot;: true, # 是否监听脚本变化重启服务 &quot;ignore_watch&quot;: [&quot;node_modules&quot;, &quot;logs&quot;], # 监听忽略文件列表 &quot;instances&quot;: 4, # 启用多进程支持，进程数 &quot;error_file&quot;: &quot;logs/err.log&quot;, # 错误日志输出文件路径 &quot;out_file&quot;: &quot;logs/out.log&quot;, # 打印日志输出文件路径 &quot;log_date_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot; # 日志时间戳格式 } } &emsp;&emsp;然后以配置文件的方式启动 $ pm2 start &lt;PM2ConfigName&gt; # 通过配置文件启动 &emsp;&emsp;启动成功后如下图所示，进程name已经使用自定义配置，并且watching选项也配置为enabled: &emsp;&emsp;如果配置文件中配置了多进程参数，启动的服务脚本会同时运行多个进程服务，PM2会根据进程资源使用情况，自动进行负载均衡。另外不同进程的日志会自动分拆成不同日志文件输出，方便查看管理： 注意事项 &emsp;&emsp;如果采用多进程运行服务，需要注意保存在每个进程实例内存中的信息是无法共享的。以web服务为例，如果将session等状态信息保存在进程内存中，通过pm2多进程启动的其它进程是无法共享获取到的，因此对需要使用内存管理的状态信息需要借用外部的内存数据库，如Redis进行状态管理，可以轻松解决这种需求。]]></content>
+    <title>进程管理工具 —— pm2 的配置使用</title>
+    <url>/2019/10/07/2019100701/</url>
+    <content><![CDATA[<h3 id="PM2-的作用"><a href="#PM2-的作用" class="headerlink" title="PM2 的作用"></a>PM2 的作用</h3><p>&emsp;&emsp;PM2 是服务端常用的进程管理工具，使用它可以方便的对web服务进程进行后台管理，例如后台运行、停止、重启、打印（输出）日志、监控报警。它的价值主要体现在以下方面：  </p>
+<ul>
+<li>守护进程，服务崩溃后自动重启</li>
+<li>支持多进程，充分利用 CPU 和内存资源</li>
+<li>日志记录功能<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="PM2-下载安装"><a href="#PM2-下载安装" class="headerlink" title="PM2 下载安装"></a>PM2 下载安装</h3><pre><code class="bash">$ npm install -g pm2</code></pre>
+<p>&emsp;&emsp;安装完成后，查看版本确认是否安装成功：</p>
+<pre><code class="bash">$ pm2 --version   # 4.2.0</code></pre>
+<h3 id="PM2-主要命令"><a href="#PM2-主要命令" class="headerlink" title="PM2 主要命令"></a>PM2 主要命令</h3><h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><pre><code class="bash">  $ pm2 start &lt;AppName&gt;/&lt;id&gt;    # 启动进程</code></pre>
+<p>&emsp;&emsp;启动成功后如下图所示：</p>
+<p>  <img alt="PM2配置文件启动服务" data-src="https://img.yeyanjie.com/blog/201910/1.png"></p>
+<h4 id="查看进程列表"><a href="#查看进程列表" class="headerlink" title="查看进程列表"></a>查看进程列表</h4><pre><code class="bash">  $ pm2 list    # 查看进程列表</code></pre>
+<h4 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h4><pre><code class="bash">  $ pm2 restart &lt;AppName&gt;/&lt;id&gt;    # 重启进程</code></pre>
+<h4 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h4><pre><code class="bash">  $ pm2 stop &lt;AppName&gt;/&lt;id&gt;    # 暂停进程</code></pre>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><pre><code class="bash">  $ pm2 delete &lt;AppName&gt;/&lt;id&gt;   # 删除进程</code></pre>
+<h4 id="查看其它信息"><a href="#查看其它信息" class="headerlink" title="查看其它信息"></a>查看其它信息</h4><pre><code class="bash">  $ pm2 info &lt;id&gt;   # 查看进程详情
+  $ pm2 log &lt;id&gt;   # 打印进程日志
+  $ pm2 monit &lt;id&gt;  # 打开进程监控面板</code></pre>
+<h3 id="通过配置文件启动PM2"><a href="#通过配置文件启动PM2" class="headerlink" title="通过配置文件启动PM2"></a>通过配置文件启动PM2</h3><p>&emsp;&emsp;PM2作为一个功能强大的进程管理工具，可以配置更多的选项参数来使用。首先需要新建一个json格式的PM2配置文件（例如： <code>pm2.config.json</code>）  </p>
+<pre><code class="bash">#pm2.config.json
+{
+  &quot;apps&quot;: {
+    &quot;name&quot;: &quot;pm2-test-server&quot;,   # 自定义进程名
+    &quot;script&quot;: &quot;app.js&quot;,  # 服务脚本路径
+    &quot;watch&quot;: true,    # 是否监听脚本变化重启服务
+    &quot;ignore_watch&quot;: [&quot;node_modules&quot;, &quot;logs&quot;],   # 监听忽略文件列表  
+    &quot;instances&quot;: 4,   # 启用多进程支持，进程数
+    &quot;error_file&quot;: &quot;logs/err.log&quot;,   # 错误日志输出文件路径
+    &quot;out_file&quot;: &quot;logs/out.log&quot;,   # 打印日志输出文件路径
+    &quot;log_date_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot;   # 日志时间戳格式
+  }
+}
+</code></pre>
+<p>&emsp;&emsp;然后以配置文件的方式启动</p>
+<pre><code class="bash">$ pm2 start &lt;PM2ConfigName&gt;   # 通过配置文件启动</code></pre>
+<p>&emsp;&emsp;启动成功后如下图所示，进程<code>name</code>已经使用自定义配置，并且<code>watching</code>选项也配置为<code>enabled</code>:  </p>
+<p><img alt="PM2配置文件运行服务" data-src="https://img.yeyanjie.com/blog/201910/2.png"></p>
+<p>&emsp;&emsp;如果配置文件中配置了多进程参数，启动的服务脚本会同时运行多个进程服务，PM2会根据进程资源使用情况，自动进行负载均衡。另外不同进程的日志会自动分拆成不同日志文件输出，方便查看管理：</p>
+<p><img alt="PM2多进程运行服务" data-src="https://img.yeyanjie.com/blog/201910/3.png"></p>
+<p><strong>注意事项</strong>  </p>
+<p>&emsp;&emsp;如果采用多进程运行服务，需要注意保存在每个进程实例内存中的信息是无法共享的。以web服务为例，如果将session等状态信息保存在进程内存中，通过pm2多进程启动的其它进程是无法共享获取到的，因此对需要使用内存管理的状态信息需要借用外部的内存数据库，如Redis进行状态管理，可以轻松解决这种需求。</p>
+]]></content>
       <categories>
-        <category>安装教程</category>
+        <category>工具教程</category>
       </categories>
       <tags>
         <tag>服务器</tag>
@@ -13,191 +57,1625 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[《React 实战进阶》 学习笔记 20190811]]></title>
-    <url>%2F2019%2F08%2F11%2F2019081101%2F</url>
-    <content type="text"><![CDATA[使用 Rekit 构建前端项目Rekit 介绍Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 github 的 star 数已经超过 4k。 Rekit Studio 的优点更好的代码导航 语义化的组织源代码文件各个 Feature 的代码统一放在 Routes、Actions、Components 等语义化清晰的文件夹下进行管理 使用子 Tab 来展示项目元素的各个部分IDE 打开文件代码以新增标签页形式，能够方便的在不同的代码文件之间切换。 直观的显示和导航某个功能的所有依赖功能代码页面在右边侧边栏下方区域清晰的显示当前文件与其他文件之间的依赖关系 一键生成项目元素 直观的 UI 用于生成组件，action，reducer 等在项目目录上右键，可以点击新增组件，生成组件代码 模板代码遵循最佳实践模板代码按照最佳实践自动生成 支持命令行方式创建项目元素支持使用命令行的形式创建项目元素 重构非常容易 右键菜单重命名或者删除某个项目元素右键菜单栏提供项目元素重命名和删除选项 所有相关代码都会一次性重构从而保证一致性所有的重命名和删除操作会同时修改项目中所有引用的位置 详细的 log 信息显示重构的完整修改日志提供重构步骤的所有详细信息 可视化的项目架构 项目总体架构的可视化图表 项目依赖关系的图表 集成单元测试、单元测试覆盖率、项目打包Rekit 是如何工作的 定义了基于 feature 的可扩展文件夹结构Rekit 默认项目文件结构按照 feature 的代码组织结构作为前提条件 基于最佳实践生成代码和管理项目元素新增代码和管理项目元素都是按照最佳代码组织实践 提供工具和 IDE 确保代码和文件夹结构遵循最佳实践提供可视化 IDE 及相关功能自动化处理，保持项目始终按照最佳实践迭代 遵循最佳实践 以 feature 方式组织代码 拆分组件，action 和 reducer 拆分路由配置 通过代码自动生成保持一致 文件夹结构一致性 文件名一致性 变量名一致性 代码逻辑的一致性]]></content>
+    <title>手动实现 koa2 中间件机制</title>
+    <url>/2019/09/12/2019091202/</url>
+    <content><![CDATA[<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>&emsp;&emsp;前面我们手动实现了<code>express</code>中间件机制，这篇文章将讲述如何手动实现<code>koa2</code>中间件的机制。<code>koa2</code>和<code>express</code>框架相比，核心 api 仍然是<code>use</code>方法，不过<code>koa</code>npm 包将路由相关的功能拆分到<code>koa-router</code>包中去了，因此暂时不需要实现<code>express</code>中类似<code>get</code>、<code>post</code>方法了。另外<code>koa2</code>框架原生支持<code>async</code>/<code>await</code>异步机制。</p>
+<h3 id="koa2-中间件示例"><a href="#koa2-中间件示例" class="headerlink" title="koa2 中间件示例"></a>koa2 中间件示例</h3><p>&emsp;&emsp;koa2 通过<code>app.use()</code>注册中间件函数，<code>app.use()</code>只有 1 个参数，那就是一个中间件处理逻辑的回调函数，函数一般用使用<code>async</code>包裹，这样函数内部可以使用<code>await</code>来获取异步信息。回调函数有两个参数：<code>ctx</code>、<code>next</code>,<code>ctx</code>是将<code>http</code>协议中<code>request</code>和<code>response</code>整合之后的变量，通过它可以拿到<code>http</code>请求和响应的信息。<code>next</code>是指代下一个中间件的方法，在函数中通过<code>await next()</code>的方式执行下一个中间件。这里和<code>express</code>不同的是，因为使用了<code>await</code>执行下一个中间件，因此这条语句下面的代码将延后至下一个中间件执行完成后继续执行，如此往复，一层一层构成的洋葱模型。</p>
+<pre><code class="javascript">const Koa = require(&quot;./like-koa2&quot;);
+const app = new Koa();
+
+app.use(async (ctx, next) =&gt; {
+  await next();
+  const rt = ctx[&quot;X-Response-Time&quot;];
+  console.log(`${ctx.req.method} ${ctx.req.url} - ${rt}`);
+});
+
+// x-response-time
+app.use(async (ctx, next) =&gt; {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx[&quot;X-Response-Time&quot;] = `${ms}ms`;
+});
+
+// response
+app.use(async ctx =&gt; {
+  ctx.res.end(&quot;This is koa2&quot;);
+});
+
+app.listen(8000);</code></pre>
+<h3 id="手动实现-koa2-中间件处理机制"><a href="#手动实现-koa2-中间件处理机制" class="headerlink" title="手动实现 koa2 中间件处理机制"></a>手动实现 koa2 中间件处理机制</h3><h4 id="创建类-koa2-class-类"><a href="#创建类-koa2-class-类" class="headerlink" title="创建类 koa2 class 类"></a>创建类 koa2 class 类</h4><p>&emsp;&emsp;上面说过，原生的 koa 包是没有路由功能的，因此框架只有二个主要方法：<code>use()</code>、<code>listen()</code>：</p>
+<pre><code class="javascript">const http = require(&quot;http&quot;);
+
+class NewKoa2 {
+  constructor() {}
+
+  use() {
+    // use方法处理逻辑...
+  }
+
+  listen() {
+    // listen方法处理逻辑...
+  }
+}
+
+module.exports = NewKoa2;</code></pre>
+<h4 id="完善核心-API-处理逻辑"><a href="#完善核心-API-处理逻辑" class="headerlink" title="完善核心 API 处理逻辑"></a>完善核心 API 处理逻辑</h4><pre><code class="javascript">const http = require(&quot;http&quot;);
+
+class NewKoa2 {
+  constructor() {
+    this.middlewareList = [];
+  }
+
+  use(fn) {
+    this.middlewareList.push(fn); // 注册中间件
+    return this; // 返回自己，支持链式调用
+  }
+
+  callback() {
+    // 默认的服务器回调处理逻辑...
+  }
+
+  listen(...args) {
+    const server = http.createServer(this.callback()); // 创建http服务对象，传入默认的回调函数
+    server.listen(...args); // 将参数传入server.listen()
+  }
+}
+
+// ...</code></pre>
+<h4 id="实现callback函数"><a href="#实现callback函数" class="headerlink" title="实现callback函数"></a>实现<code>callback</code>函数</h4><p>&emsp;&emsp;<code>callback</code>方法作为默认的服务器实例回调函数，首先组合中间件列表，将注册的中间件列表处理成一个可以不断执行下去的函数，同时将 http server 默认的<code>req</code>、<code>res</code>参数整合为<code>koa2</code>框架默认的<code>ctx</code>变量。</p>
+<pre><code class="javascript">callback() {
+  const fn = compose(this.middlewareList);
+  return (req, res) =&gt; {
+    const ctx = this.createContext(req, res);
+    return this.handleRequest(ctx, fn);
+  };
+}</code></pre>
+<h4 id="实现compose函数"><a href="#实现compose函数" class="headerlink" title="实现compose函数"></a>实现<code>compose</code>函数</h4><p>&emsp;&emsp;<code>compose</code>方法用来组合间件以及执行顺序的函数，传入实例中注册的所有中间件列表，返回一个接收<code>ctx</code>对象的闭包函数，函数中首先定义一个派发函数<code>dispatch</code>，参数是索引值，找到中间件列表索引对应的中间件函数<code>fn</code>，将调用<code>fn</code>之后的返回值作为 Promise 对象返回。如果异常则返回一个<code>reject</code>,然后直接执行第一个中间件函数。</p>
+<pre><code class="javascript">function compose(middlewareList) {
+  return function(ctx) {
+    function dispatch(i) {
+      const fn = middlewareList[i];
+      try {
+        return Promise.resolve(fn(ctx, dispatch.bind(null, i + 1))); // 将下一个中间件函数作为next参数传入，实现next机制
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+    return dispatch(0);
+  };
+}</code></pre>
+<h4 id="实现createContext、handleRequest函数"><a href="#实现createContext、handleRequest函数" class="headerlink" title="实现createContext、handleRequest函数"></a>实现<code>createContext</code>、<code>handleRequest</code>函数</h4><p>&emsp;&emsp;<code>createContext</code>函数有两个参数：<code>req</code>、<code>res</code>,返回整合处理好的<code>ctx</code>对象。<code>handleRequest</code>函数只是将处理好的变量、方法执行的一个语义化封装</p>
+<pre><code class="javascript">createContext(req, res) {
+  const ctx = {
+    req,
+    res
+  };
+  ctx.query = req.query;
+  return ctx;
+}
+
+handleRequest(ctx, fn) {
+  return fn(ctx);
+}</code></pre>
+<h4 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h4><p>&emsp;&emsp;下面是完整的实现代码</p>
+<pre><code class="javascript">const http = require(&quot;http&quot;);
+
+function compose(middlewareList) {
+  return function(ctx) {
+    function dispatch(i) {
+      const fn = middlewareList[i];
+      try {
+        return Promise.resolve(fn(ctx, dispatch.bind(null, i + 1)));
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+    return dispatch(0);
+  };
+}
+
+class NewKoa2 {
+  constructor() {
+    this.middlewareList = [];
+  }
+
+  use(fn) {
+    this.middlewareList.push(fn);
+    return this;
+  }
+
+  createContext(req, res) {
+    const ctx = {
+      req,
+      res
+    };
+    ctx.query = req.query;
+    return ctx;
+  }
+
+  handleRequest(ctx, fn) {
+    return fn(ctx);
+  }
+
+  callback() {
+    const fn = compose(this.middlewareList);
+
+    return (req, res) =&gt; {
+      const ctx = this.createContext(req, res);
+      return this.handleRequest(ctx, fn);
+    };
+  }
+
+  listen(...args) {
+    const server = http.createServer(this.callback());
+    server.listen(...args);
+  }
+}
+
+module.exports = NewKoa2;</code></pre>
+]]></content>
       <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190808]]></title>
-    <url>%2F2019%2F08%2F08%2F2019080803%2F</url>
-    <content type="text"><![CDATA[如何拆分前端项目复杂度按领域模型（feature）组织代码，降低耦合度项目初期规模小，模块关系清晰，当组件和其他元素越来越多之后，项目会逐渐变得复杂起来，等到了项目收尾阶段，文件结构和模块依赖往往错综复杂。 常见的 react 脚手架工具像 create-react-app 初始化的项目结构，往往是 Component、Action、Reducer 分别放在一个目录，在新建一个业务组件时，分别在三个目录下新增对应的文件，当项目越来越大之后，维护性也越来越差。 因此，建议将业务逻辑拆分成高内聚松耦合的模块，以 feature 为维度，将同一业务逻辑下的 Component、Action、Reducer 文件放在同一目录下进行管理，另外新增 Components、Actions、Reducers 文件进行统一导出管理。 项目文件夹结构 按 feature 组织源文件 组件和样式文件放在同一级 Redux 单独放在一个文件夹 单元测试保持同样目录结构放在 tests 文件夹中 如何组织 component, action 和 reducer组件和样式组件和样式文件放在同一级，另外新增 index.js 和 style.less 文件对所有组件和样式文件进行统一入口管理 组织 Action 和 Reducer将单个业务逻辑的 action 和 reducer 放在一个文件进行管理，另外新增 actions.js 和 rootReducer.js 文件对所有 actions 和 reducers 进行统一入口管理 # actions.js export { counterPlusOne } from &#39;./counterPlusOne&#39;; export { counterMinusOne } from &#39;./counterMinusOne&#39;; export { counterReset } from &#39;./counterReset&#39;; export { fetchRedditList, dismissFetchRedditListError } from &#39;./fetchRedditList&#39;; # rootReducer.js import { combineReducers } from &#39;redux&#39;; import { routerReducer } from &#39;react-router-redux&#39;; import homeReducer from &#39;../features/home/redux/reducer&#39;; import commonReducer from &#39;../features/common/redux/reducer&#39;; import examplesReducer from &#39;../features/examples/redux/reducer&#39;; const reducerMap = { router: routerReducer, home: homeRedcuer, common: commonReducer, examples: examplesReducer, }; export default combineReducers(reducerMap); 常量管理新增 constants.js 对所有常量进行管理，变量名为了避免冲突，统一以 feature 名开头 # constants.js export const EXAMPLES_COUNTER_PLUS_ONE = &#39;EXAMPLES_COUNTER_PLUS_ONE&#39;; export const EXAMPLES_COUNTER_MINUS_ONE = &#39;EXAMPLES_COUNTER_MINUS_ONE&#39;; export const EXAMPLES_COUNTER_RESET = &#39;EXAMPLES_COUNTER_RESET&#39;; 如何组织 React Router 的路由配置在每个 feature 中单独定义自己的路由，然后通过 routeConfig.js 文件对所有路由进行管理。 使用 JSON 定义顶层路由使用 JSON 格式的代码配置路由，给不同的路由 path 定义匹配时渲染的组件 import { WelcomePage, CounterPage, RedditListPage, Layout } from &quot;./&quot;; export default { path: &quot;examples&quot;, name: &quot;Examples&quot;, component: Layout, childRouters: [ { path: &quot;&quot;, name: &quot;Welcome page&quot;, component: WelcomePage }, { path: &quot;counter&quot;, name: &quot;Counter page&quot;, component: CounterPage }, { path: &quot;reddit&quot;, name: &quot;Reddit list page&quot;, protected: true, component: RedditListPage } ] }; 解析 JSON 路由到 React Router 语法根据 json 对象的路由配置中的 path，解析成 React Router 可以识别的 Route 标识 function renderRouteConfigV3(routes, contextPath) { const children = []; // children component list const renderRoute = (item, routeContextPath) =&gt; { let newContextPath; if (/^\//.test(item.path)) { newContextPath = item.path; } else { newContextPath = `${routeContextPath}/${item.path}`; } newContextPath = newContextPath.replace(/\/+/g, &quot;/&quot;); if (item.component &amp;&amp; item.childRoutes) { const childRoutes = renderRouteConfigV3(item.childRoutes, newContextPath); children.push( &lt;Route key={newContextPath} render={props =&gt; ( &lt;item.component {...props}&gt;{childRoutes}&lt;/item.component&gt; )} path={newContextPath} /&gt; ); } else if (item.component) { children.push( &lt;Route key={newContextPath} component={item.component} path={newContextPath} exact /&gt; ); } else if (item.childRoutes) { item.childRoutes.forEach(r =&gt; renderRoute(r, newContextPath)); } }; }]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Git别名配置]]></title>
-    <url>%2F2019%2F08%2F08%2F2019080802%2F</url>
-    <content type="text"><![CDATA[配置文件 # C:\Users\用户名\.bash_profile alias ..=&#39;cd ..&#39; alias ...=&#39;cd ../..&#39; alias ....=&#39;cd ../../..&#39; alias .....=&#39;cd ../../../..&#39; alias ......=&#39;cd ../../../../..&#39; alias 1=&#39;cd -&#39; alias 2=&#39;cd -2&#39; alias 3=&#39;cd -3&#39; alias 4=&#39;cd -4&#39; alias 5=&#39;cd -5&#39; alias 6=&#39;cd -6&#39; alias 7=&#39;cd -7&#39; alias 8=&#39;cd -8&#39; alias 9=&#39;cd -9&#39; alias _=sudo alias afind=&#39;ack-grep -il&#39; alias d=&#39;dirs -v | head -10&#39; alias g=git alias ga=&#39;git add&#39; alias gaa=&#39;git add --all&#39; alias gap=&#39;git add --patch&#39; alias gb=&#39;git branch&#39; alias gba=&#39;git branch -a&#39; alias gbr=&#39;git branch --remote&#39; alias gc=&#39;git commit -v&#39; alias &#39;gc!&#39;=&#39;git commit -v --amend&#39; alias gca=&#39;git commit -v -a&#39; alias &#39;gca!&#39;=&#39;git commit -v -a --amend&#39; alias gcl=&#39;git config --list&#39; alias gclean=&#39;git reset --hard &amp;&amp; git clean -dfx&#39; alias gcm=&#39;git checkout master&#39; alias gcmsg=&#39;git commit -m&#39; alias gco=&#39;git checkout&#39; alias gcount=&#39;git shortlog -sn&#39; alias gcp=&#39;git cherry-pick&#39; alias gcs=&#39;git commit -S&#39; alias gd=&#39;git diff&#39; alias gdc=&#39;git diff --cached&#39; alias gdt=&#39;git difftool&#39; alias gdd=&#39;git diff --name-status HEAD HEAD^&#39; alias gg=&#39;git gui citool&#39; alias gga=&#39;git gui citool --amend&#39; alias ggpnp=&#39;git pull origin `git rev-parse --abbrev-ref HEAD` &amp;&amp; git push origin `git rev-parse --abbrev-ref HEAD`&#39; alias ggpull=&#39;git pull origin `git rev-parse --abbrev-ref HEAD`&#39; alias ggpur=&#39;git pull --rebase origin `git rev-parse --abbrev-ref HEAD`&#39; alias ggpush=&#39;git push origin `git rev-parse --abbrev-ref HEAD`&#39; alias gignore=&#39;git update-index --assume-unchanged&#39; alias gignored=&#39;git ls-files -v | grep &quot;^[[:lower:]]&quot;&#39; alias git-svn-dcommit-push=&#39;git svn dcommit &amp;&amp; git push github master:svntrunk&#39; alias gk=&#39;gitk --all --branches&#39; alias glg=&#39;git log --stat --max-count=10&#39; alias glgg=&#39;git log --graph --max-count=10&#39; alias glgga=&#39;git log --graph --decorate --all&#39; alias glo=&#39;git log --oneline --decorate --color&#39; alias globurl=&#39;noglob urlglobber &#39; alias glog=&#39;git log --oneline --decorate --color --graph&#39; alias glp=_git_log_prettily alias gm=&#39;git merge&#39; alias gmt=&#39;git mergetool --no-prompt&#39; alias gp=&#39;git push&#39; alias gpoat=&#39;git push origin --all &amp;&amp; git push origin --tags&#39; alias gr=&#39;git remote&#39; alias grba=&#39;git rebase --abort&#39; alias grbc=&#39;git rebase --continue&#39; alias grbi=&#39;git rebase -i&#39; alias grep=&#39;grep --color=auto --exclude-dir={.bzr,.cvs,.git,.hg,.svn}&#39; alias grh=&#39;git reset&#39; alias grhh=&#39;git reset --hard&#39; alias grmv=&#39;git remote rename&#39; alias grrm=&#39;git remote remove&#39; alias grset=&#39;git remote set-url&#39; alias grt=&#39;cd $(git rev-parse --show-toplevel || echo &quot;.&quot;)&#39; alias grup=&#39;git remote update&#39; alias grv=&#39;git remote -v&#39; alias gsd=&#39;git svn dcommit&#39; alias gsps=&#39;git show --pretty=short --show-signature&#39; alias gsr=&#39;git svn rebase&#39; alias gss=&#39;git status -s&#39; alias gst=&#39;git status&#39; alias gsta=&#39;git stash&#39; alias gstd=&#39;git stash drop&#39; alias gstp=&#39;git stash pop&#39; alias gsts=&#39;git stash show --text&#39; alias gts=&#39;git tag -s&#39; alias gunignore=&#39;git update-index --no-assume-unchanged&#39; alias gunwip=&#39;git log -n 1 | grep -q -c &quot;\-\-wip\-\-&quot; &amp;&amp; git reset HEAD~1&#39; alias gpr=&#39;git pull --rebase --autostash&#39; alias gvt=&#39;git verify-tag&#39; alias gwc=&#39;git whatchanged -p --abbrev-commit --pretty=medium&#39; alias gwip=&#39;git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m &quot;--wip--&quot;&#39; alias history=&#39;fc -l&#39; alias l=&#39;ls -lah&#39; alias la=&#39;ls -lAh&#39; alias ll=&#39;ls -lh&#39; #alias ls=&#39;ls -G&#39; alias lsa=&#39;ls -lah&#39; alias md=&#39;mkdir -p&#39; alias please=sudo alias po=popd alias pu=pushd alias rd=rmdir alias run-help=man alias which-command=whence export HISTTIMEFORMAT=&quot;%d/%m/%y %T &quot; alias gad=&#39;git diff --name-only --diff-filter=M --relative | xargs -rt git add&#39; alias logf=&#39;git log --name-only&#39; alias log=&quot;git log --oneline --graph --decorate --color=always&quot; alias logg=&quot;git log --graph --all --format=format:&#39;%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)&#39; --abbrev-commit --date=relative&quot;]]></content>
-      <categories>
-        <category>安装教程</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[使用 Beyond Compare 三路合并代码]]></title>
-    <url>%2F2019%2F08%2F08%2F2019080801%2F</url>
-    <content type="text"><![CDATA[前言Git 自带有 git diff 命令，能够查看全部/指定文件的差异,由于差异信息过于简单，也缺乏许多 Git 插件提供的增强性功能，一般只用来确认下文件改动的大致内容。 实际开发中习惯使用 VS Code 编辑器，它的插件库中也有着完善丰富的 Git 插件，最初使用的是 GitLens。使用该插件在遇到合并冲突时，有冲突的本地文件会以两种色彩高亮显示本地版本的改动和远程版本的改动，这时的本地文件是两路合并之后的融合版本。 大多数情况下，GitLens 还是能够满足开发需求的。但是，如果开发项目中没有使用统一风格的代码格式检测插件，如 ESLint。在代码格式化风格变化较大的时候，GitLens 插件自动生成的合并代码会出现毫无规律的重复嵌套，使得修复冲突变的复杂且容易出错。这个时候，GitLens 就不如专门的图形界面工具好用了。 Git 相关的图形化工具有很多，今天主要介绍下支持三路合并的图像化插件工具 Beyond Compare 的安装配置，三路合并中的三路指的是本地分支版本，远程分支版本，本地分支和远程分支共有的最新的父级版本，通过配置相关的命令，在文件代码冲突后，可以根据上面三个版本的代码去修改合并冲突的代码文件，还有一些实用功能如：切换冲突等。 安装安装 Beyond Compare 4（windows 版本） 修改 Git 配置文件# C:\Users\用户名\.gitconfig [diff] tool = bc4 [difftool] prompt = false [difftool &quot;bc4&quot;] cmd = &quot;\&quot;D:\\Beyond Compare 4/bcomp.exe\&quot; \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot;&quot; # 假设安装目录在 D:\\Beyond Compare 4 [merge] tool = bc4 [mergetool] prompt = false keepBackup = false [mergetool &quot;bc4&quot;] cmd = &quot;\&quot;D:\\Beyond Compare 4/bcomp.exe\&quot; \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot; \&quot;$BASE\&quot; \&quot;$MERGED\&quot;&quot; # 假设安装目录在 D:\\Beyond Compare 4 使用$ git difftool # 显示所有改动文件 $ git mergetool # 显示所有冲突文件]]></content>
-      <categories>
-        <category>安装教程</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>开发工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190807]]></title>
-    <url>%2F2019%2F08%2F07%2F2019080701%2F</url>
-    <content type="text"><![CDATA[前端项目的理想架构前端项目的理想架构主要包括五个维度：易于开发、易于维护、易于构建、易于测试、易于扩展，这些维度之间可能相互冲突，比如易于开发便意味着不易于扩展，因此理想的状态是在这五个要素之间找到平衡点。 易于开发 开发工具是否完善 生态圈是否繁荣 社区是否活跃 易于扩展 增加新功能是否容易 新功能是否会显著增加系统复杂度 易于维护 代码是否容易理解 文档是否健全 易于测试 功能的分层是否清晰 副作用少 尽量使用纯函数 易于构建 使用通用技术和架构 构建工具的选择]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190806]]></title>
-    <url>%2F2019%2F08%2F06%2F2019080601%2F</url>
-    <content type="text"><![CDATA[使用 Jest， Enzyme 等工具进行单元测试React 让前端单元测试变得容易 React 应用很少需要访问浏览器 API 虚拟 DOM 可以在 NodeJS 环境运行和测试 Redux 隔离了状态管理，纯数据层单元测试 单元测试涉及的工具 Jest：Facebook 开源的 JS 单元测试框架 const add = require(&quot;./add&quot;); describe(&quot;add&quot;, () =&gt; { it(&quot;should add two numbers&quot;, () =&gt; { expect(add(1, 2).toBe(3)); }); }); JS DOM：浏览器环境的 NodeJS 模拟 const JSDOM = require(&quot;jsdom&quot;).JSDOM; global.window = new JSDOM( &#39;&lt;!DOCTYPE html&gt;&lt;div id=&quot;react-root&quot;&gt;&lt;/div&gt;&#39; ).window; global.document = window.document; global.navigator = window.navigator; global.HTMLElement = window.HTMLElement; Enzyme：React 组件渲染和测试 import React from &quot;react&quot;; import { shallow } from &quot;enzyme&quot;; import { DefaultPage } from &quot;src/features/home/DefaultPage&quot;; describe(&quot;home/DefaultPage&quot;, () =&gt; { it(&quot;renders node with correct class name&quot;, () =&gt; { const pageProps = { home: {}, actions: {} }; const renderedComponent = shallow(&lt;DefaultPage {...pageProps} /&gt;); expect(renderedComponent.find(&quot;.home-default-page&quot;).getElement()).to .exist; }); }); nock：模拟 HTTP 请求 it(&#39;handles fetchRedditReactjsList failure&#39;, () =&gt; { nock(&#39;http://www.reddit.com/&#39;) .get(&#39;/r/reactjs.json&#39;) .reply(500, null); const store = mockStore({ redditReactjsList: []}); return store.dispathc(fetchRedditReactjsList()) .catch(() =&gt; { const actions = store.getActions(); expect(actions[0]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_BEGIN); expect(actions[1]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_FAILURE): expect(actions[1]).to.have.nested.property(&#39;data.error&#39;).that.exist; }); }); sinon：函数模拟和调用跟踪 it(&quot;counter actions are called when buttons clicked&quot;, () =&gt; { const pageProps = { home: {}, actions: { counterPlusOne: sinon.spy(), counterMinusOne: sinon.spy(), resetCounter: sinon.spy(), fetchRedditReactjsList: sinon.spy() } }; const renderedComponent = shallow(&lt;DefaultPage {...pageProps} /&gt;); renderedComponent.find(&quot;.btn-plus-one&quot;).simulate(&quot;click&quot;); renderedComponent.find(&quot;.btn-minus-one&quot;).simulate(&quot;click&quot;); renderedComponent.find(&quot;.btn-reset-counter&quot;).simulate(&quot;click&quot;); renderedComponent.find(&quot;.btn-fetch-reddit&quot;).simulate(&quot;click&quot;); expect(pageProps.actions.counterPlusOne).to.have.property(&quot;callCount&quot;, 1); expect(pageProps.actions.counterMinusOne).to.have.property(&quot;callCount&quot;, 1); expect(pageProps.actions.resetCounter).to.have.property(&quot;callCount&quot;, 1); expect(pageProps.actions.fetchRedditReactjsList).to.have.property( &quot;callCount&quot;, 1 ); }); istanbul：单元测试覆盖率 常用开发调试工具 ESLint 使用.eslintrc 进行规则的配置 使用 airbnb 的 JavaScript 代码风格 Pretter 代码过格式化的神器 保证更容易写出风格一致的代码 React DevTool Redux DevTool]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190805]]></title>
-    <url>%2F2019%2F08%2F05%2F2019080501%2F</url>
-    <content type="text"><![CDATA[UI 组件库对比和介绍 Ant.DesignAnt.Design是蚂蚁金服开源的一个 React UI 组件库，主要适合研发企业级中后台产品。 Material UIMaterial UI是 Google 开源的 React UI 组件库，整体风格可能更加活泼，色彩更加丰富，适合面向消费者的产品。 Semantic UISemantic UI是一个老牌的 UI 组件库，其历史可以追溯到 jQuery 时代。 选择 UI 库的考虑因素 组件库是否齐全antd 拥有更齐全的组件库，如常用的 Tree 组件以及表格组件中的固定行、列等。 样式风格是否符合业务需求antd 设计风格简约直观，适合中后台系统，Matereial UI 颜色更加大胆，可以用作面向消费者的产品 API 设计是否便捷和灵活组件 API 使用方式是否高效，antd 专注于数据填充，免去其他两个框架对 html 细节的要求 技术支持是否完善issue 维护是否能够迅速响应，文档是否完善 开发是否活跃项目团队更新和修复 issue 是否频繁且快速 使用 Next.js 创建 React 同构应用什么是同构应用？同构应用是指浏览器初次发送请求后，由服务器渲染好页面返回到浏览器，浏览器后续的路由控制和 UI 渲染继续由前端控制的应用 创建页面 页面就是 pages 目录下的一个组件 static 目录映射静态文件 page 具有特殊静态方法 getInitialProps 在页面中使用其他 React 组件 页面也是标准的 node 模块，可使用其它 React 组件 页面会针对性打包，仅包含其引入的组件 使用 Link 实现同构路由 使用next/link定义链接 点击链接时页面不会刷新 使用 prefetch 预加载目标资源 使用 replace 属性替换 URL import Link from &quot;next/link&quot;; export default () =&gt; ( &lt;div&gt; Click{&quot; &quot;} &lt;Link href=&quot;/about&quot;&gt; &lt;a&gt;here&lt;/a&gt; &lt;/Link&gt;{&quot; &quot;} to read more &lt;/div&gt; ); 动态加载页面next 支持实现页面的动态加载（懒加载），动态加载的页面会在打包文件的 main.js 外额外增加一个组件代码包。 import dynamic from &quot;next/dynamic&quot;; const DynamicComponentWithCustomLoading = dynamic( import(&quot;../componets/hello2&quot;), { loading: () =&gt; &lt;p&gt;...&lt;/p&gt; } ); export default () =&gt; ( &lt;div&gt; &lt;Header /&gt; &lt;DynamicComponentWithCustomLoading /&gt; &lt;p&gt;HOME PAGE is here!&lt;/p&gt; &lt;/div&gt; );]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190803]]></title>
-    <url>%2F2019%2F08%2F04%2F2019080301%2F</url>
-    <content type="text"><![CDATA[React RouterReact Router 虽然不是 React 官方出的，但是发展到现在已经成为 React 生态中路由的一种实现标准。 为什么需要路由？ 单页应用需要进行页面切换现代前端框架构建的单页面应用仍然有页面切换的需要。 通过 URL 可以定位到页面有了路由之后，用户可以通过具体的 URL 定位到对应的页面。 更有语义的组织资源语义化的 URL 可以对应页面级别的组件，组织代码等资源。 路由实现的基本架构首先由路由定义，定义具体路径匹配后渲染的组件名称，经过 Router 处理后，在组件容器中渲染对应组件的代码。 React Router 的实现下面是 React Router 实现的一个简单例子： &lt;Router&gt; &lt;div&gt; &lt;ul id=&quot;menu&quot;&gt; &lt;li&gt; &lt;Link to=&quot;/home&quot;&gt;Home&lt;/Link&gt; &lt;/li&gt; &lt;li&gt; &lt;Link to=&quot;/hello&quot;&gt;Hello&lt;/Link&gt; &lt;/li&gt; &lt;li&gt; &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt; &lt;/li&gt; &lt;/ul&gt; &lt;div id=&quot;page-container&quot;&gt; &lt;Route path=&quot;/home&quot; component={Home} /&gt; &lt;Route path=&quot;/hello&quot; component={Hello} /&gt; &lt;Route path=&quot;/about&quot; component={About} /&gt; &lt;/div&gt; &lt;/div&gt; &lt;/Router&gt; React Router 的特性 声明式路由定义React Router 只需要定义好匹配路径，指定匹配成功渲染的组件名称，即可定义路由 动态路由React Router 的路由表并不是读取一个静态的路由表，而是在代码解析时完成路由的定义 三种路由实现方式 URL 路径类似传统页面跳转，可以在页面不会刷新就可以实现浏览器地址栏的路径切换 hash 路由有些老版本浏览器不支持 URL 路径变化时保持页面不刷新，可以采用这种路由方式，路径上带有#，实现页面不刷新路径切换 内存路由路由切换状态是保存在内存中的，因此路径切换后，浏览器地址不会变化，一般用在服务器渲染 基于路由配置进行资源组织路由不仅仅是用来实现页面切换，也能帮助我们基于路由来进行资源的组织，主要有以下三个优点： 实现业务逻辑的松耦合 易于扩展，重构和维护 路由层面实现 Lazy Load React Router API &lt;LInk&gt;普通链接，不会触发浏览器刷新 import { Link } from &quot;react-router-dom&quot;; &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;; &lt;NavLInk&gt;类型 Link 但是会添加当前选中状态 &lt;NavLink to=&quot;/faq&quot; activeClassName=&quot;selected&quot;&gt;FAQs&lt;/NavLink&gt;` &lt;Prompt&gt;满足条件时提示用户是否离开当前页面 import { Prompt } from &quot;react-router&quot;; &lt;Prompt when={formIsHalfFilledOut} message=&quot;Are you sure you want to leave?&quot; /&gt;; &lt;Redirect&gt;重定向当前页面，例如登录判断 import { Link } from &quot;react-router-dom&quot;; &lt;Route exact path=&quot;/&quot; render={() =&gt; loggedIn ? &lt;Redirect to=&quot;/dashboard&quot; /&gt; : &lt;PublicHomePage /&gt; } /&gt;; &lt;Route&gt;路由配置的核心标记，路径匹配时显示对应组件 import { BrowserRouter as Router, Route } from &quot;react-router-dom&quot;; &lt;Router&gt; &lt;div&gt; &lt;Route exact path=&quot;/&quot; component={Home} /&gt; &lt;Route path=&quot;/news&quot; component={NewFeed} /&gt; &lt;/div&gt; &lt;/Router&gt;; &lt;Switch&gt;只显示第一个匹配的路由 import { Switch, Route } from &quot;react-router&quot;; &lt;Switch&gt; &lt;Route exact path=&quot;/&quot; component={Home} /&gt; &lt;Route path=&quot;/about&quot; component={About} /&gt; &lt;Route path=&quot;/:user&quot; component={User} /&gt; &lt;Route component={NoMatch} /&gt; &lt;/Switch&gt;; React Router 参数定义通过 URL 传递参数 如何通过 URL 传递参数？&lt;Route path=&quot;/topic/:id&quot; ... /&gt; 如何获取参数this.props.match.params 一个将 url 转换成正则的方法path-to-regexp 何时需要 URL 参数页面状态尽量通过 URL 参数定义，如基于时间或其他条件的查询页面，可以将时间状态定义到 URL 中，这样做的好处可以免于维护组件内部的时间状态，实现 url 变化组件的状态随之变化。 理解 React Router 嵌套路由 每个 React 组件都可以是路由容器 React Router 的声明式语法可以方便的定义嵌套路由]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190802]]></title>
-    <url>%2F2019%2F08%2F02%2F2019080201%2F</url>
-    <content type="text"><![CDATA[在 React 中使用 Redux在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。 import { connect } from &quot;react-redux&quot;; class SidePanel extends Component { // ... } function mapStateToProps(state) { return { nextgen: state.nextgen, router: state.router }; } function mapDispatchToProps(dispatch) { return { actions: bindActionCreators({ ...actions }, dispatch) }; } export default connect( mapStateToProps, mapDispatchToProps )(SidePanel); Redux 异步请求Redux 中支持异步请求，当 View 提交 Action 到 Dispatcher 时，先经过 Middlewares 中间件对异步请求（如 Ajax）进行处理，请求完成后根据不同的结果派发 dispatch 到 Reducer 进行下一步处理，再返回新的 state 映射到 View 上。另外需要注意，异步 action 不是特殊 action，而是多个同步 action 的组合使用。 Redux 中间件（Middleware）Redux 中间件是将 actionCreator 函数返回值由原来的对象替换为一个函数，这个函数的返回值是一个 Promise 函数，告诉 React 这是一个异步请求操作，中间件就会截获 action，等待 Promise 函数的返回结果分别执行不同的 dispatch 操作。 Redux 中 action 和 reducer 如何组织代码结构？标准形式传统 Redux Action 的组织形式是将所有的 action 存放在同一个文件中，这样会存在以下问题： 所有 Action 放一个文件，会无限扩展 Action，Reducer 分开，实现业务逻辑时需要来回切换 系统中有哪些 Action 不够直观 新的方式针对传统方式的缺点，可以将单个 action 和 reducer 放在同一个文件内，每个文件一个 Action，最后将所有的 action 和 reducer 分别导出在一个总的 action 和 reducer 入口文件中。这样做的优点主要有以下四点： 易于开发：不用再 action 和 reducer 文件间来回切换 易于维护：每个 action 文件都很小，容易理解 易于测试：每个业务逻辑只需对应一个测试文件 易于理解：文件名就是 action 名字，文件列表就是 action 列表 不可变数据（immutable data）不可变数据就是在数据更新时始终存在部分数据的值或者引用不变的数据 从上图可以看到，当不可变数据某个节点发生变化时，只会更新该节点直系上的数据，其他分支上的数据保持不变 为什么需要不可变数据？ 性能优化 易于调试和跟踪 易于推测 如何操作不可变数据? 原生写法：{...}，Object.assign在业务中常用，缺点是对象层级越多，代码结构越复杂 const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] }; // 对象扩展符 const newState = { ...state, todos: [...state.todos, &quot;Learn Redux&quot;] }; // ES6原生写法，性能最佳 const newState2 = Object.assign({}, state, { todos: [...state.todos, &quot;Learn Redux&quot;] }); immutability-helper适合对象嵌套层级较深的应用场景，写法相对简单优雅，缺点是需要使用特殊的语法 import update from &quot;immutability-helper&quot;; const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] }; const newState = update(state, { todos: { $push: [&quot;Learn Redux&quot;] } }); immer接近对象修改原生的写法，性能与前两者相比较差，适合小型应用或 demo 使用 import produce from &quot;immer&quot;; const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] }; const newState = produce(state, draftState =&gt; { draftState.todos.push(&quot;Learn Redux&quot;); });]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190801]]></title>
-    <url>%2F2019%2F08%2F01%2F2019080101%2F</url>
-    <content type="text"><![CDATA[理解 ReduxRedux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。 Redux 特性 Single Source of Truth传统 MVC 架构，数据层 Model 与视图层 View 之间往往是多对多的关系，一个 view 上的状态可能受多个 model 控制，管理起来十分复杂。 而在 Redux 模式中，不同的 view 上的状态全部存放在外部一个统一的 Store 容器中，View 与 Store 之间是简单的一对一关系，数据流向清晰多了。 可预测性 Redux 中的数据变化是可以预测的，如果状态发生了变化，一定是在当前的 state 状态下派发了一个 action，其结果是返回一个新的 state 状态 纯函数更新 Store Redux 中数据状态的更新是由一个纯函数来处理，它接收当前的 state 状态和 action 对象作为参数，根据不同的 action 返回新的 state 状态。函数的输出都是依赖输入值的不同且确定的。 理解 StoreStore 是数据存放的容器，通过 createStore(reducer) 新建，getState() 可以获取当前的 state 值，如果修改state一定得通过diapatch(action)的方式派发一个 action，而subscribe(listener)用来监听 state 的响应变化 理解 actionaction 实际上是一个 javascript 对象，包括 action 的类型值和载荷 { type: ADD_TODO, text: &#39;Build my first Redux app&#39; } 理解 reducerreducer 实际上是一个纯函数，通过输入的 state 和action分别输出新的 state 值： function todos(state = [], action) { switch (action.type) { case &#39;ADD_TODO&#39;: return state.concat([{ text: action.text, completed: false }]) case &#39;TOGGLE_TODO&#39;: return state.map( (todo, index) =&gt; action.index === index ? { text: todo.text, completed: !todo.completed } ) default: return state } } Redux 的工作原理当前端交互需要改变状态时，首先会新建 action 对象，用来描述动作的类型和变化值，然后通过 Diapatcher 派发提交到 Store 中，经过 Reducer 函数基于当前 state 进行处理后，返回新的 State，然后映射到 DOM 上更新状态。 Redux 提供的工具函数 bindActionCreatorsbindActionCreators(ActionCreators, dispatch)接收两个参数，一个是创建 Action 的函数，一个是 dispatch 方法。函数的返回值是可以派发相应 action 的 dispatch 方法 function plusOne() { return { type: &quot;PLUS_ONE&quot; }; } plusOne = bindActionCreators(plusOne, store.dispatch); plusOne(); // 等价于 store.dispatch(plusOne()) combineReducerscombineReducers({reducer1, reducer2, ...})接收一个 reducers 对象,可以将不同的 reducer 同时连接到 store 上，每个 reducer 函数返回的 state 都相互独立。 import { combineReducers } from &quot;redux&quot;; const todos = (state = {}, action) =&gt; state; const counter = (state = {}, action) =&gt; state; const store = createStore( combineReducers({ todos, counter }) ); console.log(store); // {tods: {...}, counter: {...}}]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190731]]></title>
-    <url>%2F2019%2F07%2F31%2F2019073101%2F</url>
-    <content type="text"><![CDATA[Virtual DOMReact 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。 虚拟 DOM 是如何工作的？虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节点上更新或调整顺序，不发生移除和新增节点操作。如果节点类型发生变化，则会移除原有节点后新增节点。即使节点只是发生跨层移动，归属到另一个父节点下，仍然会移除原有节点，并在新的层级新增节点。 Diff 算法为了降低算法的复杂度，放弃了深度上的节点移动，是结合了 UI 更新的实际场景。通常，UI 变化以自身属性变化和同级顺序调整为主，几乎很少出现跨层移动的情况。所以放弃深度上的节点计算，能够降低算法复杂度O(n)，极大提高页面渲染性能。 虚拟 DOM 的两个假设 组件的 DOM 结构是相对稳定的 类型相同的兄弟节点可以被唯一标识（key 属性的重要性） 组件设计模式不同的组件设计模式是为了可以实现更多场景的组件复用 高阶组件（HOC）react 高阶组件本质上是一个函数，接收一个组件作为参数，返回新的组件 const EnhancedComponent = higherOrderComponent(WrappedComponent); 函数作为子组件组件里设计好子组件的使用形式，由使用者定义函数返回不同内容 class MyComponent extends React.Component { render() { return &lt;div&gt;{this.props.children(&quot;Nate Wang&quot;)}&lt;/div&gt;; } } &lt;MyComponent&gt;{name =&gt; &lt;div&gt;{name}&lt;/div&gt;}&lt;/MyComponent&gt; Context API(React 16.3 新增)Context API 主要由三个部分构成：context（存放状态数据）、provider（在父组件上提供共享状态）、consumer（在子组件上接收共享状态并使用）。 const ThemeContext = React.createContext(&quot;light&quot;); class App extends React.Component { render() { return ( &lt;ThemeContext.Provider value=&quot;dark&quot;&gt; &lt;ThemedButton /&gt; &lt;/ThemeContext.Provider&gt; ); } } function ThemedButton(props) { return ( &lt;ThemeContext.Consumer&gt; {theme =&gt; &lt;Button {...props} theme={theme} /&gt;} &lt;/ThemeContext.Consumer&gt; ); } 脚手架工具为什么需要脚手架工具？如今的前端开发初始化项目需要配置全家桶及相关的编译、打包、代码格式检查等插件，拿 react 全家桶举例，就得安装配置 React、Redux、React-Router 等，再加上 Babel、webpack、ESLint 等通用辅助插件。这些插件生态又依赖更多的插件，一个个了解并配置都比较麻烦，而且基本上初始构建开发环境的配置又大致相同，所以出现了许多脚手架工具帮助我们一键配置这些开发环境。 常见的脚手架工具 create-react-app # 适合新手入门使用，默认封装好最基础的开发配置 Rekit # 在 CRA 基础上增加了 Redux、React Router、Less/Scss 等 CodeSandbox # 一个在线开发工具 为什么需要打包？以往，只有后台语言项目才会有打包的概念，但是随着前端技术生态的发展，前端项目也需要借助打包工具来生成项目文件。主要有以下 3 个目的： 编译 ES6 语法特性，编译 JSX 整合资源，例如图片，Less/Sass 优化代码体积 前端项目目前主要使用 Webpack 进行打包 打包注意事项 设置 nodejs 环境为 production 禁用开发时专用代码，比如 logger 设置应用根路径]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190730]]></title>
-    <url>%2F2019%2F07%2F30%2F2019073001%2F</url>
-    <content type="text"><![CDATA[React 组件理解 React 组件 React 组件一般不提供方法，而是某种状态机 React 组件可以理解为一个纯函数 单向数据绑定 受控组件 vs 非受控组件React 组件可以根据组件状态是受内部还是外部控制分为受控组件和非受控组件两种 以表单元素为例，表单元素状态由使用者维护是受控组件： &lt;input type=&quot;text&quot; value={this.state.value} onChange={e =&gt; this.setState({ value: e.target.value })} /&gt; 如果表单元素状态由 DOM 自己维护，则属于非受控组件 &lt;input type=&quot;text&quot; ref={node =&gt; (this.input = node)} /&gt; 单一职责原则那么，什么时候创建组件呢？ 每个组件只做一件事 如果组件变得复杂，那么应该拆分成小组件 DRY 原则组件的数据状态管理尽可能遵守以下两点： 能计算得到的状态就不要单独存储 组件尽量无状态，所需数据通过 props 获取 JSXJSX 的本质JSX 不是一种模板语法，而是语法糖，它可以在代码中直接书写 html 标签动态创建组件，实质上底层使用了原生的document.createElement API const name = &quot;Nate Wang&quot;; const element = &lt;h1&gt;Hello, {name}&lt;/h1&gt;; 等同于下面 const name = &quot;Nate Wang&quot;; const element = React.createElement(&quot;h1&quot;, null, &quot;Hello, &quot;, name); JSX 表达式JSX 中使用表达式主要有以下四种情形： JSX 本身也是表达式const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;; 在属性中使用表达式&lt;MyComponent foo={1 + 2 + 3 + 4} /&gt; 延展属性const props: {firstName: &#39;Ben&#39;, lastName: &#39;Hector&#39;}; const greeting = &lt;Greeting {...props}/&gt;; 表达式作为子元素const element = &lt;li&gt;{props.message}&lt;/li&gt;; JSX 的优点 声明式创建界面的直观 代码动态创建界面的灵活 无需学习新的模板语言 自定义组件命名规范自定义组件以大写字母开头，因为 React 认为小写的标签式原生 DOM 节点，大写字母开头的标签式自定义组件。另外 JSX 标记可以直接使用属性语法，例如&lt;menu.Item /&gt;，这里可以不受大写字母开头约定限制。 React 组件生命周期React 组件生命周期根据场景的不同可以分为挂载时、更新时、卸载时三种情况，每种情况又可以分为三个阶段，分别为“Render 阶段”、“Pre-commit 阶段”、“Commit 阶段”。具体生命周期（react 16.4^）如下图所示 下面简单介绍几个主要的生命周期钩子 constructor 用于初始化内部状态，很少使用 唯一可以直接修改 state 的地方 getDerivedStateFromProps (react 16.3 新增) 当 state 需要从 props 初始化时使用 尽量不要使用：维护两者状态一致性会增加复杂度 每次 render 都会调用 典型场景：表单控件获取默认值 componentDidMount UI 渲染完成后调用 只执行一次 典型场景：获取外部资源（ajax 请求接口数据） componentWillUnmount 组件移除时被调用 典型场景：资源释放 getSnapshotBeforeUpdate (react 16.3 新增) 在页面 render 之前调用，state 已更新 典型场景：获取 render 之前的 DOM 状态 componentDidUpdate 每次 UI 更新时被调用 典型场景：页面需要根据 props 变化重新获取数据 shouldComponentUpdate 决定 Virtual DOM 是否要重绘 一般可以由 PureComponent 自动实现 典型场景：性能优化]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《React实战进阶》 学习笔记 20190729]]></title>
-    <url>%2F2019%2F07%2F29%2F2019072901%2F</url>
-    <content type="text"><![CDATA[React 出现的历史背景及特性介绍历史背景facebook 的工程师在上线顶部状态栏后发现了一个 bug，点击消息通知后，图标上的悬浮的消息数量并没有更新或者消失。在这个“简单”的问题上，这个 bug 反复出现。 后来他们总结了问题出现的根源，主要有一下两点： 传统 UI 操作关注太多细节 应用程序状态分散在各处，难以追踪和维护 特性介绍 1 个新概念4 个必须 API单向数据流完善的错误提示 对于传统 DOM API 关注太多细节的问题，React 提出始终整体刷新页面，无需关注细节。 传统 MVC 数据模型难以扩展和维护，下图可以看到 Model 与 View 之间的关系错综复杂，数据双向绑定，遇到问题之后很难迅速判断到底是 Model 还是 View 上产生的。 那么 React 是如何解决数据模型的问题呢？React 提出了一个 Flux 架构，核心思想是单向数据流，React Views（UI）上发生用户操作时会产生一个 Action，这个 Action 会通过 Dispatcher 派发出去，由 Store 进行处理，而 React Views 是绑定在 Store 上的，所以当 Store 有任何变化时，React Views 会更新。Flux 架构是建立在 React 始终以状态为基础来展示 UI，所以不需要关心细节，就能把 React View connect 到 Store 上 Flex 架构的衍生项目 Redux MobX 小结 传统 Web UI 开发的问题 React：始终整体刷新页面 Flux：单向数据流]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[rsync 同步文件到服务器]]></title>
-    <url>%2F2019%2F05%2F24%2F2019052401%2F</url>
-    <content type="text"><![CDATA[rsync 简介rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。 它的特性如下： 可以镜像保存整个目录树和文件系统。 可以很容易做到保持原来文件的权限、时间、软硬链接等等。 无须特殊权限即可安装。 快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。rsync 在传输数据的过程中可以实行压缩及解压缩操作，因此以使用更少的带宽。 安全：可以使用 scp、ssh 等方式来传输文件，当然也可以通过直接 socket 连接。 支持匿名传输，以方便进行网站镜像。 服务器端部署安装$ yum install -y rsync // CentOS 修改配置文件$ vi /etc/rsyncd.conf // rsyncd.conf #全局配置 uid = root gid = root incoming chmod = Du=rwx,Dog=rx,Fu=rwx,Fgo=rx exclude = node_modules/ .git/ # 模块配置 [www] host allow = * path = /home/wwwroot comment = www auth users = publish secrets file = /etc/rsyncd.passwd read only = no 创建密码文件$ vi /etc/rsyncd.passwd 备份用户:备份密码 // 如publish:abc123 指定目录并赋予权限chmod 600 /etc/rsyncd.passwd chown -R publish:publish 备份目录 启动/停止服务查看服务器进程 $ ps aux | grep rsync 杀死进程 $ pkill rsync 启动服务 $ rsync --daemon --config=/etc/rsyncd.conf 客户端(windows)安装cwRsync (windows 版) 配置文件结构– publish– – pubToProd.sh （备份脚本）– – PwdPubToProd.pwd （密码文件） 配置文件实例// pubToProd.sh echo &#39;*************发布正式环境******************&#39; echo &#39;* *&#39; echo &#39;* 地址: xxx.xxx.xxx.xxx *&#39; echo &#39;* 密码: 隐藏 *&#39; echo &#39;* *&#39; echo &#39;*******************************************&#39; echo &#39; &#39; echo &#39;* starting... *&#39; echo &#39; &#39; echo -n &quot; 确认发布到正式环境!!!!!!请输入(yes) -&gt; &quot; read int if [[ &quot;$int&quot; == &quot;yes&quot; || &quot;$int&quot; == &quot;y&quot; ]]; then echo &#39; &#39; echo &#39; &#39; rsync -aP --progress --password-file=&#39;客户端密码文件相对路径&#39; &#39;备份文件夹相对路径&#39; &#39;备份用户&#39;@&#39;IP地址&#39;::&#39;模块名&#39;/&#39;模块路径后相对路径&#39; echo &#39; &#39; echo &#39; &#39; echo &#39;******************END**********************&#39; echo &#39; &#39; else echo &#39; &#39; echo &#39; &#39; echo &#39;*******************************************&#39; echo &#39;* *&#39; echo -e &#39;* \033[31m 确认失败,请重新发布！ \033[0m *&#39; echo &#39;* *&#39; echo &#39;*******************************************&#39; fi // PwdPubToProd.pwd 备份密码]]></content>
-      <categories>
-        <category>安装教程</category>
-      </categories>
-      <tags>
-        <tag>服务器</tag>
-        <tag>开发工具</tag>
-        <tag>镜像备份</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[node版本管理工具——nvm安装配置]]></title>
-    <url>%2F2017%2F12%2F01%2F2017120101%2F</url>
-    <content type="text"><![CDATA[前言现代前端框架的插件引入和打包构建都是基于 node 环境，对于前端童鞋来说，安装配置 node 环境是必须要掌握的基本技能。 一般来讲，直接从 node 官网上下载开发平台相关的安装包或二进制文件进行安装，就能满足正常的开发需求。但是随着 node 版本的不断完善和快速迭代，许多主流的前端框架会在较大的迭代版本中支持这些新出的特性，所以一些框架或插件会对项目运行时的最低 node 版本存在要求，如果低于该版本，则会编译报错。某些情况下，某些老项目插件在较高 node 版本时，也可能报错。因此，直接安装单一 node 版本的弊端就出现了，如果两个项目在高版本 node 和低版本 node 相互不兼容的情况下需要同时进行开发调试，不能灵活切换 node 版本会严重影响开发效率。 接下来就要介绍本期的主角—— nvm，它支持 Windows/MacOS/Linux 等多种开发平台，安装方式也十分简（sha）单（gua），本文主要讲下 windows 环境下的安装和配置 安装 nvmwindows安装 nvm-windows 下载地址 nvm 设置淘宝镜像源安装完成后，在 nvm 安装目录中找到 settings.txt 文件，在后面加上： node_mirror: http://npm.taobao.org/mirrors/node/ # 设置node镜像下载源地址 npm_mirror: https://npm.taobao.org/mirrors/npm/ # 设置npm镜像下载源地址 提示：如果不设置淘宝镜像源，可能由于网络错误导致 node 或 npm 下载缓慢甚至失败！ 使用 nvm 安装 node$ nvm install &#39;node版本号&#39; # 安装指定node版本 $ nvm use &#39;node版本号&#39; # 切换当前node版本 设置 npm 全局安装和缓存目录$ npm config set prefix &quot;E:\node\npm-global&quot; # 设置全局安装目录 $ npm config set cache &quot;E:\node\npm-cache&quot; # 设置全局缓存目录 为 npm 全局安装配置环境变量如果希望在 node 版本切换后，之前全局安装的 npm 插件依然能够正常使用，需要在系统环境变量里增加 NPM_HOME 变量，变量值是 npm 全局安装目录，需要放在其他 nvm 自动配置的变量前面 npm 设置淘宝镜像源# npm $ npm config set registry https://registry.npm.taobao.org --global # 插件库镜像源 $ npm config set disturl https://npm.taobao.org/dist --global # node源代码镜像源 # 安装cnpm $ npm install -g cnpm --registry=https://registry.npm.taobao.org # 一些难下载的包 $ npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ # node-sass插件 $ npm config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/ # phantomjs插件]]></content>
-      <categories>
-        <category>安装教程</category>
+        <category>开发札记</category>
       </categories>
       <tags>
         <tag>Node</tag>
+        <tag>koa2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>手动实现 express 中间件机制</title>
+    <url>/2019/09/12/2019091201/</url>
+    <content><![CDATA[<h3 id="express-中间件示例"><a href="#express-中间件示例" class="headerlink" title="express 中间件示例"></a>express 中间件示例</h3><p>&emsp;&emsp;express 通过<code>app.use()</code>注册中间件函数，<code>app.use()</code>有两个参数，第一个参数是要匹配路由的路径字符串，如果不传，默认值为<code>/</code>，匹配所有路由。第二个参数是中间件处理函数，有三个参数<code>req</code>、<code>res</code>、<code>next</code>，分别是 http 请求<code>request</code>对象、<code>response</code>对象、以及指代下一个中间件函数的<code>next</code>方法。当前中间件函数执行完后，如果需要执行下一个中间件函数，只需要调用<code>next</code>方法</p>
+<pre><code class="javascript">const express = require(&quot;express&quot;); // 引入express
+const app = express(); // 新建express实例
+
+// 处理任意路由
+app.use((req, res, next) =&gt; {
+  console.log(&quot;请求开始...&quot;, req.method, req.url);
+  next();
+});
+
+// 处理api路由
+app.use(&quot;/api&quot;, (req, res, next) =&gt; {
+  next();
+});
+
+// 处理 GET api/get路由...
+app.get(&quot;/api/get&quot;, (req, res, next) =&gt; {
+  res.json({
+    code: 0,
+    data: &quot;get data&quot;
+  });
+  next();
+});
+
+// 模拟登录检验中间件
+const loginCheck = (req, res, next) =&gt; {
+  setTimeout(() =&gt; {
+    next();
+  }, 1000);
+};
+
+// 处理 GET api/post路由...
+app.post(&quot;/api/post&quot;, loginCheck, (req, res, next) =&gt; {
+  res.json({
+    code: 0,
+    data: &quot;post data&quot;
+  });
+  next();
+});
+
+// 处理404
+app.use((req, res, next) =&gt; {
+  next();
+});
+
+// 监听 3000 端口
+app.listen(3000, () =&gt; {
+  console.log(&quot;listen port on 3000...&quot;);
+});</code></pre>
+<h3 id="手动实现-express-中间件处理机制"><a href="#手动实现-express-中间件处理机制" class="headerlink" title="手动实现 express 中间件处理机制"></a>手动实现 express 中间件处理机制</h3><h4 id="创建类-express-class-类"><a href="#创建类-express-class-类" class="headerlink" title="创建类 express class 类"></a>创建类 express class 类</h4><p>&emsp;&emsp;express 框架有四个主要方法：<code>use()</code>、<code>get()</code>、<code>post()</code>、<code>listen()</code>：</p>
+<pre><code class="javascript">const http = require(&quot;http&quot;);
+
+class NewExpress {
+  constructor() {}
+
+  use() {
+    // use方法处理逻辑...
+  }
+
+  get() {
+    // get方法处理逻辑...
+  }
+
+  post() {
+    // post方法处理逻辑...
+  }
+
+  listen() {
+    // listen方法处理逻辑...
+  }
+}
+
+module.exports = () =&gt; {
+  return new NewExpress(); // 使用工厂函数返回实例对象
+};</code></pre>
+<h4 id="完善核心-API-处理逻辑"><a href="#完善核心-API-处理逻辑" class="headerlink" title="完善核心 API 处理逻辑"></a>完善核心 API 处理逻辑</h4><pre><code class="javascript">const http = require(&quot;http&quot;);
+
+class NewExpress {
+  constructor() {
+    this.routes = {
+      all: [], // 存放use方法注册的中间件
+      get: [], // 存放get方法注册的中间件
+      post: [] // 存放post方法注册的中间件
+    };
+  }
+
+  register(path) {
+    // 统一处理中间件注册参数逻辑...
+  }
+
+  use() {
+    const info = this.register.apply(this, arguments); // 使用统一的注册函数处理参数
+    this.routes.all.push(info); // 将处理好的中间件push到this.routes.all中
+  }
+
+  get() {
+    const info = this.register.apply(this, arguments); // 使用统一的注册函数处理参数
+    this.routes.get.push(info); // 将处理好的中间件push到this.routes.get中
+  }
+
+  post() {
+    const info = this.register.apply(this, arguments); // 使用统一的注册函数处理参数
+    this.routes.post.push(info); // 将处理好的中间件push到this.routes.post中
+  }
+
+  callback() {
+    // 默认的服务器回调处理逻辑...
+  }
+
+  listen(...args) {
+    const server = http.createServer(this.callback()); // 创建http服务对象，传入默认的回调函数
+    server.listen(...args); // 将参数传入server.listen()
+  }
+}
+
+// ...</code></pre>
+<h4 id="实现register函数"><a href="#实现register函数" class="headerlink" title="实现register函数"></a>实现<code>register</code>函数</h4><p>&emsp;&emsp;<code>register</code>方法用来统一处理中间件参数，如果第一个参数是字符串，则认为是需要匹配的路由路径，将第二个参数以后的所有参数转成数组存入 stack 属性；如果第一个参数不是字符串类型，则默认匹配所有路由，将 path 属性设置为<code>/</code>，并将所有参数转换为数组存入 stack 属性：</p>
+<pre><code class="javascript">const slice = Array.prototype.slice
+
+register(path) {
+  const info = {};
+  if (typeof path === &quot;string&quot;) {
+    info.path = path;
+    // 从第二个参数开始, 转换为数组，存入stack
+    info.stack = slice.call(arguments, 1);
+  } else {
+    info.path = &quot;/&quot;;
+    // 从第1个参数开始, 转换为数组，存入stack
+    info.stack = slice.call(arguments, 0);
+  }
+  return info;
+}</code></pre>
+<h4 id="实现callback函数"><a href="#实现callback函数" class="headerlink" title="实现callback函数"></a>实现<code>callback</code>函数</h4><p>&emsp;&emsp;<code>callback</code>方法作为默认的服务器实例回调函数，用来设置 express 特有的一些方法，如<code>res.json</code>等。同时根据<code>req.method</code>的不同筛选出匹配的中间件列表，最后通过 handle 函数去执行中间件。</p>
+<pre><code class="javascript">callback() {
+  return (req, res) =&gt; {
+    res.json = data =&gt; {
+      res.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+      res.end(JSON.stringify(data));
+    };
+    const url = req.url;
+    const method = req.method.toLowerCase();
+    const resultList = this.match(method, url);
+    this.handle(req, res, resultList);
+  };
+}</code></pre>
+<h4 id="实现match、handle函数"><a href="#实现match、handle函数" class="headerlink" title="实现match、handle函数"></a>实现<code>match</code>、<code>handle</code>函数</h4><p>&emsp;&emsp;<code>match</code>函数有两个参数，一个是请求的方法类型，一个是请求的路由路径。根据请求方法不同，先将<code>this.routes.all</code>中和对应方法的<code>routes</code>数组合并，然后遍历生成需要执行的中间件函数列表。<code>handle</code>函数是实现<code>next</code>机制的核心方法，函数内部创建一个<code>next</code>函数，这个函数会取得中间列表第一个函数，如果存在，就会一直执行下去</p>
+<pre><code class="javascript">match(method, url) {
+  let stack = [];
+  if (url === &quot;/favicon.icon&quot;) {
+    return stack;
+  }
+  // 获取 routes
+  let curRoutes = [];
+  curRoutes = curRoutes.concat(this.routes.all);
+  curRoutes = curRoutes.concat(this.routes[method]);
+  curRoutes.forEach(routeInfo =&gt; {
+    if (url.indexOf(routeInfo.path) === 0) {
+      stack = stack.concat(routeInfo.stack);
+    }
+  });
+  return stack;
+}
+
+handle(req, res, stack) {
+  const next = () =&gt; {
+    // 拿到第一个匹配的中间件
+    const middleware = stack.shift();
+    if (middleware) {
+      // 执行中间件函数
+      middleware(req, res, next);
+    }
+  };
+  next();
+}</code></pre>
+<h4 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h4><p>&emsp;&emsp;下面是完整的实现代码</p>
+<pre><code class="javascript">const http = require(&quot;http&quot;);
+const slice = Array.prototype.slice;
+
+class NewExpress {
+  constructor() {
+    this.routes = {
+      all: [],
+      get: [],
+      post: []
+    };
+  }
+
+  register(path) {
+    const info = {};
+    if (typeof path === &quot;string&quot;) {
+      info.path = path;
+      info.stack = slice.call(arguments, 1);
+    } else {
+      info.path = &quot;/&quot;;
+      info.stack = slice.call(arguments, 0);
+    }
+    return info;
+  }
+
+  use() {
+    const info = this.register.apply(this, arguments);
+    this.routes.all.push(info);
+  }
+
+  get() {
+    const info = this.register.apply(this, arguments);
+    this.routes.get.push(info);
+  }
+
+  post() {
+    const info = this.register.apply(this, arguments);
+    this.routes.post.push(info);
+  }
+
+  match(method, url) {
+    let stack = [];
+    if (url === &quot;/favicon.icon&quot;) {
+      return stack;
+    }
+
+    let curRoutes = [];
+    curRoutes = curRoutes.concat(this.routes.all);
+    curRoutes = curRoutes.concat(this.routes[method]);
+
+    curRoutes.forEach(routeInfo =&gt; {
+      if (url.indexOf(routeInfo.path) === 0) {
+        stack = stack.concat(routeInfo.stack);
+      }
+    });
+    return stack;
+  }
+
+  // 核心的 next 机制
+  handle(req, res, stack) {
+    const next = () =&gt; {
+      const middleware = stack.shift();
+      if (middleware) {
+        middleware(req, res, next);
+      }
+    };
+    next();
+  }
+
+  callback() {
+    return (req, res) =&gt; {
+      z;
+      res.json = data =&gt; {
+        res.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+        res.end(JSON.stringify(data));
+      };
+      const url = req.url;
+      const method = req.method.toLowerCase();
+
+      const resultList = this.match(method, url);
+      this.handle(req, res, resultList);
+    };
+  }
+
+  listen(...args) {
+    const server = http.createServer(this.callback());
+    server.listen(...args);
+  }
+}
+
+module.exports = () =&gt; {
+  return new NewExpress();
+};</code></pre>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>&emsp;&emsp;相比原生语法开发而言，使用框架是为了减少反复造轮子，为日常的开发工作提效赋能。而学习框架一般而言对照官方文档，看看示例，大致就知道简单的使用了。如果把知道如何使用框架进行基本的业务开发称作：“学会了某某框架”，未免有点名过其实。只有了解框架的设计思路，学习理解框架核心功能的实现机制才能让我们在使用框架过程中更加游刃有余。对个人的技术素养及储备来说，也大有益处。</p>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+        <tag>express</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React 实战进阶》 学习笔记 20190811</title>
+    <url>/2019/08/11/2019081101/</url>
+    <content><![CDATA[<h2 id="使用-Rekit-构建前端项目"><a href="#使用-Rekit-构建前端项目" class="headerlink" title="使用 Rekit 构建前端项目"></a>使用 Rekit 构建前端项目</h2><h3 id="Rekit-介绍"><a href="#Rekit-介绍" class="headerlink" title="Rekit 介绍"></a>Rekit 介绍</h3><p>Rekit 是一个 React 脚手架工具，底层基于 Create-react-app 创建项目，不过在前者的基础上在项目初始化时加入了 React Router 和 Redux 这两个 react 生态的重要组成部分。同时提供了一个功能强大的可视化 IDE——Rekit Studio，现在 <a href="https://github.com/rekit/rekit" target="_blank" rel="noopener">github</a> 的 star 数已经超过 4k。<a id="more"></a></p>
+<h3 id="Rekit-Studio-的优点"><a href="#Rekit-Studio-的优点" class="headerlink" title="Rekit Studio 的优点"></a>Rekit Studio 的优点</h3><h4 id="更好的代码导航"><a href="#更好的代码导航" class="headerlink" title="更好的代码导航"></a>更好的代码导航</h4><ol>
+<li>语义化的组织源代码文件<br>各个 Feature 的代码统一放在 Routes、Actions、Components 等语义化清晰的文件夹下进行管理</li>
+<li>使用子 Tab 来展示项目元素的各个部分<br>IDE 打开文件代码以新增标签页形式，能够方便的在不同的代码文件之间切换。</li>
+<li>直观的显示和导航某个功能的所有依赖<br>功能代码页面在右边侧边栏下方区域清晰的显示当前文件与其他文件之间的依赖关系</li>
+</ol>
+<p><img alt="Rekit Studio界面展示" data-src="https://img.yeyanjie.com/blog/201908/11.png"></p>
+<h4 id="一键生成项目元素"><a href="#一键生成项目元素" class="headerlink" title="一键生成项目元素"></a>一键生成项目元素</h4><ol>
+<li>直观的 UI 用于生成组件，action，reducer 等<br>在项目目录上右键，可以点击新增组件，生成组件代码</li>
+<li>模板代码遵循最佳实践<br>模板代码按照最佳实践自动生成</li>
+<li>支持命令行方式创建项目元素<br>支持使用命令行的形式创建项目元素</li>
+</ol>
+<p><img alt="一键生成项目元素" data-src="https://img.yeyanjie.com/blog/201908/12.png"></p>
+<h4 id="重构非常容易"><a href="#重构非常容易" class="headerlink" title="重构非常容易"></a>重构非常容易</h4><ol>
+<li><p>右键菜单重命名或者删除某个项目元素<br>右键菜单栏提供项目元素重命名和删除选项</p>
+</li>
+<li><p>所有相关代码都会一次性重构从而保证一致性<br>所有的重命名和删除操作会同时修改项目中所有引用的位置</p>
+</li>
+<li><p>详细的 log 信息显示重构的完整修改<br>日志提供重构步骤的所有详细信息</p>
+<p><img alt="重构日志" data-src="https://img.yeyanjie.com/blog/201908/13.png"></p>
+</li>
+</ol>
+<h4 id="可视化的项目架构"><a href="#可视化的项目架构" class="headerlink" title="可视化的项目架构"></a>可视化的项目架构</h4><ol>
+<li><p>项目总体架构的可视化图表</p>
+<p><img alt="项目总体架构" data-src="https://img.yeyanjie.com/blog/201908/14.png"></p>
+</li>
+<li><p>项目依赖关系的图表</p>
+<p><img alt="项目依赖关系" data-src="https://img.yeyanjie.com/blog/201908/15.png"></p>
+</li>
+</ol>
+<h4 id="集成单元测试、单元测试覆盖率、项目打包"><a href="#集成单元测试、单元测试覆盖率、项目打包" class="headerlink" title="集成单元测试、单元测试覆盖率、项目打包"></a>集成单元测试、单元测试覆盖率、项目打包</h4><h3 id="Rekit-是如何工作的"><a href="#Rekit-是如何工作的" class="headerlink" title="Rekit 是如何工作的"></a>Rekit 是如何工作的</h3><ol>
+<li>定义了基于 feature 的可扩展文件夹结构<br>Rekit 默认项目文件结构按照 feature 的代码组织结构作为前提条件</li>
+<li>基于最佳实践生成代码和管理项目元素<br>新增代码和管理项目元素都是按照最佳代码组织实践</li>
+<li>提供工具和 IDE 确保代码和文件夹结构遵循最佳实践<br>提供可视化 IDE 及相关功能自动化处理，保持项目始终按照最佳实践迭代</li>
+</ol>
+<h4 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h4><ol>
+<li>以 feature 方式组织代码</li>
+<li>拆分组件，action 和 reducer</li>
+<li>拆分路由配置</li>
+</ol>
+<h4 id="通过代码自动生成保持一致"><a href="#通过代码自动生成保持一致" class="headerlink" title="通过代码自动生成保持一致"></a>通过代码自动生成保持一致</h4><ol>
+<li>文件夹结构一致性</li>
+<li>文件名一致性</li>
+<li>变量名一致性</li>
+<li>代码逻辑的一致性</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190808</title>
+    <url>/2019/08/08/2019080803/</url>
+    <content><![CDATA[<h2 id="如何拆分前端项目复杂度"><a href="#如何拆分前端项目复杂度" class="headerlink" title="如何拆分前端项目复杂度"></a>如何拆分前端项目复杂度</h2><h3 id="按领域模型（feature）组织代码，降低耦合度"><a href="#按领域模型（feature）组织代码，降低耦合度" class="headerlink" title="按领域模型（feature）组织代码，降低耦合度"></a>按领域模型（feature）组织代码，降低耦合度</h3><p>项目初期规模小，模块关系清晰，当组件和其他元素越来越多之后，项目会逐渐变得复杂起来，等到了项目收尾阶段，文件结构和模块依赖往往错综复杂。</p>
+<p>常见的 react 脚手架工具像 create-react-app 初始化的项目结构，往往是 Component、Action、Reducer 分别放在一个目录，在新建一个业务组件时，分别在三个目录下新增对应的文件，当项目越来越大之后，维护性也越来越差。<a id="more"></a></p>
+<p>因此，建议将业务逻辑拆分成高内聚松耦合的模块，以 feature 为维度，将同一业务逻辑下的 Component、Action、Reducer 文件放在同一目录下进行管理，另外新增 Components、Actions、Reducers 文件进行统一导出管理。</p>
+<p><img alt="React技术栈实现组织结构" data-src="https://img.yeyanjie.com/blog/201908/9.png"></p>
+<h4 id="项目文件夹结构"><a href="#项目文件夹结构" class="headerlink" title="项目文件夹结构"></a>项目文件夹结构</h4><ul>
+<li>按 feature 组织源文件</li>
+<li>组件和样式文件放在同一级</li>
+<li>Redux 单独放在一个文件夹</li>
+<li>单元测试保持同样目录结构放在 tests 文件夹中</li>
+</ul>
+<h3 id="如何组织-component-action-和-reducer"><a href="#如何组织-component-action-和-reducer" class="headerlink" title="如何组织 component, action 和 reducer"></a>如何组织 component, action 和 reducer</h3><h4 id="组件和样式"><a href="#组件和样式" class="headerlink" title="组件和样式"></a>组件和样式</h4><p>组件和样式文件放在同一级，另外新增 index.js 和 style.less 文件对所有组件和样式文件进行统一入口管理</p>
+<h4 id="组织-Action-和-Reducer"><a href="#组织-Action-和-Reducer" class="headerlink" title="组织 Action 和 Reducer"></a>组织 Action 和 Reducer</h4><p>将单个业务逻辑的 action 和 reducer 放在一个文件进行管理，另外新增 actions.js 和 rootReducer.js 文件对所有 actions 和 reducers 进行统一入口管理</p>
+<pre><code class="js"># actions.js
+export { counterPlusOne } from &#39;./counterPlusOne&#39;;
+export { counterMinusOne } from &#39;./counterMinusOne&#39;;
+export { counterReset } from &#39;./counterReset&#39;;
+export { fetchRedditList, dismissFetchRedditListError } from &#39;./fetchRedditList&#39;;
+
+# rootReducer.js
+import { combineReducers } from &#39;redux&#39;;
+import { routerReducer } from &#39;react-router-redux&#39;;
+import homeReducer from &#39;../features/home/redux/reducer&#39;;
+import commonReducer from &#39;../features/common/redux/reducer&#39;;
+import examplesReducer from &#39;../features/examples/redux/reducer&#39;;
+
+const reducerMap = {
+  router: routerReducer,
+  home: homeRedcuer,
+  common: commonReducer,
+  examples: examplesReducer,
+};
+
+export default combineReducers(reducerMap);</code></pre>
+<h4 id="常量管理"><a href="#常量管理" class="headerlink" title="常量管理"></a>常量管理</h4><p>新增 constants.js 对所有常量进行管理，变量名为了避免冲突，统一以 feature 名开头</p>
+<pre><code class="js"># constants.js
+export const EXAMPLES_COUNTER_PLUS_ONE = &#39;EXAMPLES_COUNTER_PLUS_ONE&#39;;
+export const EXAMPLES_COUNTER_MINUS_ONE = &#39;EXAMPLES_COUNTER_MINUS_ONE&#39;;
+export const EXAMPLES_COUNTER_RESET = &#39;EXAMPLES_COUNTER_RESET&#39;;</code></pre>
+<h3 id="如何组织-React-Router-的路由配置"><a href="#如何组织-React-Router-的路由配置" class="headerlink" title="如何组织 React Router 的路由配置"></a>如何组织 React Router 的路由配置</h3><p>在每个 feature 中单独定义自己的路由，然后通过 routeConfig.js 文件对所有路由进行管理。</p>
+<p><img alt="React Router路由组织结构" data-src="https://img.yeyanjie.com/blog/201908/10.png"></p>
+<h4 id="使用-JSON-定义顶层路由"><a href="#使用-JSON-定义顶层路由" class="headerlink" title="使用 JSON 定义顶层路由"></a>使用 JSON 定义顶层路由</h4><p>使用 JSON 格式的代码配置路由，给不同的路由 path 定义匹配时渲染的组件</p>
+<pre><code class="js">import { WelcomePage, CounterPage, RedditListPage, Layout } from &quot;./&quot;;
+
+export default {
+  path: &quot;examples&quot;,
+  name: &quot;Examples&quot;,
+  component: Layout,
+  childRouters: [
+    { path: &quot;&quot;, name: &quot;Welcome page&quot;, component: WelcomePage },
+    { path: &quot;counter&quot;, name: &quot;Counter page&quot;, component: CounterPage },
+    {
+      path: &quot;reddit&quot;,
+      name: &quot;Reddit list page&quot;,
+      protected: true,
+      component: RedditListPage
+    }
+  ]
+};</code></pre>
+<h4 id="解析-JSON-路由到-React-Router-语法"><a href="#解析-JSON-路由到-React-Router-语法" class="headerlink" title="解析 JSON 路由到 React Router 语法"></a>解析 JSON 路由到 React Router 语法</h4><p>根据 json 对象的路由配置中的 path，解析成 React Router 可以识别的 Route 标识</p>
+<pre><code class="jsx">function renderRouteConfigV3(routes, contextPath) {
+  const children = []; // children component list
+
+  const renderRoute = (item, routeContextPath) =&gt; {
+    let newContextPath;
+    if (/^\//.test(item.path)) {
+      newContextPath = item.path;
+    } else {
+      newContextPath = `${routeContextPath}/${item.path}`;
+    }
+    newContextPath = newContextPath.replace(/\/+/g, &quot;/&quot;);
+    if (item.component &amp;&amp; item.childRoutes) {
+      const childRoutes = renderRouteConfigV3(item.childRoutes, newContextPath);
+      children.push(
+        &lt;Route
+          key={newContextPath}
+          render={props =&gt; (
+            &lt;item.component {...props}&gt;{childRoutes}&lt;/item.component&gt;
+          )}
+          path={newContextPath}
+        /&gt;
+      );
+    } else if (item.component) {
+      children.push(
+        &lt;Route
+          key={newContextPath}
+          component={item.component}
+          path={newContextPath}
+          exact
+        /&gt;
+      );
+    } else if (item.childRoutes) {
+      item.childRoutes.forEach(r =&gt; renderRoute(r, newContextPath));
+    }
+  };
+}</code></pre>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git别名配置</title>
+    <url>/2019/08/08/2019080802/</url>
+    <content><![CDATA[<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><a id="more"></a>
+
+<pre><code class="bash"># C:\Users\用户名\.bash_profile
+
+alias ..=&#39;cd ..&#39;
+alias ...=&#39;cd ../..&#39;
+alias ....=&#39;cd ../../..&#39;
+alias .....=&#39;cd ../../../..&#39;
+alias ......=&#39;cd ../../../../..&#39;
+alias 1=&#39;cd -&#39;
+alias 2=&#39;cd -2&#39;
+alias 3=&#39;cd -3&#39;
+alias 4=&#39;cd -4&#39;
+alias 5=&#39;cd -5&#39;
+alias 6=&#39;cd -6&#39;
+alias 7=&#39;cd -7&#39;
+alias 8=&#39;cd -8&#39;
+alias 9=&#39;cd -9&#39;
+alias _=sudo
+alias afind=&#39;ack-grep -il&#39;
+alias d=&#39;dirs -v | head -10&#39;
+alias g=git
+alias ga=&#39;git add&#39;
+alias gaa=&#39;git add --all&#39;
+alias gap=&#39;git add --patch&#39;
+alias gb=&#39;git branch&#39;
+alias gba=&#39;git branch -a&#39;
+alias gbr=&#39;git branch --remote&#39;
+alias gc=&#39;git commit -v&#39;
+alias &#39;gc!&#39;=&#39;git commit -v --amend&#39;
+alias gca=&#39;git commit -v -a&#39;
+alias &#39;gca!&#39;=&#39;git commit -v -a --amend&#39;
+alias gcl=&#39;git config --list&#39;
+alias gclean=&#39;git reset --hard &amp;&amp; git clean -dfx&#39;
+alias gcm=&#39;git checkout master&#39;
+alias gcmsg=&#39;git commit -m&#39;
+alias gco=&#39;git checkout&#39;
+alias gcount=&#39;git shortlog -sn&#39;
+alias gcp=&#39;git cherry-pick&#39;
+alias gcs=&#39;git commit -S&#39;
+alias gd=&#39;git diff&#39;
+alias gdc=&#39;git diff --cached&#39;
+alias gdt=&#39;git difftool&#39;
+alias gdd=&#39;git diff --name-status HEAD HEAD^&#39;
+alias gg=&#39;git gui citool&#39;
+alias gga=&#39;git gui citool --amend&#39;
+alias ggpnp=&#39;git pull origin `git rev-parse --abbrev-ref HEAD` &amp;&amp; git push origin `git rev-parse --abbrev-ref HEAD`&#39;
+alias ggpull=&#39;git pull origin `git rev-parse --abbrev-ref HEAD`&#39;
+alias ggpur=&#39;git pull --rebase origin `git rev-parse --abbrev-ref HEAD`&#39;
+alias ggpush=&#39;git push origin `git rev-parse --abbrev-ref HEAD`&#39;
+alias gignore=&#39;git update-index --assume-unchanged&#39;
+alias gignored=&#39;git ls-files -v | grep &quot;^[[:lower:]]&quot;&#39;
+alias git-svn-dcommit-push=&#39;git svn dcommit &amp;&amp; git push github master:svntrunk&#39;
+alias gk=&#39;gitk --all --branches&#39;
+alias glg=&#39;git log --stat --max-count=10&#39;
+alias glgg=&#39;git log --graph --max-count=10&#39;
+alias glgga=&#39;git log --graph --decorate --all&#39;
+alias glo=&#39;git log --oneline --decorate --color&#39;
+alias globurl=&#39;noglob urlglobber &#39;
+alias glog=&#39;git log --oneline --decorate --color --graph&#39;
+alias glp=_git_log_prettily
+alias gm=&#39;git merge&#39;
+alias gmt=&#39;git mergetool --no-prompt&#39;
+alias gp=&#39;git push&#39;
+alias gpoat=&#39;git push origin --all &amp;&amp; git push origin --tags&#39;
+alias gr=&#39;git remote&#39;
+alias grba=&#39;git rebase --abort&#39;
+alias grbc=&#39;git rebase --continue&#39;
+alias grbi=&#39;git rebase -i&#39;
+alias grep=&#39;grep  --color=auto --exclude-dir={.bzr,.cvs,.git,.hg,.svn}&#39;
+alias grh=&#39;git reset&#39;
+alias grhh=&#39;git reset --hard&#39;
+alias grmv=&#39;git remote rename&#39;
+alias grrm=&#39;git remote remove&#39;
+alias grset=&#39;git remote set-url&#39;
+alias grt=&#39;cd $(git rev-parse --show-toplevel || echo &quot;.&quot;)&#39;
+alias grup=&#39;git remote update&#39;
+alias grv=&#39;git remote -v&#39;
+alias gsd=&#39;git svn dcommit&#39;
+alias gsps=&#39;git show --pretty=short --show-signature&#39;
+alias gsr=&#39;git svn rebase&#39;
+alias gss=&#39;git status -s&#39;
+alias gst=&#39;git status&#39;
+alias gsta=&#39;git stash&#39;
+alias gstd=&#39;git stash drop&#39;
+alias gstp=&#39;git stash pop&#39;
+alias gsts=&#39;git stash show --text&#39;
+alias gts=&#39;git tag -s&#39;
+alias gunignore=&#39;git update-index --no-assume-unchanged&#39;
+alias gunwip=&#39;git log -n 1 | grep -q -c &quot;\-\-wip\-\-&quot; &amp;&amp; git reset HEAD~1&#39;
+alias gpr=&#39;git pull --rebase --autostash&#39;
+alias gvt=&#39;git verify-tag&#39;
+alias gwc=&#39;git whatchanged -p --abbrev-commit --pretty=medium&#39;
+alias gwip=&#39;git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m &quot;--wip--&quot;&#39;
+alias history=&#39;fc -l&#39;
+alias l=&#39;ls -lah&#39;
+alias la=&#39;ls -lAh&#39;
+alias ll=&#39;ls -lh&#39;
+#alias ls=&#39;ls -G&#39;
+alias lsa=&#39;ls -lah&#39;
+alias md=&#39;mkdir -p&#39;
+alias please=sudo
+alias po=popd
+alias pu=pushd
+alias rd=rmdir
+alias run-help=man
+alias which-command=whence
+export HISTTIMEFORMAT=&quot;%d/%m/%y %T &quot;
+alias gad=&#39;git diff --name-only --diff-filter=M --relative | xargs -rt git add&#39;
+alias logf=&#39;git log --name-only&#39;
+alias log=&quot;git log --oneline --graph --decorate --color=always&quot;
+alias logg=&quot;git log --graph --all --format=format:&#39;%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)—     %an%C(reset)%C(bold yellow)%d%C(reset)&#39; --abbrev-commit --date=relative&quot;</code></pre>
+]]></content>
+      <categories>
+        <category>工具教程</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 Beyond Compare 三路合并代码</title>
+    <url>/2019/08/08/2019080801/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Git 自带有 git diff 命令，能够查看全部/指定文件的差异,由于差异信息过于简单，也缺乏许多 Git 插件提供的增强性功能，一般只用来确认下文件改动的大致内容。</p>
+<p>实际开发中习惯使用 VS Code 编辑器，它的插件库中也有着完善丰富的 Git 插件，最初使用的是 GitLens。使用该插件在遇到合并冲突时，有冲突的本地文件会以两种色彩高亮显示本地版本的改动和远程版本的改动，这时的本地文件是两路合并之后的融合版本。</p>
+<p>大多数情况下，GitLens 还是能够满足开发需求的。但是，如果开发项目中没有使用统一风格的代码格式检测插件，如 ESLint。在代码格式化风格变化较大的时候，GitLens 插件自动生成的合并代码会出现毫无规律的重复嵌套，使得修复冲突变的复杂且容易出错。这个时候，GitLens 就不如专门的图形界面工具好用了。<a id="more"></a></p>
+<p>Git 相关的图形化工具有很多，今天主要介绍下支持三路合并的图像化插件工具 Beyond Compare 的安装配置，三路合并中的三路指的是本地分支版本，远程分支版本，本地分支和远程分支共有的最新的父级版本，通过配置相关的命令，在文件代码冲突后，可以根据上面三个版本的代码去修改合并冲突的代码文件，还有一些实用功能如：切换冲突等。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装 Beyond Compare 4（windows 版本）</p>
+<h2 id="修改-Git-配置文件"><a href="#修改-Git-配置文件" class="headerlink" title="修改 Git 配置文件"></a>修改 Git 配置文件</h2><pre><code class="bash"># C:\Users\用户名\.gitconfig
+
+[diff]
+tool = bc4
+
+[difftool]
+prompt = false
+
+[difftool &quot;bc4&quot;]
+cmd = &quot;\&quot;D:\\Beyond Compare 4/bcomp.exe\&quot; \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot;&quot;   # 假设安装目录在 D:\\Beyond Compare 4
+
+[merge]
+tool = bc4
+
+[mergetool]
+prompt = false
+keepBackup = false
+
+[mergetool &quot;bc4&quot;]
+cmd = &quot;\&quot;D:\\Beyond Compare 4/bcomp.exe\&quot; \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot; \&quot;$BASE\&quot; \&quot;$MERGED\&quot;&quot; # 假设安装目录在 D:\\Beyond Compare 4</code></pre>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre><code class="bash">$ git difftool  # 显示所有改动文件
+$ git mergetool # 显示所有冲突文件</code></pre>
+]]></content>
+      <categories>
+        <category>工具教程</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
         <tag>开发工具</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[搭建 Git 服务器]]></title>
-    <url>%2F2017%2F09%2F05%2F2017090502%2F</url>
-    <content type="text"><![CDATA[安装git：$ sudo apt-get install git # ubuntu环境 创建一个git用户，用来运行git服务：$ sudo adduser git 免密登录：收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。 初始化 Git 仓库：先选定一个目录作为 Git 仓库，假定是/srv/sample.git，在/srv目录下输入命令： $ sudo git init --bare sample.git 然后，把 owner 改为git： $ sudo chown -R git:git sample.git 禁用 shell 登录：出于安全考虑，第二步创建的 git 用户不允许登录 shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行： # /etc/passwd ... $ git:x:1001:1001:,,,:/home/git:/bin/bash 改为 # /etc/passwd ... git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell 克隆代码git clone git@server:/srv/sample.git # 默认协议 git clone ssh://git@server-name:[ssh端口号]/path/repo-name.git # 使用ssh协议]]></content>
+    <title>《React实战进阶》 学习笔记 20190807</title>
+    <url>/2019/08/07/2019080701/</url>
+    <content><![CDATA[<h2 id="前端项目的理想架构"><a href="#前端项目的理想架构" class="headerlink" title="前端项目的理想架构"></a>前端项目的理想架构</h2><p>前端项目的理想架构主要包括五个维度：易于开发、易于维护、易于构建、易于测试、易于扩展，这些维度之间可能相互冲突，比如易于开发便意味着不易于扩展，因此理想的状态是在这五个要素之间找到平衡点。</p>
+<p><img alt="前端项目理想架构" data-src="https://img.yeyanjie.com/blog/201908/8.png"><a id="more"></a></p>
+<h3 id="易于开发"><a href="#易于开发" class="headerlink" title="易于开发"></a>易于开发</h3><ol>
+<li>开发工具是否完善</li>
+<li>生态圈是否繁荣</li>
+<li>社区是否活跃</li>
+</ol>
+<h3 id="易于扩展"><a href="#易于扩展" class="headerlink" title="易于扩展"></a>易于扩展</h3><ol>
+<li>增加新功能是否容易</li>
+<li>新功能是否会显著增加系统复杂度</li>
+</ol>
+<h3 id="易于维护"><a href="#易于维护" class="headerlink" title="易于维护"></a>易于维护</h3><ol>
+<li>代码是否容易理解</li>
+<li>文档是否健全</li>
+</ol>
+<h3 id="易于测试"><a href="#易于测试" class="headerlink" title="易于测试"></a>易于测试</h3><ol>
+<li>功能的分层是否清晰</li>
+<li>副作用少</li>
+<li>尽量使用纯函数</li>
+</ol>
+<h3 id="易于构建"><a href="#易于构建" class="headerlink" title="易于构建"></a>易于构建</h3><ol>
+<li>使用通用技术和架构</li>
+<li>构建工具的选择</li>
+</ol>
+]]></content>
       <categories>
-        <category>安装教程</category>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190806</title>
+    <url>/2019/08/06/2019080601/</url>
+    <content><![CDATA[<h2 id="使用-Jest，-Enzyme-等工具进行单元测试"><a href="#使用-Jest，-Enzyme-等工具进行单元测试" class="headerlink" title="使用 Jest， Enzyme 等工具进行单元测试"></a>使用 Jest， Enzyme 等工具进行单元测试</h2><h3 id="React-让前端单元测试变得容易"><a href="#React-让前端单元测试变得容易" class="headerlink" title="React 让前端单元测试变得容易"></a>React 让前端单元测试变得容易</h3><ol>
+<li>React 应用很少需要访问浏览器 API</li>
+<li>虚拟 DOM 可以在 NodeJS 环境运行和测试</li>
+<li>Redux 隔离了状态管理，纯数据层单元测试</li>
+</ol>
+<h3 id="单元测试涉及的工具"><a href="#单元测试涉及的工具" class="headerlink" title="单元测试涉及的工具"></a>单元测试涉及的工具</h3><a id="more"></a>
+
+<ol>
+<li><p>Jest：Facebook 开源的 JS 单元测试框架</p>
+<pre><code class="js">const add = require(&quot;./add&quot;);
+describe(&quot;add&quot;, () =&gt; {
+  it(&quot;should add two numbers&quot;, () =&gt; {
+    expect(add(1, 2).toBe(3));
+  });
+});</code></pre>
+</li>
+<li><p>JS DOM：浏览器环境的 NodeJS 模拟</p>
+<pre><code class="js">const JSDOM = require(&quot;jsdom&quot;).JSDOM;
+
+global.window = new JSDOM(
+  &#39;&lt;!DOCTYPE html&gt;&lt;div id=&quot;react-root&quot;&gt;&lt;/div&gt;&#39;
+).window;
+global.document = window.document;
+global.navigator = window.navigator;
+global.HTMLElement = window.HTMLElement;</code></pre>
+</li>
+<li><p>Enzyme：React 组件渲染和测试</p>
+<pre><code class="jsx">import React from &quot;react&quot;;
+import { shallow } from &quot;enzyme&quot;;
+import { DefaultPage } from &quot;src/features/home/DefaultPage&quot;;
+
+describe(&quot;home/DefaultPage&quot;, () =&gt; {
+  it(&quot;renders node with correct class name&quot;, () =&gt; {
+    const pageProps = {
+      home: {},
+      actions: {}
+    };
+    const renderedComponent = shallow(&lt;DefaultPage {...pageProps} /&gt;);
+
+    expect(renderedComponent.find(&quot;.home-default-page&quot;).getElement()).to
+      .exist;
+  });
+});</code></pre>
+</li>
+<li><p>nock：模拟 HTTP 请求</p>
+<pre><code class="js">it(&#39;handles fetchRedditReactjsList failure&#39;, () =&gt; {
+ nock(&#39;http://www.reddit.com/&#39;)
+   .get(&#39;/r/reactjs.json&#39;)
+   .reply(500, null);
+ const store = mockStore({ redditReactjsList: []});
+
+ return store.dispathc(fetchRedditReactjsList())
+   .catch(() =&gt; {
+     const actions = store.getActions();
+     expect(actions[0]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_BEGIN);
+     expect(actions[1]).to.have.property(&#39;type&#39;, HOME_FETCH_REDDIT_REACTJS_LIST_FAILURE):
+     expect(actions[1]).to.have.nested.property(&#39;data.error&#39;).that.exist;
+   });
+});</code></pre>
+</li>
+<li><p>sinon：函数模拟和调用跟踪</p>
+<pre><code class="jsx">it(&quot;counter actions are called when buttons clicked&quot;, () =&gt; {
+  const pageProps = {
+    home: {},
+    actions: {
+      counterPlusOne: sinon.spy(),
+      counterMinusOne: sinon.spy(),
+      resetCounter: sinon.spy(),
+      fetchRedditReactjsList: sinon.spy()
+    }
+  };
+  const renderedComponent = shallow(&lt;DefaultPage {...pageProps} /&gt;);
+  renderedComponent.find(&quot;.btn-plus-one&quot;).simulate(&quot;click&quot;);
+  renderedComponent.find(&quot;.btn-minus-one&quot;).simulate(&quot;click&quot;);
+  renderedComponent.find(&quot;.btn-reset-counter&quot;).simulate(&quot;click&quot;);
+  renderedComponent.find(&quot;.btn-fetch-reddit&quot;).simulate(&quot;click&quot;);
+  expect(pageProps.actions.counterPlusOne).to.have.property(&quot;callCount&quot;, 1);
+  expect(pageProps.actions.counterMinusOne).to.have.property(&quot;callCount&quot;, 1);
+  expect(pageProps.actions.resetCounter).to.have.property(&quot;callCount&quot;, 1);
+  expect(pageProps.actions.fetchRedditReactjsList).to.have.property(
+    &quot;callCount&quot;,
+    1
+  );
+});</code></pre>
+</li>
+<li><p>istanbul：单元测试覆盖率</p>
+</li>
+</ol>
+<h2 id="常用开发调试工具"><a href="#常用开发调试工具" class="headerlink" title="常用开发调试工具"></a>常用开发调试工具</h2><ul>
+<li>ESLint<ol>
+<li>使用.eslintrc 进行规则的配置</li>
+<li>使用 airbnb 的 JavaScript 代码风格</li>
+</ol>
+</li>
+<li>Pretter<ol>
+<li>代码过格式化的神器</li>
+<li>保证更容易写出风格一致的代码</li>
+</ol>
+</li>
+<li>React DevTool</li>
+<li>Redux DevTool</li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190805</title>
+    <url>/2019/08/05/2019080501/</url>
+    <content><![CDATA[<h2 id="UI-组件库对比和介绍"><a href="#UI-组件库对比和介绍" class="headerlink" title="UI 组件库对比和介绍"></a>UI 组件库对比和介绍</h2><ul>
+<li>Ant.Design<br><a href="https://ant.design/index-cn" target="_blank" rel="noopener">Ant.Design</a>是蚂蚁金服开源的一个 React UI 组件库，主要适合研发企业级中后台产品。</li>
+<li>Material UI<br><a href="https://material-ui.com/" target="_blank" rel="noopener">Material UI</a>是 Google 开源的 React UI 组件库，整体风格可能更加活泼，色彩更加丰富，适合面向消费者的产品。</li>
+<li>Semantic UI<br><a href="https://semantic-ui.com/" target="_blank" rel="noopener">Semantic UI</a>是一个老牌的 UI 组件库，其历史可以追溯到 jQuery 时代。<a id="more"></a></li>
+</ul>
+<h3 id="选择-UI-库的考虑因素"><a href="#选择-UI-库的考虑因素" class="headerlink" title="选择 UI 库的考虑因素"></a>选择 UI 库的考虑因素</h3><ol>
+<li>组件库是否齐全<br>antd 拥有更齐全的组件库，如常用的 Tree 组件以及表格组件中的固定行、列等。</li>
+<li>样式风格是否符合业务需求<br>antd 设计风格简约直观，适合中后台系统，Matereial UI 颜色更加大胆，可以用作面向消费者的产品</li>
+<li>API 设计是否便捷和灵活<br>组件 API 使用方式是否高效，antd 专注于数据填充，免去其他两个框架对 html 细节的要求</li>
+<li>技术支持是否完善<br>issue 维护是否能够迅速响应，文档是否完善</li>
+<li>开发是否活跃<br>项目团队更新和修复 issue 是否频繁且快速</li>
+</ol>
+<h2 id="使用-Next-js-创建-React-同构应用"><a href="#使用-Next-js-创建-React-同构应用" class="headerlink" title="使用 Next.js 创建 React 同构应用"></a>使用 Next.js 创建 React 同构应用</h2><h3 id="什么是同构应用？"><a href="#什么是同构应用？" class="headerlink" title="什么是同构应用？"></a>什么是同构应用？</h3><p>同构应用是指浏览器初次发送请求后，由服务器渲染好页面返回到浏览器，浏览器后续的路由控制和 UI 渲染继续由前端控制的应用</p>
+<p><img alt="同构应用" data-src="https://img.yeyanjie.com/blog/201908/7.png"></p>
+<h3 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h3><ol>
+<li>页面就是 pages 目录下的一个组件</li>
+<li>static 目录映射静态文件</li>
+<li>page 具有特殊静态方法 getInitialProps</li>
+</ol>
+<h3 id="在页面中使用其他-React-组件"><a href="#在页面中使用其他-React-组件" class="headerlink" title="在页面中使用其他 React 组件"></a>在页面中使用其他 React 组件</h3><ol>
+<li>页面也是标准的 node 模块，可使用其它 React 组件</li>
+<li>页面会针对性打包，仅包含其引入的组件</li>
+</ol>
+<h3 id="使用-Link-实现同构路由"><a href="#使用-Link-实现同构路由" class="headerlink" title="使用 Link 实现同构路由"></a>使用 Link 实现同构路由</h3><ol>
+<li>使用<code>next/link</code>定义链接</li>
+<li>点击链接时页面不会刷新</li>
+<li>使用 prefetch 预加载目标资源</li>
+<li>使用 replace 属性替换 URL</li>
+</ol>
+<pre><code class="jsx">import Link from &quot;next/link&quot;;
+
+export default () =&gt; (
+  &lt;div&gt;
+    Click{&quot; &quot;}
+    &lt;Link href=&quot;/about&quot;&gt;
+      &lt;a&gt;here&lt;/a&gt;
+    &lt;/Link&gt;{&quot; &quot;}
+    to read more
+  &lt;/div&gt;
+);</code></pre>
+<h3 id="动态加载页面"><a href="#动态加载页面" class="headerlink" title="动态加载页面"></a>动态加载页面</h3><p>next 支持实现页面的动态加载（懒加载），动态加载的页面会在打包文件的 main.js 外额外增加一个组件代码包。</p>
+<pre><code class="jsx">import dynamic from &quot;next/dynamic&quot;;
+
+const DynamicComponentWithCustomLoading = dynamic(
+  import(&quot;../componets/hello2&quot;),
+  {
+    loading: () =&gt; &lt;p&gt;...&lt;/p&gt;
+  }
+);
+
+export default () =&gt; (
+  &lt;div&gt;
+    &lt;Header /&gt;
+    &lt;DynamicComponentWithCustomLoading /&gt;
+    &lt;p&gt;HOME PAGE is here!&lt;/p&gt;
+  &lt;/div&gt;
+);</code></pre>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190803</title>
+    <url>/2019/08/04/2019080301/</url>
+    <content><![CDATA[<h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><p>React Router 虽然不是 React 官方出的，但是发展到现在已经成为 React 生态中路由的一种实现标准。</p>
+<h3 id="为什么需要路由？"><a href="#为什么需要路由？" class="headerlink" title="为什么需要路由？"></a>为什么需要路由？</h3><ol>
+<li>单页应用需要进行页面切换<br>现代前端框架构建的单页面应用仍然有页面切换的需要。</li>
+<li>通过 URL 可以定位到页面<br>有了路由之后，用户可以通过具体的 URL 定位到对应的页面。</li>
+<li>更有语义的组织资源<br>语义化的 URL 可以对应页面级别的组件，组织代码等资源。<a id="more"></a></li>
+</ol>
+<h3 id="路由实现的基本架构"><a href="#路由实现的基本架构" class="headerlink" title="路由实现的基本架构"></a>路由实现的基本架构</h3><p>首先由路由定义，定义具体路径匹配后渲染的组件名称，经过 Router 处理后，在组件容器中渲染对应组件的代码。</p>
+<h3 id="React-Router-的实现"><a href="#React-Router-的实现" class="headerlink" title="React Router 的实现"></a>React Router 的实现</h3><p>下面是 React Router 实现的一个简单例子：</p>
+<pre><code class="jsx">&lt;Router&gt;
+  &lt;div&gt;
+    &lt;ul id=&quot;menu&quot;&gt;
+      &lt;li&gt;
+        &lt;Link to=&quot;/home&quot;&gt;Home&lt;/Link&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;Link to=&quot;/hello&quot;&gt;Hello&lt;/Link&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div id=&quot;page-container&quot;&gt;
+      &lt;Route path=&quot;/home&quot; component={Home} /&gt;
+      &lt;Route path=&quot;/hello&quot; component={Hello} /&gt;
+      &lt;Route path=&quot;/about&quot; component={About} /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/Router&gt;</code></pre>
+<h3 id="React-Router-的特性"><a href="#React-Router-的特性" class="headerlink" title="React Router 的特性"></a>React Router 的特性</h3><ol>
+<li>声明式路由定义<br>React Router 只需要定义好匹配路径，指定匹配成功渲染的组件名称，即可定义路由</li>
+<li>动态路由<br>React Router 的路由表并不是读取一个静态的路由表，而是在代码解析时完成路由的定义</li>
+</ol>
+<h3 id="三种路由实现方式"><a href="#三种路由实现方式" class="headerlink" title="三种路由实现方式"></a>三种路由实现方式</h3><ol>
+<li>URL 路径<br>类似传统页面跳转，可以在页面不会刷新就可以实现浏览器地址栏的路径切换</li>
+<li>hash 路由<br>有些老版本浏览器不支持 URL 路径变化时保持页面不刷新，可以采用这种路由方式，路径上带有#，实现页面不刷新路径切换</li>
+<li>内存路由<br>路由切换状态是保存在内存中的，因此路径切换后，浏览器地址不会变化，一般用在服务器渲染</li>
+</ol>
+<h3 id="基于路由配置进行资源组织"><a href="#基于路由配置进行资源组织" class="headerlink" title="基于路由配置进行资源组织"></a>基于路由配置进行资源组织</h3><p>路由不仅仅是用来实现页面切换，也能帮助我们基于路由来进行资源的组织，主要有以下三个优点：</p>
+<ol>
+<li>实现业务逻辑的松耦合</li>
+<li>易于扩展，重构和维护</li>
+<li>路由层面实现 Lazy Load</li>
+</ol>
+<h3 id="React-Router-API"><a href="#React-Router-API" class="headerlink" title="React Router API"></a>React Router API</h3><ol>
+<li><p><code>&lt;LInk&gt;</code><br>普通链接，不会触发浏览器刷新</p>
+<pre><code class="jsx">import { Link } from &quot;react-router-dom&quot;;
+
+&lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;;</code></pre>
+</li>
+<li><p><code>&lt;NavLInk&gt;</code><br>类型 Link 但是会添加当前选中状态</p>
+<pre><code class="jsx">&lt;NavLink to=&quot;/faq&quot; activeClassName=&quot;selected&quot;&gt;FAQs&lt;/NavLink&gt;`</code></pre>
+</li>
+<li><p><code>&lt;Prompt&gt;</code><br>满足条件时提示用户是否离开当前页面</p>
+<pre><code class="jsx">import { Prompt } from &quot;react-router&quot;;
+
+&lt;Prompt
+  when={formIsHalfFilledOut}
+  message=&quot;Are you sure you want to leave?&quot;
+/&gt;;</code></pre>
+</li>
+<li><p><code>&lt;Redirect&gt;</code><br>重定向当前页面，例如登录判断</p>
+<pre><code class="jsx">import { Link } from &quot;react-router-dom&quot;;
+
+&lt;Route
+  exact
+  path=&quot;/&quot;
+  render={() =&gt;
+    loggedIn ? &lt;Redirect to=&quot;/dashboard&quot; /&gt; : &lt;PublicHomePage /&gt;
+  }
+/&gt;;</code></pre>
+</li>
+<li><p><code>&lt;Route&gt;</code><br>路由配置的核心标记，路径匹配时显示对应组件</p>
+<pre><code class="jsx">import { BrowserRouter as Router, Route } from &quot;react-router-dom&quot;;
+
+&lt;Router&gt;
+  &lt;div&gt;
+    &lt;Route exact path=&quot;/&quot; component={Home} /&gt;
+    &lt;Route path=&quot;/news&quot; component={NewFeed} /&gt;
+  &lt;/div&gt;
+&lt;/Router&gt;;</code></pre>
+</li>
+<li><p><code>&lt;Switch&gt;</code><br>只显示第一个匹配的路由</p>
+<pre><code class="jsx">import { Switch, Route } from &quot;react-router&quot;;
+
+&lt;Switch&gt;
+  &lt;Route exact path=&quot;/&quot; component={Home} /&gt;
+  &lt;Route path=&quot;/about&quot; component={About} /&gt;
+  &lt;Route path=&quot;/:user&quot; component={User} /&gt;
+  &lt;Route component={NoMatch} /&gt;
+&lt;/Switch&gt;;</code></pre>
+</li>
+</ol>
+<h2 id="React-Router-参数定义"><a href="#React-Router-参数定义" class="headerlink" title="React Router 参数定义"></a>React Router 参数定义</h2><h3 id="通过-URL-传递参数"><a href="#通过-URL-传递参数" class="headerlink" title="通过 URL 传递参数"></a>通过 URL 传递参数</h3><ol>
+<li>如何通过 URL 传递参数？<pre><code class="jsx">&lt;Route path=&quot;/topic/:id&quot; ... /&gt;</code></pre>
+</li>
+<li>如何获取参数<br><code>this.props.match.params</code></li>
+<li>一个将 url 转换成正则的方法<br><a href="https://github.com/pillarjs/path-to-regexp" target="_blank" rel="noopener">path-to-regexp</a></li>
+</ol>
+<h3 id="何时需要-URL-参数"><a href="#何时需要-URL-参数" class="headerlink" title="何时需要 URL 参数"></a>何时需要 URL 参数</h3><p>页面状态尽量通过 URL 参数定义，如基于时间或其他条件的查询页面，可以将时间状态定义到 URL 中，这样做的好处可以免于维护组件内部的时间状态，实现 url 变化组件的状态随之变化。</p>
+<h2 id="理解-React-Router-嵌套路由"><a href="#理解-React-Router-嵌套路由" class="headerlink" title="理解 React Router 嵌套路由"></a>理解 React Router 嵌套路由</h2><ol>
+<li>每个 React 组件都可以是路由容器</li>
+<li>React Router 的声明式语法可以方便的定义嵌套路由</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190802</title>
+    <url>/2019/08/02/2019080201/</url>
+    <content><![CDATA[<h2 id="在-React-中使用-Redux"><a href="#在-React-中使用-Redux" class="headerlink" title="在 React 中使用 Redux"></a>在 React 中使用 Redux</h2><p>在 React 中使用 Redux 需要用到 react-redux 插件，这个插件封装了一个 connect 函数，connect 函数本质上是一个高阶函数，将 store 中组件需要用到的 state 和 dispacth 以 props 属性的形式传递，从而在组件内部可以获取相应状态和进行 action 操作。<a id="more"></a></p>
+<pre><code class="js">import { connect } from &quot;react-redux&quot;;
+
+class SidePanel extends Component {
+  // ...
+}
+
+function mapStateToProps(state) {
+  return {
+    nextgen: state.nextgen,
+    router: state.router
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ ...actions }, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SidePanel);</code></pre>
+<h2 id="Redux-异步请求"><a href="#Redux-异步请求" class="headerlink" title="Redux 异步请求"></a>Redux 异步请求</h2><p>Redux 中支持异步请求，当 View 提交 Action 到 Dispatcher 时，先经过 Middlewares 中间件对异步请求（如 Ajax）进行处理，请求完成后根据不同的结果派发 dispatch 到 Reducer 进行下一步处理，再返回新的 state 映射到 View 上。<br>另外需要注意，异步 action 不是特殊 action，而是多个同步 action 的组合使用。</p>
+<p><img alt="Redux异步请求流程" data-src="https://img.yeyanjie.com/blog/201908/5.png"></p>
+<h3 id="Redux-中间件（Middleware）"><a href="#Redux-中间件（Middleware）" class="headerlink" title="Redux 中间件（Middleware）"></a>Redux 中间件（Middleware）</h3><p>Redux 中间件是将 actionCreator 函数返回值由原来的对象替换为一个函数，这个函数的返回值是一个 Promise 函数，告诉 React 这是一个异步请求操作，中间件就会截获 action，等待 Promise 函数的返回结果分别执行不同的 dispatch 操作。</p>
+<h2 id="Redux-中-action-和-reducer-如何组织代码结构？"><a href="#Redux-中-action-和-reducer-如何组织代码结构？" class="headerlink" title="Redux 中 action 和 reducer 如何组织代码结构？"></a>Redux 中 action 和 reducer 如何组织代码结构？</h2><h3 id="标准形式"><a href="#标准形式" class="headerlink" title="标准形式"></a>标准形式</h3><p>传统 Redux Action 的组织形式是将所有的 action 存放在同一个文件中，这样会存在以下问题：</p>
+<ol>
+<li>所有 Action 放一个文件，会无限扩展</li>
+<li>Action，Reducer 分开，实现业务逻辑时需要来回切换</li>
+<li>系统中有哪些 Action 不够直观</li>
+</ol>
+<h3 id="新的方式"><a href="#新的方式" class="headerlink" title="新的方式"></a>新的方式</h3><p>针对传统方式的缺点，可以将单个 action 和 reducer 放在同一个文件内，每个文件一个 Action，最后将所有的 action 和 reducer 分别导出在一个总的 action 和 reducer 入口文件中。这样做的优点主要有以下四点：</p>
+<ol>
+<li>易于开发：不用再 action 和 reducer 文件间来回切换</li>
+<li>易于维护：每个 action 文件都很小，容易理解</li>
+<li>易于测试：每个业务逻辑只需对应一个测试文件</li>
+<li>易于理解：文件名就是 action 名字，文件列表就是 action 列表</li>
+</ol>
+<h2 id="不可变数据（immutable-data）"><a href="#不可变数据（immutable-data）" class="headerlink" title="不可变数据（immutable data）"></a>不可变数据（immutable data）</h2><p>不可变数据就是在数据更新时始终存在部分数据的值或者引用不变的数据</p>
+<p><img alt="不可变数据更新前后对比" data-src="https://img.yeyanjie.com/blog/201908/6.png"></p>
+<p>从上图可以看到，当不可变数据某个节点发生变化时，只会更新该节点直系上的数据，其他分支上的数据保持不变</p>
+<h3 id="为什么需要不可变数据？"><a href="#为什么需要不可变数据？" class="headerlink" title="为什么需要不可变数据？"></a>为什么需要不可变数据？</h3><ol>
+<li>性能优化</li>
+<li>易于调试和跟踪</li>
+<li>易于推测</li>
+</ol>
+<h3 id="如何操作不可变数据"><a href="#如何操作不可变数据" class="headerlink" title="如何操作不可变数据?"></a>如何操作不可变数据?</h3><ol>
+<li><p>原生写法：<code>{...}</code>，<code>Object.assign</code><br>在业务中常用，缺点是对象层级越多，代码结构越复杂</p>
+<pre><code class="js">const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };
+// 对象扩展符
+const newState = { ...state, todos: [...state.todos, &quot;Learn Redux&quot;] };
+// ES6原生写法，性能最佳
+const newState2 = Object.assign({}, state, {
+  todos: [...state.todos, &quot;Learn Redux&quot;]
+});</code></pre>
+</li>
+<li><p>immutability-helper<br>适合对象嵌套层级较深的应用场景，写法相对简单优雅，缺点是需要使用特殊的语法</p>
+<pre><code class="js">import update from &quot;immutability-helper&quot;;
+
+const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };
+
+const newState = update(state, { todos: { $push: [&quot;Learn Redux&quot;] } });</code></pre>
+</li>
+<li><p>immer<br>接近对象修改原生的写法，性能与前两者相比较差，适合小型应用或 demo 使用</p>
+<pre><code class="js">import produce from &quot;immer&quot;;
+
+const state = { filter: &quot;completed&quot;, todos: [&quot;Learn React&quot;] };
+
+const newState = produce(state, draftState =&gt; {
+  draftState.todos.push(&quot;Learn Redux&quot;);
+});</code></pre>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190801</title>
+    <url>/2019/08/01/2019080101/</url>
+    <content><![CDATA[<h2 id="理解-Redux"><a href="#理解-Redux" class="headerlink" title="理解 Redux"></a>理解 Redux</h2><p>Redux 是一个 js 状态管理插件，它的设计模式被广泛用于现代前端框架中，尤其与 react.js 结合紧密。独立使用 react 时，组件的 DOM 的状态通常由内部 state 映射过来。而 Redux 将这种状态库从组件内部移到外部，由一个 store 进行统一管理，无论是父子、兄弟还是跨级组件之间的状态共享都是放在这个外部 store，这让组件通信更加容易。</p>
+<h2 id="Redux-特性"><a href="#Redux-特性" class="headerlink" title="Redux 特性"></a>Redux 特性</h2><ul>
+<li><p>Single Source of Truth<br>传统 MVC 架构，数据层 Model 与视图层 View 之间往往是多对多的关系，一个 view 上的状态可能受多个 model 控制，管理起来十分复杂。<a id="more"></a></p>
+<p><img alt="MVC模式View与Model的关系" data-src="https://img.yeyanjie.com/blog/201908/1.png"></p>
+<p>而在 Redux 模式中，不同的 view 上的状态全部存放在外部一个统一的 Store 容器中，View 与 Store 之间是简单的一对一关系，数据流向清晰多了。</p>
+<p><img alt="Redux中View与Store的关系" data-src="https://img.yeyanjie.com/blog/201908/2.png"></p>
+</li>
+<li><p>可预测性</p>
+<p>Redux 中的数据变化是可以预测的，如果状态发生了变化，一定是在当前的 state 状态下派发了一个 action，其结果是返回一个新的 state 状态</p>
+<p><img alt="Redux的可预测性" data-src="https://img.yeyanjie.com/blog/201908/3.png"></p>
+</li>
+<li><p>纯函数更新 Store</p>
+<p>Redux 中数据状态的更新是由一个纯函数来处理，它接收当前的 state 状态和 action 对象作为参数，根据不同的 action 返回新的 state 状态。函数的输出都是依赖输入值的不同且确定的。</p>
+</li>
+</ul>
+<h2 id="理解-Store"><a href="#理解-Store" class="headerlink" title="理解 Store"></a>理解 Store</h2><p>Store 是数据存放的容器，通过 <code>createStore(reducer)</code> 新建，<code>getState()</code> 可以获取当前的 state 值，如果修改<code>state</code>一定得通过<code>diapatch(action)</code>的方式派发一个 action，而<code>subscribe(listener)</code>用来监听 state 的响应变化</p>
+<h2 id="理解-action"><a href="#理解-action" class="headerlink" title="理解 action"></a>理解 action</h2><p>action 实际上是一个 javascript 对象，包括 action 的类型值和载荷</p>
+<pre><code class="js">{
+  type: ADD_TODO,
+  text: &#39;Build my first Redux app&#39;
+}</code></pre>
+<h2 id="理解-reducer"><a href="#理解-reducer" class="headerlink" title="理解 reducer"></a>理解 reducer</h2><p>reducer 实际上是一个纯函数，通过输入的 state 和<code>action</code>分别输出新的 state 值：</p>
+<pre><code class="js">function todos(state = [], action) {
+  switch (action.type) {
+    case &#39;ADD_TODO&#39;:
+      return state.concat([{ text: action.text, completed: false }])
+    case &#39;TOGGLE_TODO&#39;:
+      return state.map(
+        (todo, index) =&gt;
+          action.index === index
+            ? { text: todo.text, completed: !todo.completed }
+      )
+    default:
+      return state
+  }
+}</code></pre>
+<h2 id="Redux-的工作原理"><a href="#Redux-的工作原理" class="headerlink" title="Redux 的工作原理"></a>Redux 的工作原理</h2><p>当前端交互需要改变状态时，首先会新建 action 对象，用来描述动作的类型和变化值，然后通过 Diapatcher 派发提交到 Store 中，经过 Reducer 函数基于当前 state 进行处理后，返回新的 State，然后映射到 DOM 上更新状态。</p>
+<p><img alt="Redux工作原理" data-src="https://img.yeyanjie.com/blog/201908/4.png"></p>
+<h2 id="Redux-提供的工具函数"><a href="#Redux-提供的工具函数" class="headerlink" title="Redux 提供的工具函数"></a>Redux 提供的工具函数</h2><ul>
+<li><p>bindActionCreators<br><code>bindActionCreators(ActionCreators, dispatch)</code>接收两个参数，一个是创建 Action 的函数，一个是 dispatch 方法。函数的返回值是可以派发相应 action 的 dispatch 方法</p>
+<pre><code class="js">function plusOne() {
+  return { type: &quot;PLUS_ONE&quot; };
+}
+
+plusOne = bindActionCreators(plusOne, store.dispatch);
+plusOne(); //  等价于 store.dispatch(plusOne())</code></pre>
+</li>
+<li><p>combineReducers<br><code>combineReducers({reducer1, reducer2, ...})</code>接收一个 reducers 对象,可以将不同的 reducer 同时连接到 store 上，每个 reducer 函数返回的 state 都相互独立。</p>
+<pre><code class="js">import { combineReducers } from &quot;redux&quot;;
+
+const todos = (state = {}, action) =&gt; state;
+const counter = (state = {}, action) =&gt; state;
+
+const store = createStore(
+  combineReducers({
+    todos,
+    counter
+  })
+);
+console.log(store); // {tods: {...}, counter: {...}}</code></pre>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190731</title>
+    <url>/2019/07/31/2019073101/</url>
+    <content><![CDATA[<h2 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h2><p>React 通过控制虚拟 DOM 的状态来实现 UI 的变化，虚拟 DOM 映射到实际的 DOM 节点上，当状态发生变化时，经过 diff 算法的计算，通知对应的 DOM 节点更新。</p>
+<h3 id="虚拟-DOM-是如何工作的？"><a href="#虚拟-DOM-是如何工作的？" class="headerlink" title="虚拟 DOM 是如何工作的？"></a>虚拟 DOM 是如何工作的？</h3><p>虚拟 DOM 计算 DOM 变化的 Diff 算法是根据广度优先分层比较：<br>首先从根节点开始，每一层如果只是属性发生变化或者 DOM 标识的顺序发生了变化，就会在原有节点上更新或调整顺序，不发生移除和新增节点操作。如果节点类型发生变化，则会移除原有节点后新增节点。即使节点只是发生跨层移动，归属到另一个父节点下，仍然会移除原有节点，并在新的层级新增节点。</p>
+<p>Diff 算法为了降低算法的复杂度，放弃了深度上的节点移动，是结合了 UI 更新的实际场景。通常，UI 变化以自身属性变化和同级顺序调整为主，几乎很少出现跨层移动的情况。所以放弃深度上的节点计算，能够降低算法复杂度<code>O(n)</code>，极大提高页面渲染性能。<a id="more"></a></p>
+<h3 id="虚拟-DOM-的两个假设"><a href="#虚拟-DOM-的两个假设" class="headerlink" title="虚拟 DOM 的两个假设"></a>虚拟 DOM 的两个假设</h3><ol>
+<li>组件的 DOM 结构是相对稳定的</li>
+<li>类型相同的兄弟节点可以被唯一标识（key 属性的重要性）</li>
+</ol>
+<h2 id="组件设计模式"><a href="#组件设计模式" class="headerlink" title="组件设计模式"></a>组件设计模式</h2><p>不同的组件设计模式是为了可以实现更多场景的组件复用</p>
+<h3 id="高阶组件（HOC）"><a href="#高阶组件（HOC）" class="headerlink" title="高阶组件（HOC）"></a>高阶组件（HOC）</h3><p>react 高阶组件本质上是一个函数，接收一个组件作为参数，返回新的组件</p>
+<pre><code class="jsx">const EnhancedComponent = higherOrderComponent(WrappedComponent);</code></pre>
+<h3 id="函数作为子组件"><a href="#函数作为子组件" class="headerlink" title="函数作为子组件"></a>函数作为子组件</h3><p>组件里设计好子组件的使用形式，由使用者定义函数返回不同内容</p>
+<pre><code class="jsx">class MyComponent extends React.Component {
+  render() {
+    return &lt;div&gt;{this.props.children(&quot;Nate Wang&quot;)}&lt;/div&gt;;
+  }
+}</code></pre>
+<pre><code class="jsx">&lt;MyComponent&gt;{name =&gt; &lt;div&gt;{name}&lt;/div&gt;}&lt;/MyComponent&gt;</code></pre>
+<h2 id="Context-API-React-16-3-新增"><a href="#Context-API-React-16-3-新增" class="headerlink" title="Context API(React 16.3 新增)"></a>Context API(React 16.3 新增)</h2><p>Context API 主要由三个部分构成：context（存放状态数据）、provider（在父组件上提供共享状态）、consumer（在子组件上接收共享状态并使用）。</p>
+<pre><code class="jsx">const ThemeContext = React.createContext(&quot;light&quot;);
+
+class App extends React.Component {
+  render() {
+    return (
+      &lt;ThemeContext.Provider value=&quot;dark&quot;&gt;
+        &lt;ThemedButton /&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
+}
+
+function ThemedButton(props) {
+  return (
+    &lt;ThemeContext.Consumer&gt;
+      {theme =&gt; &lt;Button {...props} theme={theme} /&gt;}
+    &lt;/ThemeContext.Consumer&gt;
+  );
+}</code></pre>
+<h2 id="脚手架工具"><a href="#脚手架工具" class="headerlink" title="脚手架工具"></a>脚手架工具</h2><h3 id="为什么需要脚手架工具？"><a href="#为什么需要脚手架工具？" class="headerlink" title="为什么需要脚手架工具？"></a>为什么需要脚手架工具？</h3><p>如今的前端开发初始化项目需要配置全家桶及相关的编译、打包、代码格式检查等插件，拿 react 全家桶举例，就得安装配置 React、Redux、React-Router 等，再加上 Babel、webpack、ESLint 等通用辅助插件。这些插件生态又依赖更多的插件，一个个了解并配置都比较麻烦，而且基本上初始构建开发环境的配置又大致相同，所以出现了许多脚手架工具帮助我们一键配置这些开发环境。</p>
+<h3 id="常见的脚手架工具"><a href="#常见的脚手架工具" class="headerlink" title="常见的脚手架工具"></a>常见的脚手架工具</h3><ul>
+<li>create-react-app # 适合新手入门使用，默认封装好最基础的开发配置</li>
+<li>Rekit # 在 CRA 基础上增加了 Redux、React Router、Less/Scss 等</li>
+<li>CodeSandbox # 一个在线开发工具</li>
+</ul>
+<h3 id="为什么需要打包？"><a href="#为什么需要打包？" class="headerlink" title="为什么需要打包？"></a>为什么需要打包？</h3><p>以往，只有后台语言项目才会有打包的概念，但是随着前端技术生态的发展，前端项目也需要借助打包工具来生成项目文件。主要有以下 3 个目的：</p>
+<ol>
+<li>编译 ES6 语法特性，编译 JSX</li>
+<li>整合资源，例如图片，Less/Sass</li>
+<li>优化代码体积</li>
+</ol>
+<p>前端项目目前主要使用 Webpack 进行打包</p>
+<h3 id="打包注意事项"><a href="#打包注意事项" class="headerlink" title="打包注意事项"></a>打包注意事项</h3><ol>
+<li>设置 nodejs 环境为 production</li>
+<li>禁用开发时专用代码，比如 logger</li>
+<li>设置应用根路径</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190730</title>
+    <url>/2019/07/30/2019073001/</url>
+    <content><![CDATA[<h2 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h2><h3 id="理解-React-组件"><a href="#理解-React-组件" class="headerlink" title="理解 React 组件"></a>理解 React 组件</h3><ol>
+<li>React 组件一般不提供方法，而是某种状态机</li>
+<li>React 组件可以理解为一个纯函数</li>
+<li>单向数据绑定</li>
+</ol>
+<p><img alt="react组件" data-src="https://img.yeyanjie.com/blog/201907/3.png"><a id="more"></a></p>
+<h3 id="受控组件-vs-非受控组件"><a href="#受控组件-vs-非受控组件" class="headerlink" title="受控组件 vs 非受控组件"></a>受控组件 vs 非受控组件</h3><p>React 组件可以根据组件状态是受内部还是外部控制分为受控组件和非受控组件两种</p>
+<p>以表单元素为例，表单元素状态由使用者维护是受控组件：</p>
+<pre><code class="jsx">&lt;input
+  type=&quot;text&quot;
+  value={this.state.value}
+  onChange={e =&gt; this.setState({ value: e.target.value })}
+/&gt;</code></pre>
+<p>如果表单元素状态由 DOM 自己维护，则属于非受控组件</p>
+<pre><code class="jsx">&lt;input type=&quot;text&quot; ref={node =&gt; (this.input = node)} /&gt;</code></pre>
+<h3 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h3><p>那么，什么时候创建组件呢？</p>
+<ol>
+<li>每个组件只做一件事</li>
+<li>如果组件变得复杂，那么应该拆分成小组件</li>
+</ol>
+<h3 id="DRY-原则"><a href="#DRY-原则" class="headerlink" title="DRY 原则"></a>DRY 原则</h3><p>组件的数据状态管理尽可能遵守以下两点：</p>
+<ol>
+<li>能计算得到的状态就不要单独存储</li>
+<li>组件尽量无状态，所需数据通过 props 获取</li>
+</ol>
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><h3 id="JSX-的本质"><a href="#JSX-的本质" class="headerlink" title="JSX 的本质"></a>JSX 的本质</h3><p>JSX 不是一种模板语法，而是语法糖，它可以在代码中直接书写 html 标签动态创建组件，实质上底层使用了原生的<code>document.createElement</code> API</p>
+<pre><code class="jsx">const name = &quot;Nate Wang&quot;;
+const element = &lt;h1&gt;Hello, {name}&lt;/h1&gt;;</code></pre>
+<p>等同于下面</p>
+<pre><code class="jsx">const name = &quot;Nate Wang&quot;;
+const element = React.createElement(&quot;h1&quot;, null, &quot;Hello, &quot;, name);</code></pre>
+<h3 id="JSX-表达式"><a href="#JSX-表达式" class="headerlink" title="JSX 表达式"></a>JSX 表达式</h3><p>JSX 中使用表达式主要有以下四种情形：</p>
+<ol>
+<li>JSX 本身也是表达式<pre><code class="jsx">const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;</code></pre>
+</li>
+<li>在属性中使用表达式<pre><code class="jsx">&lt;MyComponent foo={1 + 2 + 3 + 4} /&gt;</code></pre>
+</li>
+<li>延展属性<pre><code class="jsx">const props: {firstName: &#39;Ben&#39;, lastName: &#39;Hector&#39;};
+const greeting = &lt;Greeting {...props}/&gt;;</code></pre>
+</li>
+<li>表达式作为子元素<pre><code class="jsx">const element = &lt;li&gt;{props.message}&lt;/li&gt;;</code></pre>
+</li>
+</ol>
+<h3 id="JSX-的优点"><a href="#JSX-的优点" class="headerlink" title="JSX 的优点"></a>JSX 的优点</h3><ol>
+<li>声明式创建界面的直观</li>
+<li>代码动态创建界面的灵活</li>
+<li>无需学习新的模板语言</li>
+</ol>
+<h3 id="自定义组件命名规范"><a href="#自定义组件命名规范" class="headerlink" title="自定义组件命名规范"></a>自定义组件命名规范</h3><p>自定义组件以大写字母开头，因为 React 认为小写的标签式原生 DOM 节点，大写字母开头的标签式自定义组件。另外 JSX 标记可以直接使用属性语法，例如<code>&lt;menu.Item /&gt;</code>，这里可以不受大写字母开头约定限制。</p>
+<h2 id="React-组件生命周期"><a href="#React-组件生命周期" class="headerlink" title="React 组件生命周期"></a>React 组件生命周期</h2><p>React 组件生命周期根据场景的不同可以分为挂载时、更新时、卸载时三种情况，每种情况又可以分为三个阶段，分别为“Render 阶段”、“Pre-commit 阶段”、“Commit 阶段”。具体生命周期（react 16.4^）如下图所示</p>
+<p><img alt="react组件生命周期" data-src="https://img.yeyanjie.com/blog/201907/4.png"></p>
+<p>下面简单介绍几个主要的生命周期钩子</p>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><ol>
+<li>用于初始化内部状态，很少使用</li>
+<li>唯一可以直接修改 state 的地方</li>
+</ol>
+<h3 id="getDerivedStateFromProps-react-16-3-新增"><a href="#getDerivedStateFromProps-react-16-3-新增" class="headerlink" title="getDerivedStateFromProps (react 16.3 新增)"></a>getDerivedStateFromProps (react 16.3 新增)</h3><ol>
+<li>当 state 需要从 props 初始化时使用</li>
+<li>尽量不要使用：维护两者状态一致性会增加复杂度</li>
+<li>每次 render 都会调用</li>
+<li>典型场景：表单控件获取默认值</li>
+</ol>
+<h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h3><ol>
+<li>UI 渲染完成后调用</li>
+<li>只执行一次</li>
+<li>典型场景：获取外部资源（ajax 请求接口数据）</li>
+</ol>
+<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount"></a>componentWillUnmount</h3><ol>
+<li>组件移除时被调用</li>
+<li>典型场景：资源释放</li>
+</ol>
+<h3 id="getSnapshotBeforeUpdate-react-16-3-新增"><a href="#getSnapshotBeforeUpdate-react-16-3-新增" class="headerlink" title="getSnapshotBeforeUpdate (react 16.3 新增)"></a>getSnapshotBeforeUpdate (react 16.3 新增)</h3><ol>
+<li>在页面 render 之前调用，state 已更新</li>
+<li>典型场景：获取 render 之前的 DOM 状态</li>
+</ol>
+<h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate"></a>componentDidUpdate</h3><ol>
+<li>每次 UI 更新时被调用</li>
+<li>典型场景：页面需要根据 props 变化重新获取数据</li>
+</ol>
+<h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h3><ol>
+<li>决定 Virtual DOM 是否要重绘</li>
+<li>一般可以由 PureComponent 自动实现</li>
+<li>典型场景：性能优化</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《React实战进阶》 学习笔记 20190729</title>
+    <url>/2019/07/29/2019072901/</url>
+    <content><![CDATA[<h2 id="React-出现的历史背景及特性介绍"><a href="#React-出现的历史背景及特性介绍" class="headerlink" title="React 出现的历史背景及特性介绍"></a>React 出现的历史背景及特性介绍</h2><h3 id="历史背景"><a href="#历史背景" class="headerlink" title="历史背景"></a>历史背景</h3><p>facebook 的工程师在上线顶部状态栏后发现了一个 bug，点击消息通知后，图标上的悬浮的消息数量并没有更新或者消失。在这个“简单”的问题上，这个 bug 反复出现。</p>
+<p>后来他们总结了问题出现的根源，主要有一下两点：</p>
+<ol>
+<li>传统 UI 操作关注太多细节</li>
+<li>应用程序状态分散在各处，难以追踪和维护<a id="more"></a></li>
+</ol>
+<h3 id="特性介绍"><a href="#特性介绍" class="headerlink" title="特性介绍"></a>特性介绍</h3><blockquote>
+<p>1 个新概念<br>4 个必须 API<br>单向数据流<br>完善的错误提示</p>
+</blockquote>
+<p>对于传统 DOM API 关注太多细节的问题，React 提出始终整体刷新页面，无需关注细节。</p>
+<p>传统 MVC 数据模型难以扩展和维护，下图可以看到 Model 与 View 之间的关系错综复杂，数据双向绑定，遇到问题之后很难迅速判断到底是 Model 还是 View 上产生的。</p>
+<p><img alt="传统 MVC 难以扩展和维护" data-src="https://img.yeyanjie.com/blog/201907/1.png"></p>
+<p>那么 React 是如何解决数据模型的问题呢？React 提出了一个 Flux 架构，核心思想是单向数据流，React Views（UI）上发生用户操作时会产生一个 Action，这个 Action 会通过 Dispatcher 派发出去，由 Store 进行处理，而 React Views 是绑定在 Store 上的，所以当 Store 有任何变化时，React Views 会更新。Flux 架构是建立在 React 始终以状态为基础来展示 UI，所以不需要关心细节，就能把 React View connect 到 Store 上</p>
+<p><img alt="Flex 架构" data-src="https://img.yeyanjie.com/blog/201907/2.png"></p>
+<p>Flex 架构的衍生项目</p>
+<ul>
+<li>Redux</li>
+<li>MobX</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>传统 Web UI 开发的问题</li>
+<li>React：始终整体刷新页面</li>
+<li>Flux：单向数据流</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发札记</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rsync 同步文件到服务器</title>
+    <url>/2019/05/24/2019052401/</url>
+    <content><![CDATA[<h3 id="rsync-简介"><a href="#rsync-简介" class="headerlink" title="rsync 简介"></a>rsync 简介</h3><p>rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。</p>
+<p>它的特性如下：</p>
+<ul>
+<li>可以镜像保存整个目录树和文件系统。</li>
+<li>可以很容易做到保持原来文件的权限、时间、软硬链接等等。</li>
+<li>无须特殊权限即可安装。</li>
+<li>快速：第一次同步时 rsync 会复制全部内容，但在下一次只传输修改的文件。rsync 在传输数据的过程中可以实行压缩及解压缩操作，因此以使用更少的带宽。</li>
+<li>安全：可以使用 scp、ssh 等方式来传输文件，当然也可以通过直接 socket 连接。</li>
+<li>支持匿名传输，以方便进行网站镜像。<a id="more"></a></li>
+</ul>
+<h3 id="服务器端部署"><a href="#服务器端部署" class="headerlink" title="服务器端部署"></a>服务器端部署</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre><code class="bash">$ yum install -y rsync  // CentOS</code></pre>
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><pre><code class="bash">$ vi /etc/rsyncd.conf
+
+// rsyncd.conf
+
+#全局配置
+uid = root
+gid = root
+incoming chmod = Du=rwx,Dog=rx,Fu=rwx,Fgo=rx
+exclude = node_modules/ .git/
+
+# 模块配置
+[www]
+host allow = *
+path = /home/wwwroot
+comment = www
+auth users = publish
+secrets file = /etc/rsyncd.passwd
+read only = no</code></pre>
+<h4 id="创建密码文件"><a href="#创建密码文件" class="headerlink" title="创建密码文件"></a>创建密码文件</h4><pre><code class="bash">$ vi /etc/rsyncd.passwd
+
+备份用户:备份密码   // 如publish:abc123</code></pre>
+<h4 id="指定目录并赋予权限"><a href="#指定目录并赋予权限" class="headerlink" title="指定目录并赋予权限"></a>指定目录并赋予权限</h4><pre><code class="bash">chmod 600 /etc/rsyncd.passwd
+chown -R publish:publish 备份目录</code></pre>
+<h4 id="启动-停止服务"><a href="#启动-停止服务" class="headerlink" title="启动/停止服务"></a>启动/停止服务</h4><pre><code class="bash">查看服务器进程
+$ ps aux | grep rsync
+
+杀死进程
+$ pkill rsync
+
+启动服务
+$ rsync --daemon --config=/etc/rsyncd.conf</code></pre>
+<h3 id="客户端-windows"><a href="#客户端-windows" class="headerlink" title="客户端(windows)"></a>客户端(windows)</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>cwRsync (windows 版)</p>
+<h4 id="配置文件结构"><a href="#配置文件结构" class="headerlink" title="配置文件结构"></a>配置文件结构</h4><p>– publish<br>– – pubToProd.sh （备份脚本）<br>– – PwdPubToProd.pwd （密码文件）</p>
+<h4 id="配置文件实例"><a href="#配置文件实例" class="headerlink" title="配置文件实例"></a>配置文件实例</h4><pre><code class="bash">// pubToProd.sh
+
+echo &#39;*************发布正式环境******************&#39;
+echo &#39;*                                         *&#39;
+echo &#39;*         地址: xxx.xxx.xxx.xxx           *&#39;
+echo &#39;*         密码: 隐藏                       *&#39;
+echo &#39;*                                         *&#39;
+echo &#39;*******************************************&#39;
+echo &#39;                                           &#39;
+echo &#39;*              starting...                *&#39;
+echo &#39;                                           &#39;
+echo -n &quot; 确认发布到正式环境!!!!!!请输入(yes) -&gt; &quot;
+read int
+if [[ &quot;$int&quot; == &quot;yes&quot; || &quot;$int&quot; == &quot;y&quot; ]]; then
+
+echo &#39;                                           &#39;
+echo &#39;                                           &#39;
+rsync -aP --progress  --password-file=&#39;客户端密码文件相对路径&#39; &#39;备份文件夹相对路径&#39; &#39;备份用户&#39;@&#39;IP地址&#39;::&#39;模块名&#39;/&#39;模块路径后相对路径&#39;
+
+echo &#39;                                           &#39;
+echo &#39;                                           &#39;
+echo &#39;******************END**********************&#39;
+echo &#39;                                           &#39;
+else
+echo &#39;                                           &#39;
+echo &#39;                                           &#39;
+echo &#39;*******************************************&#39;
+echo &#39;*                                         *&#39;
+echo -e &#39;*     \033[31m    确认失败,请重新发布！ \033[0m          *&#39;
+echo &#39;*                                         *&#39;
+echo &#39;*******************************************&#39;
+fi
+
+// PwdPubToProd.pwd
+
+备份密码</code></pre>
+]]></content>
+      <categories>
+        <category>工具教程</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+        <tag>镜像备份</tag>
+        <tag>开发工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>node版本管理工具——nvm安装配置</title>
+    <url>/2017/12/01/2017120101/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现代前端框架的插件引入和打包构建都是基于 node 环境，对于前端童鞋来说，安装配置 node 环境是必须要掌握的基本技能。</p>
+<p>一般来讲，直接从 node 官网上下载开发平台相关的安装包或二进制文件进行安装，就能满足正常的开发需求。但是随着 node 版本的不断完善和快速迭代，许多主流的前端框架会在较大的迭代版本中支持这些新出的特性，所以一些框架或插件会对项目运行时的最低 node 版本存在要求，如果低于该版本，则会编译报错。某些情况下，某些老项目插件在较高 node 版本时，也可能报错。因此，直接安装单一 node 版本的弊端就出现了，如果两个项目在高版本 node 和低版本 node 相互不兼容的情况下需要同时进行开发调试，不能灵活切换 node 版本会严重影响开发效率。</p>
+<p>接下来就要介绍本期的主角—— nvm，它支持 Windows/MacOS/Linux 等多种开发平台，<a id="more"></a>安装方式也十分简（sha）单（gua），本文主要讲下 windows 环境下的安装和配置</p>
+<h2 id="安装-nvm"><a href="#安装-nvm" class="headerlink" title="安装 nvm"></a>安装 nvm</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>安装 nvm-windows <a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">下载地址</a></p>
+<h2 id="nvm-设置淘宝镜像源"><a href="#nvm-设置淘宝镜像源" class="headerlink" title="nvm 设置淘宝镜像源"></a>nvm 设置淘宝镜像源</h2><p>安装完成后，在 nvm 安装目录中找到 settings.txt 文件，在后面加上：</p>
+<pre><code class="bash">node_mirror: http://npm.taobao.org/mirrors/node/  # 设置node镜像下载源地址
+npm_mirror: https://npm.taobao.org/mirrors/npm/  # 设置npm镜像下载源地址</code></pre>
+<p>提示：如果不设置淘宝镜像源，可能由于网络错误导致 node 或 npm 下载缓慢甚至失败！</p>
+<h2 id="使用-nvm-安装-node"><a href="#使用-nvm-安装-node" class="headerlink" title="使用 nvm 安装 node"></a>使用 nvm 安装 node</h2><pre><code class="bash">$ nvm install &#39;node版本号&#39;  # 安装指定node版本
+$ nvm use &#39;node版本号&#39;  # 切换当前node版本</code></pre>
+<h2 id="设置-npm-全局安装和缓存目录"><a href="#设置-npm-全局安装和缓存目录" class="headerlink" title="设置 npm 全局安装和缓存目录"></a>设置 npm 全局安装和缓存目录</h2><pre><code class="bash">$ npm config set prefix &quot;E:\node\npm-global&quot;  # 设置全局安装目录
+$ npm config set cache &quot;E:\node\npm-cache&quot;  # 设置全局缓存目录</code></pre>
+<h2 id="为-npm-全局安装配置环境变量"><a href="#为-npm-全局安装配置环境变量" class="headerlink" title="为 npm 全局安装配置环境变量"></a>为 npm 全局安装配置环境变量</h2><p>如果希望在 node 版本切换后，之前全局安装的 npm 插件依然能够正常使用，需要在系统环境变量里增加 NPM_HOME 变量，变量值是 npm 全局安装目录，需要放在其他 nvm 自动配置的变量前面</p>
+<h2 id="npm-设置淘宝镜像源"><a href="#npm-设置淘宝镜像源" class="headerlink" title="npm 设置淘宝镜像源"></a>npm 设置淘宝镜像源</h2><pre><code class="bash"># npm
+$ npm config set registry https://registry.npm.taobao.org --global  # 插件库镜像源
+$ npm config set disturl https://npm.taobao.org/dist --global   # node源代码镜像源
+# 安装cnpm
+$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+# 一些难下载的包
+$ npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ # node-sass插件
+$ npm config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/ # phantomjs插件</code></pre>
+]]></content>
+      <categories>
+        <category>工具教程</category>
+      </categories>
+      <tags>
+        <tag>开发工具</tag>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建 Git 服务器</title>
+    <url>/2017/09/05/2017090502/</url>
+    <content><![CDATA[<h3 id="安装git："><a href="#安装git：" class="headerlink" title="安装git："></a>安装<code>git</code>：</h3><pre><code class="bash">$ sudo apt-get install git  # ubuntu环境</code></pre>
+<h3 id="创建一个git用户，用来运行git服务："><a href="#创建一个git用户，用来运行git服务：" class="headerlink" title="创建一个git用户，用来运行git服务："></a>创建一个<code>git</code>用户，用来运行<code>git</code>服务：</h3><pre><code class="bash">$ sudo adduser git</code></pre>
+<a id="more"></a>
+
+<h3 id="免密登录："><a href="#免密登录：" class="headerlink" title="免密登录："></a>免密登录：</h3><p>收集所有需要登录的用户的公钥，就是他们自己的<code>id_rsa.pub</code>文件，把所有公钥导入到<code>/home/git/.ssh/authorized_keys</code>文件里，一行一个。</p>
+<h3 id="初始化-Git-仓库："><a href="#初始化-Git-仓库：" class="headerlink" title="初始化 Git 仓库："></a>初始化 Git 仓库：</h3><p>先选定一个目录作为 Git 仓库，假定是<code>/srv/sample.git</code>，在<code>/srv</code>目录下输入命令：</p>
+<pre><code class="bash">$ sudo git init --bare sample.git</code></pre>
+<p>然后，把 owner 改为<code>git</code>：</p>
+<pre><code class="bash">$ sudo chown -R git:git sample.git</code></pre>
+<h3 id="禁用-shell-登录："><a href="#禁用-shell-登录：" class="headerlink" title="禁用 shell 登录："></a>禁用 shell 登录：</h3><p>出于安全考虑，第二步创建的 git 用户不允许登录 shell，这可以通过编辑<code>/etc/passwd</code>文件完成。找到类似下面的一行：</p>
+<pre><code class="bash"># /etc/passwd
+...
+$ git:x:1001:1001:,,,:/home/git:/bin/bash</code></pre>
+<p>改为</p>
+<pre><code class="bash"># /etc/passwd
+...
+git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</code></pre>
+<h3 id="克隆代码"><a href="#克隆代码" class="headerlink" title="克隆代码"></a>克隆代码</h3><pre><code class="bash">git clone git@server:/srv/sample.git    # 默认协议
+git clone ssh://git@server-name:[ssh端口号]/path/repo-name.git  # 使用ssh协议</code></pre>
+]]></content>
+      <categories>
+        <category>工具教程</category>
       </categories>
       <tags>
         <tag>Git</tag>
@@ -205,11 +1683,113 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Git常用命令]]></title>
-    <url>%2F2017%2F09%2F05%2F2017090501%2F</url>
-    <content type="text"><![CDATA[初始化 git 仓库$ git init #初始化后会生成.git目录,默认为隐藏，记录git版本 添加文件到 git 仓库$ git add file #添加指定文件改动到暂存区 $ git add --a #添加所有改动到暂存区 $ git commit -m &#39;string&#39; #把暂存区的文件提交到仓库（同时添加本次提交的说明） $ git commit --amend #打开上次提交的描述文档，编辑保存后更新上次提交 关联远程库$ git remote -v #查看远程库信息 $ git remote add origin git@server-name:path/repo-name.git #关联远程Git仓库地址 $ git remote rm origin #取消关联 推送分支内容$ git push -u origin master #推送master分支（第一次提交加上 &quot;-u&quot; 参数，关联本地和远程，简化以后的命令） $ git push origin [分支名称] #推送指定分支 $ git push origin [标签名称] #推送指定标签 $ git push origin --tags #推送所有标签 克隆远程仓库$ git clone git@server-name:path/repo-name.git #Git支持多种协议，默认的 &quot;git://&quot;,也可以使用ssh、https等其他协议，ssh协议速度最快，https协议每次推送必须输入口令 $ git clone ssh://git@server-name:[ssh端口号]/path/repo-name.git # 使用ssh协议 其它命令 打开 Git 图形界面 $ gitk 查看信息 $ git status #查看暂存区状态 $ git log (--graph) (-pretty=oneline) (--abbrev-commit) #查看修改记录，可选参数（分支合并图）（简明输出）（缩略版本id） $ git reflog #查看命令记录 查看文件改动 $ git diff #未添加到暂存区的所有文件改动 $ git diff file #未添加到暂存区的指定文件改动 $ git diff HEAD -- file #文件与版本库最新版本的区别 版本回退 $ git reset --hard HEAD^ #回退到上一个版本 $ git reset --hard HEAD^^ #回退到上上一个版本 $ git reset --hard HEAD~100 #回退到上100个版本 $ git reset --hard [版本id] #回退到指定版本号，版本号不用写全，建议七位 $ git reset HEAD file # 从暂存区删除指定文件 $ git reset HEAD # 从暂存区清除所有改动 查找问题版本 $ git bisect start [较新版本号] [较老版本号] #启动查错，版本会切换到两个版本中点版本 $ git bisect good #版本正常，切换到当前版本和上次查找范围中较新版本的中点版本 $ git bisect bad #出现问题，切换到当前版本和上次查找范围中较老版本的中点版本, 找到问题版本输出 &#39;版本号&#39; is the first bad commit $ git bisect reset #退出差错，回到最近一次代码提交，可以开始修复错误 删除文件 $ git rm file 撤销修改 $ git checkout -- file # 三种情况：1. 修改后未添加到暂存区，和版本库同步，2. 已经添加，回到添加时的状态，3. 恢复误删的文件 快照操作 $ git stash #保存快照 $ git stash list #查看快照列表 $ git stash apply stash@{0} #恢复指定快照 $ git stash drop #删除快照 $ git stash pop #恢复并删除快照 分支管理 $ git branch [分支名称] #创建分支 $ git checkout [分支名称] #切换分支 $ git checkout -b [分支名称] #创建并切换分支 $ git merge （--no-ff -m string） [remote分支] #合并某分支到当前分支(合并并创建一个新的commit，保存合并历史信息) $ git branch -d/(-D) [分支名称] #删除分支，(强制删除未合并分支) $ git branch #查看本地分支 $ git branch -a #查看所有分支（包括远程分支） 标签管理 $ git tag [标签名称] #创建标签到当前分支 $ git tag #查看所有标签 $ git tag [标签名称] [版本号] #创建标签到版本号 $ git tag -a [标签名称] -m &#39;描述信息&#39; [版本号] #创建带有说明的标签 $ git show [标签名称] #查看标签信息 $ git tag -d [标签名称] #删除标签 $ git push origin :refs/tags/[标签名称] #删除远程标签 $ git tag -v [标签名称] #验证标签GPG签名 #创建带 GPG 签名的标签 $ gpg --gen-key #生成 GPG key，前提时安装了 GPG $ gpg --list-keys #查看生成公钥 $ gpg --list-secret-keys #查看生成私钥 $ git tag -u [密钥的uid] -s [标签名] -m &#39;string&#39; [版本号] 全局配置 $ git config --global user.name #设置git用户名 $ git config --global user.email #设置git用户邮箱 $ git config --global color.ui true #开启配色 $ git config --global alias.[别名] [原始命令] #设置别名代理git命令 代理配置 # ssh协议修改ssh代理配置 # C:\Users\用户名\.ssh\config Hostname [服务器地址] Port [ssh端口号] Proxycommand connect -S [socks5本地服务地址]:[本地端口] -a none %h %p IdentityFile ~/.ssh/id_rsa #私钥文件地址 PreferredAuthentications publickey User git # 用户名 个性化配置 $ git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot; #设置git lg别名代理git log命令，同时配置打印信息样式参数]]></content>
+    <title>Git常用命令</title>
+    <url>/2017/09/05/2017090501/</url>
+    <content><![CDATA[<h3 id="初始化-git-仓库"><a href="#初始化-git-仓库" class="headerlink" title="初始化 git 仓库"></a>初始化 git 仓库</h3><pre><code class="bash">$ git init  #初始化后会生成.git目录,默认为隐藏，记录git版本</code></pre>
+<h3 id="添加文件到-git-仓库"><a href="#添加文件到-git-仓库" class="headerlink" title="添加文件到 git 仓库"></a>添加文件到 git 仓库</h3><pre><code class="bash">$ git add file  #添加指定文件改动到暂存区
+$ git add --a #添加所有改动到暂存区
+$ git commit -m &#39;string&#39;  #把暂存区的文件提交到仓库（同时添加本次提交的说明）
+$ git commit --amend  #打开上次提交的描述文档，编辑保存后更新上次提交</code></pre>
+<a id="more"></a>
+
+<h3 id="关联远程库"><a href="#关联远程库" class="headerlink" title="关联远程库"></a>关联远程库</h3><pre><code class="bash">$ git remote -v #查看远程库信息
+$ git remote add origin git@server-name:path/repo-name.git  #关联远程Git仓库地址
+$ git remote rm origin  #取消关联</code></pre>
+<h3 id="推送分支内容"><a href="#推送分支内容" class="headerlink" title="推送分支内容"></a>推送分支内容</h3><pre><code class="bash">$ git push -u origin master #推送master分支（第一次提交加上 &quot;-u&quot; 参数，关联本地和远程，简化以后的命令）
+$ git push origin [分支名称] #推送指定分支
+$ git push origin [标签名称]  #推送指定标签
+$ git push origin --tags  #推送所有标签</code></pre>
+<h3 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h3><pre><code class="bash">$ git clone git@server-name:path/repo-name.git  #Git支持多种协议，默认的 &quot;git://&quot;,也可以使用ssh、https等其他协议，ssh协议速度最快，https协议每次推送必须输入口令
+$ git clone ssh://git@server-name:[ssh端口号]/path/repo-name.git  # 使用ssh协议</code></pre>
+<h3 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h3><ul>
+<li><p><strong>打开 Git 图形界面</strong></p>
+<pre><code>$ gitk</code></pre></li>
+<li><p><strong>查看信息</strong></p>
+<pre><code class="bash">$ git status  #查看暂存区状态
+$ git log (--graph) (-pretty=oneline) (--abbrev-commit) #查看修改记录，可选参数（分支合并图）（简明输出）（缩略版本id）
+$ git reflog  #查看命令记录</code></pre>
+</li>
+<li><p><strong>查看文件改动</strong></p>
+<pre><code class="bash">$ git diff #未添加到暂存区的所有文件改动
+$ git diff file #未添加到暂存区的指定文件改动
+$ git diff HEAD -- file #文件与版本库最新版本的区别</code></pre>
+</li>
+<li><p><strong>版本回退</strong></p>
+<pre><code class="bash">$ git reset --hard HEAD^  #回退到上一个版本
+$ git reset --hard HEAD^^ #回退到上上一个版本
+$ git reset --hard HEAD~100 #回退到上100个版本
+$ git reset --hard [版本id]  #回退到指定版本号，版本号不用写全，建议七位
+$ git reset HEAD file # 从暂存区删除指定文件
+$ git reset HEAD # 从暂存区清除所有改动</code></pre>
+</li>
+<li><p><strong>查找问题版本</strong></p>
+<pre><code class="bash">$ git bisect start [较新版本号] [较老版本号]  #启动查错，版本会切换到两个版本中点版本
+$ git bisect good #版本正常，切换到当前版本和上次查找范围中较新版本的中点版本
+$ git bisect bad  #出现问题，切换到当前版本和上次查找范围中较老版本的中点版本, 找到问题版本输出 &#39;版本号&#39; is the first bad commit
+$ git bisect reset  #退出差错，回到最近一次代码提交，可以开始修复错误</code></pre>
+</li>
+<li><p><strong>删除文件</strong></p>
+<pre><code class="bash">$ git rm file</code></pre>
+</li>
+<li><p><strong>撤销修改</strong></p>
+<pre><code class="bash">$ git checkout -- file  # 三种情况：1. 修改后未添加到暂存区，和版本库同步，2. 已经添加，回到添加时的状态，3. 恢复误删的文件</code></pre>
+</li>
+<li><p><strong>快照操作</strong></p>
+<pre><code class="bash">$ git stash #保存快照
+$ git stash list  #查看快照列表
+$ git stash apply stash@{0} #恢复指定快照
+$ git stash drop  #删除快照
+$ git stash pop #恢复并删除快照</code></pre>
+</li>
+<li><p><strong>分支管理</strong></p>
+<pre><code class="bash">$ git branch [分支名称] #创建分支
+$ git checkout [分支名称] #切换分支
+$ git checkout -b [分支名称]  #创建并切换分支
+$ git merge （--no-ff -m string） [remote分支]  #合并某分支到当前分支(合并并创建一个新的commit，保存合并历史信息)
+$ git branch -d/(-D) [分支名称] #删除分支，(强制删除未合并分支)
+$ git branch  #查看本地分支
+$ git branch -a #查看所有分支（包括远程分支）</code></pre>
+</li>
+<li><p><strong>标签管理</strong></p>
+<pre><code class="bash">$ git tag [标签名称]  #创建标签到当前分支
+$ git tag #查看所有标签
+$ git tag [标签名称] [版本号] #创建标签到版本号
+$ git tag -a [标签名称] -m &#39;描述信息&#39; [版本号]  #创建带有说明的标签
+$ git show [标签名称] #查看标签信息
+$ git tag -d [标签名称] #删除标签
+$ git push origin :refs/tags/[标签名称] #删除远程标签
+$ git tag -v [标签名称] #验证标签GPG签名
+
+#创建带 GPG 签名的标签
+$ gpg --gen-key #生成 GPG key，前提时安装了 GPG
+$ gpg --list-keys #查看生成公钥
+$ gpg --list-secret-keys  #查看生成私钥
+$ git tag -u [密钥的uid] -s [标签名] -m &#39;string&#39; [版本号]</code></pre>
+</li>
+<li><p><strong>全局配置</strong></p>
+<pre><code class="bash">$ git config --global user.name #设置git用户名
+$ git config --global user.email  #设置git用户邮箱
+$ git config --global color.ui true #开启配色
+$ git config --global alias.[别名] [原始命令] #设置别名代理git命令</code></pre>
+</li>
+<li><p><strong>代理配置</strong></p>
+<pre><code class="bash"># ssh协议修改ssh代理配置
+# C:\Users\用户名\.ssh\config
+
+Hostname [服务器地址]
+Port [ssh端口号]
+Proxycommand connect -S [socks5本地服务地址]:[本地端口] -a none %h %p
+IdentityFile ~/.ssh/id_rsa  #私钥文件地址
+PreferredAuthentications publickey
+User git # 用户名</code></pre>
+</li>
+<li><p><strong>个性化配置</strong></p>
+<pre><code class="bash">$ git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;  #设置git lg别名代理git log命令，同时配置打印信息样式参数</code></pre>
+</li>
+</ul>
+]]></content>
       <categories>
-        <category>使用文档</category>
+        <category>文档手册</category>
       </categories>
       <tags>
         <tag>Git</tag>
