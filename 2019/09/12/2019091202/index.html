@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="Jarvis&#39;s Blog">
 <meta property="og:description" content="写在前面&amp;emsp;&amp;emsp;前面我们手动实现了express中间件机制，这篇文章将讲述如何手动实现koa2中间件的机制。koa2和express框架相比，核心 api 仍然是use方法，不过koanpm 包将路由相关的功能拆分到koa-router包中去了，因此暂时不需要实现express中类似get、post方法了。另外koa2框架原生支持async/await异步机制。 koa2 中间件示">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-08T07:25:15.766Z">
+<meta property="og:updated_time" content="2019-12-08T07:29:29.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手动实现 koa2 中间件机制">
 <meta name="twitter:description" content="写在前面&amp;emsp;&amp;emsp;前面我们手动实现了express中间件机制，这篇文章将讲述如何手动实现koa2中间件的机制。koa2和express框架相比，核心 api 仍然是use方法，不过koanpm 包将路由相关的功能拆分到koa-router包中去了，因此暂时不需要实现express中类似get、post方法了。另外koa2框架原生支持async/await异步机制。 koa2 中间件示">
@@ -304,7 +304,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-12-08 15:25:15" itemprop="dateModified" datetime="2019-12-08T15:25:15+08:00">2019-12-08</time>
+                <time title="修改时间：2019-12-08 15:29:29" itemprop="dateModified" datetime="2019-12-08T15:29:29+08:00">2019-12-08</time>
               </span>
             
           
@@ -365,7 +365,7 @@
 
       
         <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>&emsp;&emsp;前面我们手动实现了<code>express</code>中间件机制，这篇文章将讲述如何手动实现<code>koa2</code>中间件的机制。<code>koa2</code>和<code>express</code>框架相比，核心 api 仍然是<code>use</code>方法，不过<code>koa</code>npm 包将路由相关的功能拆分到<code>koa-router</code>包中去了，因此暂时不需要实现<code>express</code>中类似<code>get</code>、<code>post</code>方法了。另外<code>koa2</code>框架原生支持<code>async</code>/<code>await</code>异步机制。</p>
-<h3 id="koa2-中间件示例"><a href="#koa2-中间件示例" class="headerlink" title="koa2 中间件示例"></a>koa2 中间件示例</h3><p>&emsp;&emsp;koa2 通过<code>app.use()</code>注册中间件函数，<code>app.use()</code>只有 1 个参数，那就是一个中间件处理逻辑的回调函数，函数一般用使用<code>async</code>包裹，这样函数内部可以使用<code>await</code>来获取异步信息。回调函数有两个参数：<code>ctx</code>、<code>next</code>,<code>ctx</code>是将<code>http</code>协议中<code>request</code>和<code>response</code>整合之后的变量，通过它可以拿到<code>http</code>请求和响应的信息。<code>next</code>是指代下一个中间件的方法，在函数中通过<code>await next()</code>的方式执行下一个中间件。这里和<code>express</code>不同的是，因为使用了<code>await</code>执行下一个中间件，因此这条语句下面的代码将延后至下一个中间件执行完成后继续执行，如此往复，一层一层构成的洋葱模型。</p>
+<h3 id="koa2-中间件示例"><a href="#koa2-中间件示例" class="headerlink" title="koa2 中间件示例"></a>koa2 中间件示例</h3><p>&emsp;&emsp;koa2 通过<code>app.use()</code>注册中间件函数，<code>app.use()</code>只有 1 个参数，那就是一个中间件处理逻辑的回调函数，函数一般用使用<code>async</code>包裹，这样函数内部可以使用<code>await</code>来获取异步信息。回调函数有两个参数：<code>ctx</code>、<code>next</code>,<code>ctx</code>是将<code>http</code>协议中<code>request</code>和<code>response</code>整合之后的变量，通过它可以拿到<code>http</code>请求和响应的信息。<code>next</code>是指代下一个中间件的方法，在函数中通过<code>await next()</code>的方式执行下一个中间件。这里和<code>express</code>不同的是，因为使用了<code>await</code>执行下一个中间件，因此这条语句下面的代码将延后至下一个中间件执行完成后继续执行，如此往复，一层一层构成的洋葱模型。<a id="more"></a></p>
 <pre><code class="javascript">const Koa = require(&quot;./like-koa2&quot;);
 const app = new Koa();
 
@@ -537,7 +537,7 @@ module.exports = NewKoa2;</code></pre>
   <p><span>本文标题:</span><a href="/2019/09/12/2019091202/">手动实现 koa2 中间件机制</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Jarvis Ye 的个人博客">Jarvis Ye</a></p>
   <p><span>发布时间:</span>2019年09月12日 - 19:23</p>
-  <p><span>最后更新:</span>2019年12月08日 - 15:25</p>
+  <p><span>最后更新:</span>2019年12月08日 - 15:29</p>
   <p><span>原始链接:</span><a href="/2019/09/12/2019091202/" title="手动实现 koa2 中间件机制">https://blog.yeyanjie.com/2019/09/12/2019091202/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://blog.yeyanjie.com/2019/09/12/2019091202/"  aria-label="复制成功！"></i></span>
   </p>
